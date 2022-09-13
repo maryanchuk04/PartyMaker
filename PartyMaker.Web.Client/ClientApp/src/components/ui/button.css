@@ -1,0 +1,18 @@
+.sample-button{
+    border: 1px solid #1aa94b;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 20px;
+    background-color: #1aa94b;
+    color: white;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    height: 50px;
+    width: 200px;
+    margin: 0 auto;
+    transition: 0.5s;
+}
+
+.sample-button:hover{
+    background-color: white;
+    color: black;
+}

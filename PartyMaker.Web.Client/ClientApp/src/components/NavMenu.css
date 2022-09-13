@@ -1,7 +1,18 @@
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+header{
+  height: 7vh;
+  background-color: #2b2b2b;
+  color : white;
+  margin-bottom: 1vh;
+}
+
+header h1{
+  font-size: 25px;
+  margin: 0;
+  font-weight: 700;
+  color : white;
+}
+.navbar-nav{
+  font-size: 20px;
 }
 
 html {
@@ -14,5 +25,20 @@ html {
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 3px 15px rgb(0 0 0 / 0.2);
+}
+header .create-account-li{
+  background-color: #1aa94b;
+  border-radius: 5px;
+  color: white !important;
+}
+header li{
+  margin-left: 20px;
+}
+
+header .sing-in{
+  box-sizing:content-box;
+  border:1px solid #1aa94b;
+  border-radius: 5px;
+  
 }

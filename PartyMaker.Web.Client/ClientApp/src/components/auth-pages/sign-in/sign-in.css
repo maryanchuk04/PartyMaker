@@ -1,0 +1,9 @@
+.sing-in-container{
+    height: 92vh;
+}
+
+.sing-in-container .text{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
