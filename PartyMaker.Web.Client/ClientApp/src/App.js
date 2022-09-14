@@ -20,7 +20,7 @@ export default class App extends Component {
     return (
       <Layout>
         <Route exact path='/' component={Home} />
-        <Route path='/customerLogin' component={CustomerLogin} />
+        <Route path='/auth/customers' component={CustomerLogin} />
         <Route path='/fetch-data' component={FetchData} />
         <Route path = "/create-account" component = {AuthPreviewPage}/>
         <Route path = "/auth/login" component = {SingInPage}/>  

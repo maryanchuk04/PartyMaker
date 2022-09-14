@@ -9,7 +9,7 @@ const AuthPreviewPage = () => {
         <h1 className = "title">Sign Up</h1>
         <div className="auth-preview-info">
             <div className="info-block">
-                <h3>For Suppliers</h3>
+                <h1>For Suppliers</h1>
                 <div className="text">
                   <p>If you are a company that wants to develop <br/>
                     in the direction of creation and organization<br/>
@@ -27,7 +27,10 @@ const AuthPreviewPage = () => {
                   you have reached the address
                   </p>
                 </div>
-                <SampleButton onClick = {()=>history.push("/auth/customers")}>For Customers</SampleButton>
+                  <SampleButton onClick={() => {
+                      console.log("work");
+                      history.push("/auth/customers")
+                  }}>For Customers</SampleButton>
             </div>
             <div className="waves">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
