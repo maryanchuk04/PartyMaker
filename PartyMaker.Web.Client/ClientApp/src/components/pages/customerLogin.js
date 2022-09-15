@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField';
 import { Container, Form, Card } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom'
 import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
+import { Link } from 'react-router-dom';
 
 const CustomerLogin = () => {
   const history = useHistory();
@@ -13,7 +13,7 @@ const CustomerLogin = () => {
     <Card style={{width: 600}} className="p-5">
       <h2 className="m-auto">Welcome to PartyMaker</h2>
       <h4 className="m-auto mt-3">Register your new customer account</h4>
-      <Form 
+      <Form
           component="form"
           sx={{
             '& .MuiTextField-root': { m: 1, width: '25ch' },
@@ -25,38 +25,38 @@ const CustomerLogin = () => {
         <TextField
         className="mt-3"
         required
-        label="Email" 
+        label="Email"
         variant="standard"
       />
         <TextField
         className="mt-3"
         required
-        label="UserName" 
-        variant="standard"
-      />
-        <TextField
-        className="mt-3"
-        required
-        type="password"
-        label="Password" 
+        label="UserName"
         variant="standard"
       />
         <TextField
         className="mt-3"
         required
         type="password"
-        label="ConfirmPassword" 
+        label="Password"
         variant="standard"
       />
-      <Button 
-      color="success" 
-      className="mt-4" 
+        <TextField
+        className="mt-3"
+        required
+        type="password"
+        label="ConfirmPassword"
+        variant="standard"
+      />
+      <Button
+      color="success"
+      className="mt-4"
       variant="contained">Sign up
       </Button>
-      <Link onClick={()=>history.push("/")}  className="m-auto mt-3" underline="hover">
+      <Link to = "/auth/login"  className="m-auto mt-3" underline="hover">
         {'Account is already exist'}
       </Link>
-      </Form> 
+      </Form>
     </Card>
   </Container>
   )

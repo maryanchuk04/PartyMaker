@@ -1,12 +1,14 @@
 ﻿import { TextField, Button } from '@mui/material';
 import { SupplierService } from '../../../services/SupplierService'
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 import './supplier-login.css'
+import {useHistory} from "react-router-dom";
 
 const SupplierLogin = () => {
     const supplierService = new SupplierService();
-
+    const history = useHistory();
     const [supplierState, setSupplierState] = useState({
         name: "",
         email: "",
@@ -22,6 +24,7 @@ const SupplierLogin = () => {
         console.log(res)
         if (res.ok) {
             alert("Supplier registered succesfully")
+            history.push("/profile");
             window.location.reload();
         }
 
@@ -39,7 +42,9 @@ const SupplierLogin = () => {
                 <TextField label="Password" variant="standard" className="field" required onChange={(e) => setSupplierState({ ...supplierState, password: e.target.value })} />
                 <TextField label="Confirm password" variant="standard" className="field" required onChange={(e) => setSupplierState({ ...supplierState, confirm: e.target.value })} />
                 <Button className="field" variant="contained" color="success" type="submit">Sign up</Button>
-                <a href="#" >Account already exists </a>
+                <Link to="/"  className="m-auto mt-3" underline="hover">
+                    {'Account is already exist'}
+                </Link>
 
             </form>
 
