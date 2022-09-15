@@ -1,0 +1,31 @@
+.sign-in-container{
+    height: 92vh;
+    display: flex;
+}
+
+.sign-in-container .text{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 20px 0;
+}
+
+
+.sign-in-container .sign-in-form{
+    border:1px solid black;
+    width: 50%;
+    margin: auto;
+    border-radius: 10px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.sign-in-container .sign-in-form .field{
+    margin: 20px 0;
+}
+
+.sign-in-form .or{
+    align-items: center;
+    margin: 20px 0;
+}

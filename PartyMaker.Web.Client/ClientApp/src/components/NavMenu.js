@@ -1,49 +1,52 @@
 import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import {  Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import { isAuth } from '../utils/helpers';
 
 export class NavMenu extends Component {
-  static displayName = NavMenu.name;
-
   constructor (props) {
     super(props);
 
-    this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
-      collapsed: true
+      userAuth : false
     };
   }
 
-  toggleNavbar () {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
+  componentDidMount(){
+    if(isAuth()){
+      this.setState({
+        userAuth : true
+      });
+    }
   }
 
-  render () {
-    return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
-          <Container>
-            <NavbarBrand tag={Link} to="/">PartyMaker</NavbarBrand>
-            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-              <ul className="navbar-nav flex-grow">
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
-                </NavItem>
-              </ul>
-            </Collapse>
-          </Container>
-        </Navbar>
-      </header>
-    );
-  }
+
+    render() {
+        return (
+            <header>
+                <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3 h-100" >
+                    <Container>
+                        <NavbarBrand tag={Link} to="/"><h1>PartyMaker</h1></NavbarBrand>
+                        <NavbarToggler className="mr-2" />
+                        <ul className="navbar-nav flex-grow">
+                            <NavItem>
+                                <NavLink tag={Link} className="text-light" to="/">Home</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-light" to="/сontact">Contact Us</NavLink>
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-light sing-in" to="/auth/login">Sing In</NavLink>
+
+                            </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-light create-account-li" to="/create-account">Sign Up</NavLink>
+                            </NavItem>
+                        </ul>
+                    </Container>
+                </Navbar>
+            </header >
+        );
+    }
 }
