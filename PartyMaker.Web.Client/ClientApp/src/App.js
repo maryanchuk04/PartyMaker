@@ -20,8 +20,8 @@ export default class App extends Component {
   render () {
     return (
       <Layout>
-            <Route exact path='/' component={Home} />
-            <Route path='/auth/suppliers' component={SupplierLogin} />
+        <Route exact path='/' component={Home} />
+        <Route path='/auth/suppliers' component={SupplierLogin} />
         <Route path='/auth/customers' component={CustomerLogin} />
         <Route path='/fetch-data' component={FetchData} />
         <Route path = "/create-account" component = {AuthPreviewPage}/>

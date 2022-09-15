@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 
 import './supplier-login.css'
 import {useHistory} from "react-router-dom";
+import { BaseService } from '../../../services/BaseService';
 
 const SupplierLogin = () => {
     const supplierService = new SupplierService();
+    const baseService = new BaseService();
     const history = useHistory();
     const [supplierState, setSupplierState] = useState({
         name: "",
@@ -21,9 +23,8 @@ const SupplierLogin = () => {
         e.preventDefault();
         console.log(supplierState);
         const res = await supplierService.insertNewSupplier(supplierState);
-        console.log(res)
         if (res.ok) {
-            alert("Supplier registered succesfully")
+            alert("Supplier registered succesfully");
             history.push("/profile");
             window.location.reload();
         }
