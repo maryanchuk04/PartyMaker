@@ -6,7 +6,7 @@
     background-color: #1aa94b;
     color: white;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-    height: 50px;
+    height: 30%;
     width: 200px;
     margin: 0 auto;
     transition: 0.5s;
@@ -15,4 +15,43 @@
 .sample-button:hover{
     background-color: white;
     color: black;
+}
+
+.google-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    margin: auto;
+    border: 0;
+    background-color: white;
+    border-radius: 5px ;
+    padding: 10px;
+    height: 50px;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.4);
+    transition: 0.4s;
+    color: black !important;
+    opacity: 1 !important;
+    cursor: pointer;
+}
+.google-button p{
+    margin: 0;
+    font-weight: 500;
+    margin-left: 10px;
+    
+}
+
+.google-button:hover{
+   
+    background-color: rgb(224, 224, 224);
+}
+
+.google-button .line{
+    display: flex;
+    align-items: center;
+}
+
+.google-button .line img{
+    height: 30px;
+    width: 30px;
 }
