@@ -1,16 +1,16 @@
-namespace PartyMaker.Domain.Entities;
+﻿namespace PartyMaker.Domain.Entities;
 
-public class Customer
+public class Supplier
 {
     public Guid Id { get; set; }
-    public string UserName { get; set; }
+    public string CompanyName { get; set; }
+    public string City { get; set; }
     public string Email { get; set; }
     public string? Phone { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
-    public int? Age { get; set; }
 
     public Image? Image { get; set; }
 
-    public ICollection<Order> Orders { get; set; }
+    public ICollection<SupplierService> SupplierServices { get; set; }
 }

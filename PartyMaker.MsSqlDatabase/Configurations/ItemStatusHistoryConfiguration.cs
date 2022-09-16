@@ -4,9 +4,9 @@ using PartyMaker.Domain.Entities;
 
 namespace PartyMaker.MsSqlDatabase.Configurations;
 
-public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
+internal class ItemStatusHistoryConfiguration : IEntityTypeConfiguration<ItemStatusHistory>
 {
-    public void Configure(EntityTypeBuilder<Customer> builder)
-    {  
+    public void Configure(EntityTypeBuilder<ItemStatusHistory> builder)
+    {
     }
 }

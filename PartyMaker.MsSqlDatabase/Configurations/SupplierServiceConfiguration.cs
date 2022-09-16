@@ -4,9 +4,9 @@ using PartyMaker.Domain.Entities;
 
 namespace PartyMaker.MsSqlDatabase.Configurations;
 
-public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
+public class SupplierServiceConfiguration : IEntityTypeConfiguration<SupplierService>
 {
-    public void Configure(EntityTypeBuilder<Customer> builder)
-    {  
+    public void Configure(EntityTypeBuilder<SupplierService> builder)
+    {
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartyMaker.MsSqlDatabase;
 
@@ -11,9 +12,10 @@ using PartyMaker.MsSqlDatabase;
 namespace PartyMaker.MsSqlDatabase.Migrations
 {
     [DbContext(typeof(PartyMakerContext))]
-    partial class PartyMakerContextModelSnapshot : ModelSnapshot
+    [Migration("20220916102726_AddEntities")]
+    partial class AddEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
