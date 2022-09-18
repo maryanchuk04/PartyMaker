@@ -5,7 +5,7 @@ header{
 }
 
 header h1{
-  font-size: 25px;
+  font-size: 30px;
   margin: 0;
   font-weight: 700;
   color : white;
@@ -42,4 +42,154 @@ header .sing-in{
   border:1px solid #1aa94b;
   border-radius: 5px;
 
+}
+
+.responsive-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.responsive_menu .btnn {
+  width: 40px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.responsive_menu span {
+  display: block;
+  width: 100%;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,0.3);
+  border-radius: 5px;
+  height: 5px;
+  background: #1aa94b;
+  transition: all .3s;
+  position: relative;
+}
+
+span + span {
+  margin-top: 10px;
+}
+
+.active span:nth-child(1) {
+  animation: ease .8s top forwards;
+}
+
+.not-active span:nth-child(1) {
+  animation: ease .7s top-2 forwards;
+}
+
+.active span:nth-child(2) {
+  animation: ease .7s scaled forwards;
+}
+
+.not-active span:nth-child(2) {
+  animation: ease .7s scaled-2 forwards;
+}
+
+.active span:nth-child(3) {
+  animation: ease .7s bottom forwards;
+}
+
+.not-active span:nth-child(3) {
+  animation: ease .7s bottom-2 forwards;
+}
+
+@keyframes top {
+  0% {
+    top: 0;
+    transform: rotate(0);
+  }
+  50% {
+    top: 10px;
+    transform: rotate(0);
+  }
+  100% {
+    top: 15px;
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes top-2 {
+  0% {
+    top: 22px;
+    transform: rotate(45deg);
+  }
+  50% {
+    top: 22px;
+    transform: rotate(0deg);
+  }
+  100% {
+    top: 0;
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes bottom {
+  0% {
+    bottom: 0;
+    transform: rotate(0);
+  }
+  50% {
+    bottom: 10px;
+    transform: rotate(0);
+  }
+  100% {
+    bottom: 15px;
+    transform: rotate(135deg);
+  }
+}
+
+@keyframes bottom-2 {
+  0% {
+    bottom: 22px;
+    transform: rotate(135deg);
+  }
+  50% {
+    bottom: 22px;
+    transform: rotate(0);
+  }
+  100% {
+    bottom: 0;
+    transform: rotate(0);
+  }
+}
+
+@keyframes scaled {
+  50% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes scaled-2 {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+/*--------------------*/
+
+.dropdown-menu-block{
+  position: absolute;
+  top: 7vh;
+  transition: 0.5s;
+  z-index: 3;
+  background-color: #2b2b2b;
+  width: 100%;
+  left: 0;
+  text-align: center;
+  font-size: 25px;
+  padding: 40px;
+  padding-top: 10px;
+  height: 30vh;
 }
