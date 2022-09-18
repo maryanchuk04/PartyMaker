@@ -60,7 +60,7 @@ export function NavMenu(){
                 <span></span>
             </div>
           </div>
-          {open ? <div className="dropdown-menu-block container">
+          <div className="dropdown-menu-block container" style = {{ opacity : open ? "1" : "0"}}>
                     <NavItem style = {{display : "contents"}}>
                         <NavLink tag={Link} className="text-light m-1" to="/" onClick = {()=>setOpen(false)}>Home</NavLink>
                     </NavItem>
@@ -73,8 +73,7 @@ export function NavMenu(){
                     <NavItem style = {{display : "contents"}}>
                         <NavLink tag={Link} className="text-light  create-account-li ms-1" to="/create-account" onClick = {()=>setOpen(false)}>Sign Up</NavLink>
                     </NavItem>
-                  </div>  : null
-          } 
+                  </div>
         </header>
       </>
 }

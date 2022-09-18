@@ -63,7 +63,7 @@ header .sing-in{
   border-radius: 5px;
   height: 5px;
   background: #1aa94b;
-  transition: all .3s;
+  transition: all .2s;
   position: relative;
 }
 
@@ -182,7 +182,6 @@ span + span {
 .dropdown-menu-block{
   position: absolute;
   top: 7vh;
-  transition: 0.5s;
   z-index: 3;
   background-color: #2b2b2b;
   width: 100%;
@@ -191,5 +190,7 @@ span + span {
   font-size: 25px;
   padding: 40px;
   padding-top: 10px;
+  transition: all 0.2s linear;
   height: 30vh;
+  opacity: 0;
 }

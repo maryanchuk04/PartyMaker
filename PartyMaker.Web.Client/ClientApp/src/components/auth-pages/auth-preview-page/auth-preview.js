@@ -5,8 +5,8 @@ import SampleButton from '../../ui/SampleButton'
 const AuthPreviewPage = () => {
   const history = useHistory();
   return (
-    <div className = "auth-preview-container">
-        <h1 className = "title">Sign Up</h1>
+    <div className = "m-auto auth-preview-container">
+        <h1 className = "display-4 text-center">Sign Up</h1>
         <div className="auth-preview-info">
             <div className="info-block">
                 <h1>For Suppliers</h1>
