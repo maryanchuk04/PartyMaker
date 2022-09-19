@@ -1,0 +1,25 @@
+﻿h4 {
+    text-align: center;
+}
+.menu {
+    height: 1%;
+}
+.paper-info {
+    height: 500px;
+    width : 100%;
+    overflow: auto;
+    padding:10px 20px 10px 20px;
+}
+.response-field {
+    width: 100%;
+    margin: 20px 0 0 0;
+}
+.price-field {
+    float: right;
+}
+
+hr {
+    height: 10px;
+    border-width: 0;
+    background-color: #1c8444;
+}
