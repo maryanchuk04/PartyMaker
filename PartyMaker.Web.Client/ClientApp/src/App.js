@@ -3,19 +3,27 @@ import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/main-page/Home';
 import { FetchData } from './components/FetchData';
-import { Container } from 'reactstrap';
-
 import './custom.css'
-
 import CustomerLogin from './components/pages/customerLogin';
 import SupplierLogin from './components/pages/supplier-page/supplierLogin';
 
 import AuthPreviewPage from './components/auth-pages/auth-preview-page/auth-preview';
 import SingInPage from './components/auth-pages/sign-in/sign-in';
 import TopButton from './components/ui/TopButton';
+import CreateOrder from './components/order/create-order-page/create-order'
+import { green } from '@mui/material/colors';
+import { createTheme ,ThemeProvider} from '@mui/material/styles';
+
 
 
 export default function App(){
+  const muiTheme = createTheme({
+    palette : {
+        primary : {
+            main : green[500]
+        }
+    }
+})
   const [showButton, setShowButton] = useState();
   const HEADER_HEIGHT = 134.4;
     useEffect(()=>{
@@ -38,7 +46,7 @@ export default function App(){
 
     return (
       <Layout>
-        
+        <ThemeProvider theme = {muiTheme}>
         <div style = {{height : window.innerHeight-HEADER_HEIGHT}}>
             <Route exact path='/' component={Home} /> 
             <Route path='/auth/suppliers' component={SupplierLogin} />
@@ -46,8 +54,10 @@ export default function App(){
             <Route path='/fetch-data' component={FetchData} />
             <Route path = "/create-account" component = {AuthPreviewPage}/>
             <Route path = "/auth/login" component = {SingInPage}/>
+            <Route path = "/create-order" component ={CreateOrder}/>
             <TopButton handleScrollUp = {handleScrollUp} showButton = {showButton}/>
         </div>
+        </ThemeProvider>
       </Layout>
     );
 }
