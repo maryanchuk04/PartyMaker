@@ -192,5 +192,5 @@ span + span {
   padding-top: 10px;
   transition: all 0.2s linear;
   height: 30vh;
-  opacity: 0;
+  display: none;
 }

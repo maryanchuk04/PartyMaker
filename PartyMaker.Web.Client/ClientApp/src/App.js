@@ -17,7 +17,7 @@ import TopButton from './components/ui/TopButton';
 
 export default function App(){
   const [showButton, setShowButton] = useState();
-
+  const HEADER_HEIGHT = 134.4;
     useEffect(()=>{
       window.addEventListener("scroll", handleVisibleButton);
     },[]);
@@ -38,15 +38,16 @@ export default function App(){
 
     return (
       <Layout>
-        <Route exact path='/' component={Home} />
-        <Container>
-        <Route path='/auth/suppliers' component={SupplierLogin} />
-        <Route path='/auth/customers' component={CustomerLogin} />
-        <Route path='/fetch-data' component={FetchData} />
-        <Route path = "/create-account" component = {AuthPreviewPage}/>
-        <Route path = "/auth/login" component = {SingInPage}/>
-        <TopButton handleScrollUp = {handleScrollUp} showButton = {showButton}/>
-        </Container>
+        
+        <div style = {{height : window.innerHeight-HEADER_HEIGHT}}>
+            <Route exact path='/' component={Home} /> 
+            <Route path='/auth/suppliers' component={SupplierLogin} />
+            <Route path='/auth/customers' component={CustomerLogin} />
+            <Route path='/fetch-data' component={FetchData} />
+            <Route path = "/create-account" component = {AuthPreviewPage}/>
+            <Route path = "/auth/login" component = {SingInPage}/>
+            <TopButton handleScrollUp = {handleScrollUp} showButton = {showButton}/>
+        </div>
       </Layout>
     );
 }
