@@ -1,20 +1,22 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using PartyMaker.Domain.Entities;
 
 namespace PartyMaker.MsSqlDatabase;
 /// To update Db use this commands
 /// cd PartyMaker.MsSqlDatabase
-/// dotnet-ef migrations add AddEntities -s ../PartyMaker.Web.Client/
+/// dotnet-ef migrations add AddIdentity -s ../PartyMaker.Web.Client/
 /// dotnet-ef database update -s ../PartyMaker.Web.Client/  
 /// dotnet-ef  migrations remove -s ../PartyMaker.Web.Client/
 /// dotnet-ef database update 20220912151020_Initial -s ../PartyMaker.Web.Client/ 
 
-public class PartyMakerContext : DbContext
+public class PartyMakerContext : IdentityDbContext<PartyMakerUser>
 {
-    public PartyMakerContext(DbContextOptions<PartyMakerContext> options) : base(options)
+    public PartyMakerContext(DbContextOptions<PartyMakerContext> options): base(options)
     {
     }
 
+  
     public DbSet<Customer> Customers { get; set; }
     public DbSet<Supplier> Suppliers { get; set; }
     public DbSet<Order> Orders { get; set; }

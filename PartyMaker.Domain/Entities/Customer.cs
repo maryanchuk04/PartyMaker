@@ -10,6 +10,8 @@ public class Customer
     public string? LastName { get; set; }
     public int? Age { get; set; }
 
+    public string UserId { get; set; }
+    public PartyMakerUser User { get; set; }
     public Image? Image { get; set; }
 
     public ICollection<Order> Orders { get; set; }

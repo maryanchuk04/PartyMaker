@@ -10,6 +10,8 @@ public class Supplier
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
 
+    public string UserId { get; set; }
+    public PartyMakerUser User { get; set; }
     public Image? Image { get; set; }
 
     public ICollection<SupplierService> SupplierServices { get; set; }
