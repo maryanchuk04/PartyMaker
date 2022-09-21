@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material'
-const SimpleModal = ({children, title, open, close}) => {
+const SimpleModal = ({children, title, open, close, handleSubmit}) => {
     const handleClose=()=>{
         close();
     }
@@ -20,7 +20,10 @@ const SimpleModal = ({children, title, open, close}) => {
     </DialogContent>
     <DialogActions>
         <Button onClick={handleClose}>Disagree</Button>
-        <Button onClick={handleClose} autoFocus>
+        <Button onClick={()=>{
+            handleSubmit();
+            handleClose();
+        }} autoFocus>
         Agree
         </Button>
     </DialogActions>

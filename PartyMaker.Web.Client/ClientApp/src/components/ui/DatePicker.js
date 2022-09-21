@@ -5,8 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 
 
-export default function DatePicker({disablePast=true}) {
-  const [value, setValue] = React.useState();
+export default function DatePicker({disablePast=true,value, handleChange}) {
 
   return <LocalizationProvider dateAdapter={AdapterDayjs}>
       <StaticDatePicker c
@@ -14,8 +13,7 @@ export default function DatePicker({disablePast=true}) {
         openTo="day"
         value={value}
         onChange={(newValue) => {
-          setValue(newValue);
-          console.log(newValue.$d)
+          handleChange(newValue.$d)
         }}
         disablePast = {disablePast}
         renderInput={(params) => <TextField {...params} />}

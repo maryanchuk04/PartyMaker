@@ -9,11 +9,11 @@ const ComboBox = ({label, defaultValue, handleChange, arrayData}) => {
     id="demo-simple-select"
     value={defaultValue}
     label={label}
-    onChange={handleChange}
+    onChange={(e)=>handleChange(e.target.value)}
   >
     {
       arrayData?.map((item)=>(
-        <MenuItem value={item}>{item}</MenuItem>
+        <MenuItem value={item.id}>{item.name}</MenuItem>
       ))
     } 
   </Select>

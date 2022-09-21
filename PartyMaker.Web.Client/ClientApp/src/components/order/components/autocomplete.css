@@ -1,11 +1,12 @@
 .autocomplete{
     background-color: #1aa94c;
     border-radius: 5px;
+    
 }
 .drop-area{
     position: absolute;
     background-color: #1aa94cc2;
-    border-radius: 5px;
+    border-radius: 5px;z-index:6;
 }
 .drop-area ul{
     color : rgb(0, 0, 0) !important;

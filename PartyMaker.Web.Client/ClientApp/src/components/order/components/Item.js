@@ -5,6 +5,7 @@ import DatePicker from '../../ui/DatePicker'
 import DetailsField from './DetailsField'
 import MapControl from './MapControl'
 import SuppliersList from './SuppliersList'
+import NumberField from '../../ui/NumberField'
 const tempTopSuppliers = [
   {
     id : "203210030101020312",
@@ -48,29 +49,50 @@ const tempTopSuppliers = [
   }
 ] 
 
-const Item = () => {
+const Item = ({submitItem}) => {
   const [itemState, setItemState] = useState({
     suppliers : [],
-
+    service : null,
+    address : {
+      location : '',
+      longitude : 0,
+      latitude : 0
+    },
+    details : '',
+    date : '',
+    qty : 0
   });
 
-  useEffect(()=>{
-
-  },[])
-  const handleChangeComboBox = () =>{
-    //get suppliers by category
-    setItemState({...itemState, suppliers : tempTopSuppliers});
+  const handleSubmitItem = () =>{
+    console.log(itemState);
+    submitItem(itemState);
   }
+
+  useEffect(()=>{
+    //get services from db
+  },[])
+  const handleChangeComboBox = (itemId) =>{
+    setItemState({...itemState,
+       suppliers : tempTopSuppliers,
+       service :  itemId,
+    });
+  }
+
+  const handleChooseLocation = (location) => setItemState({...itemState, address : location})
+  const handleChooseDetails = (details) => setItemState({...itemState, details : details})
+  const handleQty = (number) => setItemState({...itemState,qty : number })
+  const handleDate = (date) => setItemState({...itemState, date : date});
   return (
     <>
       <div className = "row w-100 m-auto">
           <div className="col col-md-auto">
-              <ComboBox label = {"Choose the service"} handleChange = {handleChangeComboBox} arrayData = {["ballons"]}/>
-              <DatePicker/>
+              <ComboBox label = {"Choose the service"} handleChange = {handleChangeComboBox} arrayData = {[{id : 12,name : "ballons"}]}/>
+              <DatePicker handleChange = {handleDate} value ={itemState.date}/>
           </div>
           <div className="col col-md-3">
-              <DetailsField label ={"Service details"}/>
-              <MapControl/>
+              <NumberField label ={"Count"} handleChange = {handleQty}/>
+              <DetailsField label ={"Service details"} handleChooseDetails = {handleChooseDetails}/>
+              <MapControl handleChooseLocation = {handleChooseLocation}/>
           </div>
           <div className="col">
               <SuppliersList suppliers = {itemState.suppliers} />
@@ -79,7 +101,7 @@ const Item = () => {
       </div>
       <div className = "d-flex justify-content-between m-2">
           <Button variant = 'outlined' color="error">Clear</Button>
-          <Button variant = 'outlined'>Submit</Button>
+          <Button variant = 'outlined' onClick = {handleSubmitItem}>Submit</Button>
       </div>
     </>
   )

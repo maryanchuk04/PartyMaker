@@ -3,7 +3,8 @@ import GoogleMapReact from 'google-map-react';
 import { reverseGeocode } from '../../utils/helpers';
 import { width } from '@mui/system';
 
-const Map = () => {
+const Map = ({handleSelect}) => {
+  
   const defaultProps = {
     center: {
       lat: 50.4501,
@@ -16,27 +17,17 @@ const Map = () => {
   useEffect(()=>{
     
   },[]) 
-  const renderMarkers = (map, maps, coordinates)=>{
-    let marker = new maps.Marker({
-      position : {lat : center.lat, lng : center.lng},
-      map,
-      title : 'hello'
-    });
-    return marker;
-  }
   return (
     <div style ={{height : "50vh", width : "100%", position : "relative"}}>
         <GoogleMapReact
-        // bootstrapURLKeys ={{key :"AIzaSyD9-r_Ld4Z62DmAYFDGRoBt4G-F1wW9RGU"}}
         defaultCenter={defaultProps.center}
         defaultZoom={8}
         center = {center}
         onClick = {async (coordinates)=> {
           setCenter({lat : coordinates.lat, lng: coordinates.lng});
           const res = await reverseGeocode({lng : coordinates.lng, lat : coordinates.lat});
-          console.log(res);
-          
-          
+          console.log(res)
+          handleSelect({latitude : coordinates.lat, longitude : coordinates.lng, location : res.address.LongLabel});
         }}
       >
       <Marker/>

@@ -6,16 +6,22 @@ import useMedia from 'use-media';
 
 const CreateOrder = () => {
     const [accordionState, setAccordionState] = useState([]);
+    const [orderState, setOrderState] = useState([]);
     const media = useMedia({maxWidth : 430});
-    function handleAdd(new_element){
-        setAccordionState(prev=>([...prev, new_element]))
+
+    const handleAdd = (new_element) => setAccordionState(prev=>([...prev, new_element]))
+    
+    const handleSubmitItem = (item) => setOrderState(prev=>([...prev, item]));
+
+    const handleCancel = () =>setAccordionState([]);
+
+    function createOrder(){
+        //create Order
+        console.log(orderState);
     }
 
-    function handleCancel(){
-        setAccordionState([]);
-    }
   return (
-    <div className = "container pb-5">
+    <div className = "container pb-">
         <h1 className = 'text-center my-2'>Create new order</h1>
         <div className="d-flex justify-content-between align-items-center my-4">
             {
@@ -32,12 +38,12 @@ const CreateOrder = () => {
             accordionState.length === 0 ? 
             <div className = 'text-center'>
                 <p className = "display-5 fst-italic">
-                    Please create your order
+                    Add first service to your new order
                 </p>
                 
             </div>:
                 accordionState?.map((elem, index)=>(
-                    <AccordionItem title = {`Service ${index+1}`}><Item/></AccordionItem>
+                    <AccordionItem title = {`Service ${index+1}`}><Item submitItem = {handleSubmitItem}/></AccordionItem>
                 ))   
         }
         

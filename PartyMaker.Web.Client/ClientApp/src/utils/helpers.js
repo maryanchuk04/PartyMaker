@@ -8,3 +8,7 @@ export async function reverseGeocode(location){
     const data = await ( await fetch(GEOCODE_URL+`${location.lng},${location.lat}`)).json();
     return data;
 }
+
+export function generateItemShortInfo(data){
+    
+}
