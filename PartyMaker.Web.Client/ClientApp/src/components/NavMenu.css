@@ -67,7 +67,7 @@ header .sing-in{
   position: relative;
 }
 
-span + span {
+header span + span {
   margin-top: 10px;
 }
 

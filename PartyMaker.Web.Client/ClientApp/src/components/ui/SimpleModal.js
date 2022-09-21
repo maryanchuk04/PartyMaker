@@ -6,6 +6,8 @@ const SimpleModal = ({children, title, open, close}) => {
     }
   return <Dialog
     open={open}
+    maxWidth = {"md"}
+    fullWidth={true}
     onClose={handleClose}
     aria-labelledby="alert-dialog-title"
     aria-describedby="alert-dialog-description"

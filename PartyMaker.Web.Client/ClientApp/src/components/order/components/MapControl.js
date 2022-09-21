@@ -1,6 +1,8 @@
 import { IconButton } from '@mui/material'
 import React, { useState } from 'react'
+import GoogleMap from '../../ui/map';
 import SimpleModal from '../../ui/SimpleModal';
+import AutoComplete from './AutoComplete';
 
 const MapControl = () => {
     const [open,setOpen] = useState(false);
@@ -8,18 +10,18 @@ const MapControl = () => {
         setOpen(true);
     }
   return (
-    <div className = 'd-flex'>
+    <div className = 'd-flex align-items-center'>
         <IconButton color= "primary" onClick ={handleOpen}>
-            <i className = "fas fa-map" style={{fontSize : "40px"}}></i>
+            <i className = "fas fa-map" style={{fontSize : "30px"}}></i>
         </IconButton>
         {
             open ?  <SimpleModal open = {open} close={()=>setOpen(false)} title = {"Delivery address"}>
-                <div className = 'w-75 p-3'>
-                    
+                <div>
+                    <GoogleMap/>
                 </div>
-                
             </SimpleModal> : null
         }
+        <AutoComplete/>
     </div>
   )
 }
