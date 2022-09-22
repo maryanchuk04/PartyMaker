@@ -1,13 +1,7 @@
-﻿export class SupplierService {
-    url = "https://localhost:7118/api/Supplier"
+﻿import {BaseService} from "./BaseService";
 
-    async insertNewSupplier(data) {
-        return await fetch(this.url + `/AddNewSupplier`, {
-            method: "post",
-            headers: new Headers({
-                'Content-Type': 'application/json',
-            }),
-            body: JSON.stringify(data)
-        });
-    }
+const _baseService = new BaseService();
+
+export class SupplierService {
+    insertNewSupplier = data => _baseService.setData("Supplier/AddNewSupplier", data);
 }

@@ -18,7 +18,7 @@ const SupplierWorkspace = () => {
     };
 
     return (
-        <div>
+        <div  className="container">
             <h1 >Workspace</h1>
             <Stack direction="row" spacing={2}>
                 <Paper className="menu">

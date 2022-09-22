@@ -1,6 +1,9 @@
 .sign-in-container{
-    height: 92vh;
+    height:100%;
     display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 50%;
 }
 
 .sign-in-container .text{
@@ -21,11 +24,8 @@
     flex-direction: column;
 }
 
-.sign-in-container .sign-in-form .field{
-    margin: 20px 0;
-}
 
-.sign-in-form .or{
+.or{
     align-items: center;
     margin: 20px 0;
 }

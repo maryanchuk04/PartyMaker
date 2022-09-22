@@ -1,8 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using PartyMaker.MsSqlDatabase;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<PartyMakerContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("PartyMakerConnString"),b => b.MigrationsAssembly("PartyMaker.MsSqlDatabase")));
+
 
 var app = builder.Build();
 
@@ -16,8 +22,14 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
-
+//Cors Policy Configuration
+app.UseCors(x =>
+{
+    x.AllowAnyMethod()
+        .AllowAnyHeader()
+        .SetIsOriginAllowed(origin => true) // allow any origin
+        .AllowCredentials();
+});
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
