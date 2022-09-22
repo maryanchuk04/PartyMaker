@@ -24,6 +24,13 @@ builder.Services.AddIdentity<PartyMakerUser, IdentityRole>(options =>
     .AddEntityFrameworkStores<PartyMakerContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.AddAuthentication()
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration["Google:ClientId"];
+        options.ClientSecret = builder.Configuration["Google:ClientSecret"];
+    });
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/login";
