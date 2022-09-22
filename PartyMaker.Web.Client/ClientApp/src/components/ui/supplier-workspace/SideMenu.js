@@ -18,20 +18,20 @@ const SupplierWorkspace = () => {
     };
 
     return (
-        <div  className="container">
+        <div className="container h-100">
             <h1 >Workspace</h1>
-            <Stack direction="row" spacing={2}>
-                <Paper className="menu">
+            <Stack direction="row" className="h-100" spacing={2}>
+                <Paper className="menu"style = {{height : "fit-content"}}>
                     <MenuList>
                         {
-                            tags?.map((tag) => (
-                                <MenuItem onClick={() => handleSelectPage(tags.indexOf(tag))}>{tag}</MenuItem>
+                            tags?.map((tag,index) => (
+                                <MenuItem selected ={index === state} onClick={() => handleSelectPage(tags.indexOf(tag))}>{tag}</MenuItem>
                             ))
                         }
                     </MenuList>
                 </Paper>
 
-                <Paper className="paper-info">
+                <Paper className="paper-info w-100 h-100 p-2" style = {{overflowY: "scroll"}} >
                     {getActivePage()}
                 </Paper>
 
