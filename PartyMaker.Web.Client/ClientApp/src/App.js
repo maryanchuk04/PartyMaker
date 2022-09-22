@@ -6,6 +6,8 @@ import { FetchData } from './components/FetchData';
 import './custom.css'
 import CustomerLogin from './components/pages/customerLogin';
 import SupplierLogin from './components/pages/supplier-page/supplierLogin';
+import SupplierWorkspace from './components/ui/supplier-workspace/SideMenu';
+
 
 import AuthPreviewPage from './components/auth-pages/auth-preview-page/auth-preview';
 import SingInPage from './components/auth-pages/sign-in/sign-in';
@@ -38,7 +40,7 @@ export default function App(){
       }
       else if(scrollHeight <= 200) {
         return setShowButton(false);
-      } 
+      }
     }
     function handleScrollUp(){
       window.scrollTo({top: 0, left : 0, behavior : "smooth"})
@@ -48,13 +50,14 @@ export default function App(){
       <Layout>
         <ThemeProvider theme = {muiTheme}>
         <div style = {{height : window.innerHeight-HEADER_HEIGHT}}>
-            <Route exact path='/' component={Home} /> 
+            <Route exact path='/' component={Home} />
             <Route path='/auth/suppliers' component={SupplierLogin} />
             <Route path='/auth/customers' component={CustomerLogin} />
             <Route path='/fetch-data' component={FetchData} />
             <Route path = "/create-account" component = {AuthPreviewPage}/>
             <Route path = "/auth/login" component = {SingInPage}/>
             <Route path = "/create-order" component ={CreateOrder}/>
+            <Route path='/supplierWorkspace' component={SupplierWorkspace} />
             <TopButton handleScrollUp = {handleScrollUp} showButton = {showButton}/>
         </div>
         </ThemeProvider>
