@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import usePlacesAutocomplete, {
     getGeocode,
     getLatLng,
@@ -7,7 +7,8 @@ import './autocomplete.css'
 import useOnclickOutside from "react-cool-onclickoutside";
 import { Divider, TextField } from '@mui/material';
 
-const AutoComplete = ({setCoordinates}) => {
+const AutoComplete = ({setCoordinates, fromMapValue,disable}) => {
+
     const { ready, value, suggestions: { status, data }, setValue, clearSuggestions,} = usePlacesAutocomplete({
         requestOptions: {},
         debounce: 300,
@@ -16,6 +17,10 @@ const AutoComplete = ({setCoordinates}) => {
         setValue(e.target.value);
     };
     
+    useEffect(()=>{
+      setValue(fromMapValue);
+    },[fromMapValue])
+
     const handleSelect =
     ({ description }) =>
     () => {
@@ -48,7 +53,7 @@ const AutoComplete = ({setCoordinates}) => {
             </>
         );
     });
-
+ 
   return (
     <div ref={ref} className = 'w-100 my-2' style ={{position : "relative"}}>
         <TextField
@@ -59,6 +64,8 @@ const AutoComplete = ({setCoordinates}) => {
             placeholder="Search location..."
             className = 'w-100'
             autoComplete ="off"
+            required
+            aria-readonly = {disable}
         />
         <div className = 'drop-area'>
             {status === "OK" && <ul>{renderSuggestions()}</ul>}

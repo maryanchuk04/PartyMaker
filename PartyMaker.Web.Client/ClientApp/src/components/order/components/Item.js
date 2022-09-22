@@ -8,7 +8,7 @@ import SuppliersList from './SuppliersList'
 import NumberField from '../../ui/NumberField'
 const tempTopSuppliers = [
   {
-    id : "203210030101020312",
+    id : 1,
     image : "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
     companyName : "Google",
     supplierServices : [
@@ -16,14 +16,14 @@ const tempTopSuppliers = [
     ],
   },
   {
-    id : "203210030101020312",
+    id : 2,
     image : "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
     companyName : "apple",
     supplierServices : [
       "Cakes", "Balls", "Hourse"
     ],
   },{
-    id : "203210030101020312",
+    id : 3,
     image : "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
     companyName : "hello",
     supplierServices : [
@@ -31,7 +31,7 @@ const tempTopSuppliers = [
     ],
 
   },{
-    id : "203210030101020312",
+    id : 4,
     image : "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
     companyName : "Case",
     supplierServices : [
@@ -40,7 +40,7 @@ const tempTopSuppliers = [
 
   },
   {
-    id : "203210030101020312",
+    id : 5,
     image : "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
     companyName : "Supplier1",
     supplierServices : [
@@ -49,7 +49,8 @@ const tempTopSuppliers = [
   }
 ] 
 
-const Item = ({submitItem}) => {
+const Item = ({submitItem, handleClear, index}) => {
+  const[supplierState, setSupplierState] = useState([]);
   const [itemState, setItemState] = useState({
     suppliers : [],
     service : null,
@@ -63,7 +64,8 @@ const Item = ({submitItem}) => {
     qty : 0
   });
 
-  const handleSubmitItem = () =>{
+  const handleSubmitItem = (e) =>{
+    e.preventDefault();
     console.log(itemState);
     submitItem(itemState);
   }
@@ -76,34 +78,37 @@ const Item = ({submitItem}) => {
        suppliers : tempTopSuppliers,
        service :  itemId,
     });
+    setSupplierState(tempTopSuppliers);
   }
 
   const handleChooseLocation = (location) => setItemState({...itemState, address : location})
   const handleChooseDetails = (details) => setItemState({...itemState, details : details})
   const handleQty = (number) => setItemState({...itemState,qty : number })
   const handleDate = (date) => setItemState({...itemState, date : date});
+  const handleRequestSuppliers =(data) => setItemState({...itemState, suppliers : data})
+
   return (
-    <>
+    <form onSubmit = {handleSubmitItem}>
       <div className = "row w-100 m-auto">
           <div className="col col-md-auto">
               <ComboBox label = {"Choose the service"} handleChange = {handleChangeComboBox} arrayData = {[{id : 12,name : "ballons"}]}/>
-              <DatePicker handleChange = {handleDate} value ={itemState.date}/>
+              <DatePicker handleChange = {handleDate} value ={itemState.date} required = {true}/>
           </div>
-          <div className="col col-md-3">
-              <NumberField label ={"Count"} handleChange = {handleQty}/>
+          <div className="col col-md-3" style ={{minWidth : "320px"}}>
+              <NumberField label ={"Count"} handleChange = {handleQty} required = {true}/>
               <DetailsField label ={"Service details"} handleChooseDetails = {handleChooseDetails}/>
               <MapControl handleChooseLocation = {handleChooseLocation}/>
           </div>
-          <div className="col">
-              <SuppliersList suppliers = {itemState.suppliers} />
+          <div className="col" style ={{minWidth : "320px"}}>
+              <SuppliersList suppliers = {supplierState} choosenSuppliers ={itemState.suppliers} handleChangeSuppliersList = {handleRequestSuppliers}/>
           </div>
           
       </div>
       <div className = "d-flex justify-content-between m-2">
-          <Button variant = 'outlined' color="error">Clear</Button>
-          <Button variant = 'outlined' onClick = {handleSubmitItem}>Submit</Button>
+          <Button variant = 'outlined' color="error" onClick = {()=>handleClear(index)}>Clear</Button>
+          <Button variant = 'outlined' type='submit'>Submit</Button>
       </div>
-    </>
+    </form>
   )
 }
 

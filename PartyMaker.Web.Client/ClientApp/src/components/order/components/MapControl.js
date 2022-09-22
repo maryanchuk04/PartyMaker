@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import GoogleMap from '../../ui/map';
 import SimpleModal from '../../ui/SimpleModal';
 import AutoComplete from './AutoComplete';
-
+import { Button } from '@mui/material';
 const MapControl = ({handleChooseLocation}) => {
     const [open,setOpen] = useState(false);
     const [locationState, setLocationState] =useState({
@@ -18,20 +18,25 @@ const MapControl = ({handleChooseLocation}) => {
     function handleSubmit(){
         handleChooseLocation(locationState);
     }
+    
   return (
-    <div className = 'd-flex align-items-center'>
-        <IconButton color= "primary" onClick ={handleOpen}>
-            <i className = "fas fa-map" style={{fontSize : "30px"}}></i>
-        </IconButton>
-        {
-            open ?  <SimpleModal open = {open} close={()=>setOpen(false)} title = {"Delivery address"} handleSubmit={handleSubmit}>
-                <div>
-                    <GoogleMap handleSelect = {setLocationState}/>
-                </div>
-            </SimpleModal> : null
-        }
-        <AutoComplete/>
-    </div>
+    <form onSubmit = {handleSubmit}>
+        <div className = 'd-flex align-items-center my-2 justify-content-between'>
+            <Button variant = 'outlined' color= "primary" onClick ={handleOpen} startIcon = {<i className = "fas fa-map"></i>}>
+                Map
+            </Button>
+            {
+                open ?  <SimpleModal open = {open} close={()=>setOpen(false)} title = {"Delivery address"} handleSubmit={handleSubmit}>
+                    <div>
+                        <GoogleMap handleSelect = {setLocationState} />
+                    </div>
+                </SimpleModal> : null
+            }
+            <Button variant = 'outlined' type = "submit">Save</Button>
+        </div>
+        <AutoComplete fromMapValue = {locationState.location}/>
+    </form>
+    
   )
 }
 

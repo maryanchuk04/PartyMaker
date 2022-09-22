@@ -5,7 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
 
 
-export default function DatePicker({disablePast=true,value, handleChange}) {
+export default function DatePicker({disablePast=true,value, handleChange,required}) {
 
   return <LocalizationProvider dateAdapter={AdapterDayjs}>
       <StaticDatePicker c
@@ -16,7 +16,7 @@ export default function DatePicker({disablePast=true,value, handleChange}) {
           handleChange(newValue.$d)
         }}
         disablePast = {disablePast}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => <TextField {...params} required = {required}/>}
       />
     </LocalizationProvider>
 }

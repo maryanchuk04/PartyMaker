@@ -9,11 +9,14 @@ const CreateOrder = () => {
     const [orderState, setOrderState] = useState([]);
     const media = useMedia({maxWidth : 430});
 
-    const handleAdd = (new_element) => setAccordionState(prev=>([...prev, new_element]))
+    const handleAdd = (new_element) => {console.log(new_element)
+        setAccordionState(prev=>([...prev, new_element]))}
     
     const handleSubmitItem = (item) => setOrderState(prev=>([...prev, item]));
 
     const handleCancel = () =>setAccordionState([]);
+
+    const handleRemoveItem = (index) => setAccordionState(accordionState.filter(x=>x!==index));
 
     function createOrder(){
         //create Order
@@ -25,8 +28,8 @@ const CreateOrder = () => {
         <h1 className = 'text-center my-2'>Create new order</h1>
         <div className="d-flex justify-content-between align-items-center my-4">
             {
-                !media ? <Button endIcon = {<i className = "fas fa-plus"></i>} variant = 'contained' onClick={handleAdd}>Add service</Button>
-                : <IconButton color= "primary" onClick={handleAdd}><i className = "fas fa-plus"></i></IconButton>
+                !media ? <Button endIcon = {<i className = "fas fa-plus"></i>} variant = 'contained' onClick={()=>handleAdd(accordionState.length)}>Add service</Button>
+                : <IconButton color= "primary" onClick={()=>handleAdd(accordionState.length)}><i className = "fas fa-plus"></i></IconButton>
 
             }
             <div className = 'd-flex justify-content-end' >
@@ -43,7 +46,7 @@ const CreateOrder = () => {
                 
             </div>:
                 accordionState?.map((elem, index)=>(
-                    <AccordionItem title = {`Service ${index+1}`}><Item submitItem = {handleSubmitItem}/></AccordionItem>
+                    <AccordionItem title = {`Service ${index+1}`}><Item submitItem = {handleSubmitItem} handleClear = {handleRemoveItem} index ={index}/></AccordionItem>
                 ))   
         }
         

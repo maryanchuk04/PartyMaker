@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import GoogleMapReact from 'google-map-react';
 import { reverseGeocode } from '../../utils/helpers';
-import { width } from '@mui/system';
 
 const Map = ({handleSelect}) => {
   
