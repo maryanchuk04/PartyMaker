@@ -27,7 +27,7 @@ const Page = ({ id }) => {
         <div>
           <h4>Active</h4>
           {array.map((item) => (
-            <OtherOrderInfoField />
+            <OtherOrderInfoField item={item}/>
           ))}
         </div>
       );
@@ -45,7 +45,7 @@ const Page = ({ id }) => {
         <div>
           <h4>Finished</h4>
           {array.map((item) => (
-            <OtherOrderInfoField />
+            <OtherOrderInfoField item={item} />
           ))}
         </div>
       );

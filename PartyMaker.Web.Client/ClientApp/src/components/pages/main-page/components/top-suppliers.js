@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import useMedia from 'use-media';
-import SupplierShortInfo from '../../supplier-short-info';
-
+import SupplierShortInfo from "../../../supplier-short-info";
 const tempTopSuppliers = [
   {
     id : "203210030101020312",
@@ -54,7 +53,7 @@ const TopSuppliers = () => {
       console.log(media)
     },[]);
 
-    
+
   return (
     <div style ={{height:"fit-content", backgroundImage :"url('https://i.ibb.co/N7P4g3d/image-13.png')", backgroundSize:'cover', backgroundPosition: "center"}}>
       <div className="container py-2">
@@ -68,7 +67,7 @@ const TopSuppliers = () => {
               ))
             }
           </div>
-          
+
         </div>
     </div>
   )

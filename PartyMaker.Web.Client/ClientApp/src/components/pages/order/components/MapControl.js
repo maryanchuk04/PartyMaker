@@ -1,9 +1,8 @@
-import { IconButton } from "@mui/material";
 import React, { useState } from "react";
-import GoogleMap from "../../ui/map";
-import SimpleModal from "../../ui/SimpleModal";
+import SimpleModal from "../../../ui/SimpleModal";
 import AutoComplete from "./AutoComplete";
 import { Button } from "@mui/material";
+import Map from "../../../ui/map";
 const MapControl = ({ handleChooseLocation }) => {
   const [open, setOpen] = useState(false);
   const [locationState, setLocationState] = useState({
@@ -38,7 +37,7 @@ const MapControl = ({ handleChooseLocation }) => {
             handleSubmit={handleSubmit}
           >
             <div>
-              <GoogleMap handleSelect={setLocationState} />
+              <Map handleSelect={setLocationState} />
             </div>
           </SimpleModal>
         ) : null}

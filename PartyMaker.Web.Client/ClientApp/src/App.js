@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Route } from "react-router";
 import { Layout } from "./components/Layout";
-import { Home } from "./components/main-page/Home";
+import { Home } from "./components/pages/main-page/Home";
 import { FetchData } from "./components/FetchData";
 import "./custom.css";
 import CustomerLogin from "./components/pages/customerLogin";
@@ -11,7 +11,7 @@ import SupplierWorkspace from "./components/ui/supplier-workspace/SideMenu";
 import AuthPreviewPage from "./components/auth-pages/auth-preview-page/auth-preview";
 import SingInPage from "./components/auth-pages/sign-in/sign-in";
 import TopButton from "./components/ui/TopButton";
-import CreateOrder from "./components/order/create-order-page/create-order";
+import CreateOrder from "./components/pages/order/create-order-page/create-order";
 import { green } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 

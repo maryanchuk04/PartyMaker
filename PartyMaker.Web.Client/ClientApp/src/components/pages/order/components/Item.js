@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@mui/material";
-import ComboBox from "../../ui/ComboBox";
-import DatePicker from "../../ui/DatePicker";
+import ComboBox from "../../../ui/ComboBox";
+import DatePicker from "../../../ui/DatePicker";
+import NumberField from "../../../ui/NumberField";
 import DetailsField from "./DetailsField";
 import MapControl from "./MapControl";
 import SuppliersList from "./SuppliersList";
-import NumberField from "../../ui/NumberField";
 const tempTopSuppliers = [
   {
     id: 1,

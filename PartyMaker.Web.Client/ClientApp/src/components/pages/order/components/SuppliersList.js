@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import SupplierItem from "./SupplierItem";
 import { Divider, IconButton } from "@mui/material";
-import SearchField from "../../ui/SearchField";
+import SearchField from "../../../ui/SearchField";
 
 const SuppliersList = ({
   suppliers,

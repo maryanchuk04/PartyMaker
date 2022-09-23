@@ -1,6 +1,6 @@
 import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import RatingWrapper from "../../ui/RatingWrapper";
+import RatingWrapper from "../../../ui/RatingWrapper";
 import { Checkbox } from "@mui/material";
 const SupplierItem = ({
   supplier,
