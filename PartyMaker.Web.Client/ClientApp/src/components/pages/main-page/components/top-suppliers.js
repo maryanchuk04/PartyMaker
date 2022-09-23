@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import useMedia from 'use-media';
+import {useMedia} from 'react-use-media';
 import SupplierShortInfo from "../../../supplier-short-info";
 const tempTopSuppliers = [
   {
