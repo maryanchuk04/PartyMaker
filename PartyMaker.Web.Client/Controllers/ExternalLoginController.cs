@@ -22,7 +22,7 @@ public class ExternalLoginController : ControllerBase
     [HttpPost]
     public IActionResult ExternalLogin(string provider, string returnUrl = null)
     {
-        var redirectUrl = Url.Action("CallbackAsync", "ExternalLogin", new { returnUrl });
+        var redirectUrl = Url.Action("Callback", "ExternalLogin", new { returnUrl });
         var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
         return new ChallengeResult(provider, properties);
     }
@@ -47,10 +47,10 @@ public class ExternalLoginController : ControllerBase
         {
             return Ok();
         }
-        
+
         var user = new PartyMakerUser
-        { 
-            UserName = info.Principal.FindFirstValue(ClaimTypes.Email).ToLower(), 
+        {
+            UserName = info.Principal.FindFirstValue(ClaimTypes.Email).ToLower(),
             Email = info.Principal.FindFirstValue(ClaimTypes.Email).ToLower(),
         };
 
@@ -61,7 +61,7 @@ public class ExternalLoginController : ControllerBase
             var customerRole = await _roleManager.FindByNameAsync(UserRole.Customer);
 
             if (customerRole == null)
-            { 
+            {
                 await _roleManager.CreateAsync(new IdentityRole() { Name = UserRole.Customer });
             }
 
