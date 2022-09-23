@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {useMedia} from 'react-use-media';
+// import {useMedia} from 'react-use-media';
 import SupplierShortInfo from "../../../supplier-short-info";
 const tempTopSuppliers = [
   {
@@ -48,10 +48,10 @@ const tempTopSuppliers = [
 
 const TopSuppliers = () => {
   const [suppliers, setSuppliers] = useState(tempTopSuppliers);
-  const media = useMedia({maxWidth : "950px"})
-    useEffect(()=>{
-      console.log(media)
-    },[]);
+  // const media = useMedia({maxWidth : "950px"})
+  //   useEffect(()=>{
+  //     console.log(media)
+  //   },[]);
 
 
   return (
@@ -60,7 +60,7 @@ const TopSuppliers = () => {
         <div className="display-6 text-center">
           <h1 style ={{fontFamily : "'Rubik', sans-serif", fontWeight : "600", color: "#ffd80b"}}>Top Suppliers</h1>
         </div>
-          <div className={`${media ? "w-75": "w-50" } m-auto d-flex flex-column my-5`}>
+          <div className={`${true ? "w-75": "w-50" } m-auto d-flex flex-column my-5`}>
             {
               suppliers?.map((item)=>(
                 <SupplierShortInfo supplier = {item}/>
