@@ -1,14 +1,17 @@
 .auth-preview-container{
-    margin: auto;
-    height: 92vh;
-    width: 100%;
-    position: relative;
+
 }
+
+.box-shadow-design{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 10px;
+}
+
 .auth-preview-container .title{
     text-align: center;
     font-weight: 400;
 }
-.auth-preview-container .waves{
+.waves{
     position: absolute;
     bottom: 0;
     width: 100vw;
@@ -17,29 +20,8 @@
     transform: translate(-50%,0);
     z-index: -1;
 }
-.auth-preview-container .auth-preview-info{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20%; 
-    text-align: center; 
-    margin: 100px auto;
-}
 
-.auth-preview-info .info-block{
-    
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    height: fit-content;
-    justify-content: space-between;
-    padding: 20px;
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
-}
 
-.info-block .text{
-    height: 150px;
-    font-style:italic;
+.box-shadow-design .sample-button{
+    height: 50px;
 }
-
