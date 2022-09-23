@@ -12,6 +12,8 @@ import SupplierLogin from './components/pages/supplier-page/supplierLogin';
 
 import AuthPreviewPage from './components/auth-pages/auth-preview-page/auth-preview';
 import SingInPage from './components/auth-pages/sign-in/sign-in';
+import CustomerProfile from './components/pages/customer-profile/customer-profile'
+
 
 
 export default class App extends Component {
@@ -26,6 +28,7 @@ export default class App extends Component {
         <Route path='/fetch-data' component={FetchData} />
         <Route path = "/create-account" component = {AuthPreviewPage}/>
         <Route path = "/auth/login" component = {SingInPage}/>  
+        <Route path = "/customer/profile" component = {CustomerProfile}/>  
       </Layout>
     );
   }

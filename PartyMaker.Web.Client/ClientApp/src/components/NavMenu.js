@@ -43,6 +43,9 @@ export class NavMenu extends Component {
                             <NavItem>
                                 <NavLink tag={Link} className="text-light create-account-li" to="/create-account">Sign Up</NavLink>
                             </NavItem>
+                            <NavItem>
+                                <NavLink tag={Link} className="text-light create-account-li" to="/customer/profile">Profile</NavLink>
+                            </NavItem>
                         </ul>
                     </Container>
                 </Navbar>
