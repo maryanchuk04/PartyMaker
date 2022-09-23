@@ -1,0 +1,27 @@
+.auth-preview-container{
+
+}
+
+.box-shadow-design{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+    border-radius: 10px;
+}
+
+.auth-preview-container .title{
+    text-align: center;
+    font-weight: 400;
+}
+.waves{
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    right: 50%;
+    left: 50%;
+    transform: translate(-50%,0);
+    z-index: -1;
+}
+
+
+.box-shadow-design .sample-button{
+    height: 50px;
+}

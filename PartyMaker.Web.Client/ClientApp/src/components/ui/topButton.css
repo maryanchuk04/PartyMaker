@@ -1,0 +1,21 @@
+#top-button{
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    border-radius: 50px;
+    border : 0;
+    height: 50px;
+    width: 50px;
+    font-size: 25px;
+    opacity: 0;
+    transition: 0.6s;
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.8);
+    cursor: pointer;
+    color : black !important;
+    display: grid;
+    place-items: center;
+}
+#top-button i {
+    position: absolute;
+    width: 100%;
+}

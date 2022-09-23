@@ -1,49 +1,79 @@
-import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import React, { useEffect, useState } from 'react';
+import {  Container, Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import { isAuth } from '../utils/helpers';
+import useMedia from 'use-media';
 
-export class NavMenu extends Component {
-  static displayName = NavMenu.name;
+export function NavMenu(){
+  const [state, setState] = useState({
+    userAuth : false
+  });
+  const [open,setOpen] = useState(false);
+  const media = useMedia({ maxWidth : 590});
 
-  constructor (props) {
-    super(props);
 
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.state = {
-      collapsed: true
-    };
-  }
+  useEffect(()=>{
+    if(isAuth()){
+      setState({
+        userAuth : true
+      });
+    }
+  },[])
 
-  toggleNavbar () {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  }
+  const handleMenuClick =()=>{  
+    if(open){
+        setOpen(false);
+    }
+    else setOpen(true);
+}
 
-  render () {
-    return (
-      <header>
-        <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
-          <Container>
-            <NavbarBrand tag={Link} to="/">PartyMaker</NavbarBrand>
-            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
-              <ul className="navbar-nav flex-grow">
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/">Home</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/counter">Counter</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/fetch-data">Fetch data</NavLink>
-                </NavItem>
-              </ul>
-            </Collapse>
-          </Container>
-        </Navbar>
-      </header>
-    );
-  }
+  return !media ?<>
+        <header>
+          <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white  box-shadow h-100 " >
+              <Container>
+                  <NavbarBrand tag={Link} to="/"><h1>Party<span style ={{color : "#1aa94b"}}>Maker</span></h1></NavbarBrand>
+                    <ul className="navbar-nav flex-grow">
+                        <NavItem style = {{display : "contents"}}>
+                            <NavLink tag={Link} className="text-light m-1" to="/">Home</NavLink>
+                        </NavItem>
+                        <NavItem style = {{display : "contents"}}>
+                            <NavLink tag={Link} className="text-light m-1" to="/сontact">Contact Us</NavLink>
+                        </NavItem>
+                        <NavItem style = {{display : "contents"}}>
+                            <NavLink tag={Link} className="text-light sing-in m-1" to="/auth/login">Sing In</NavLink>
+                        </NavItem>
+                        <NavItem style = {{display : "contents"}}>
+                            <NavLink tag={Link} className="text-light  create-account-li ms-1" to="/create-account">Sign Up</NavLink>
+                        </NavItem>
+                    </ul>
+              </Container>
+          </Navbar>
+      </header ></> :
+      <>
+        <header className ='responsive-header container'>
+          <NavbarBrand tag={Link} to="/"><h1>Party<span style ={{color : "#1aa94b"}}>Maker</span></h1></NavbarBrand>
+          <div className="responsive_menu">
+            <div className={`btnn ${open ? 'active' : 'not-active'}`} onClick ={handleMenuClick} id = 'btn'>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+          </div>
+          <div className="dropdown-menu-block container" style = {{ display : open ? "block" : "none"}}>
+                    <NavItem style = {{display : "contents"}}>
+                        <NavLink tag={Link} className="text-light m-1" to="/" onClick = {()=>setOpen(false)}>Home</NavLink>
+                    </NavItem>
+                    <NavItem style = {{display : "contents"}}>
+                        <NavLink tag={Link} className="text-light m-1" to="/сontact" onClick = {()=>setOpen(false)}>Contact Us</NavLink>
+                    </NavItem>
+                    <NavItem style = {{display : "contents"}}>
+                        <NavLink tag={Link} className="text-light sing-in m-1" to="/auth/login" onClick = {()=>setOpen(false)}>Sing In</NavLink>
+                    </NavItem>
+                    <NavItem style = {{display : "contents"}}>
+                        <NavLink tag={Link} className="text-light  create-account-li ms-1" to="/create-account" onClick = {()=>setOpen(false)}>Sign Up</NavLink>
+                    </NavItem>
+                  </div>
+        </header>
+      </>
 }
