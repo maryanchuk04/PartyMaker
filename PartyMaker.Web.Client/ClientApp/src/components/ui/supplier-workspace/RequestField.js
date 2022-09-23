@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import DetailsDialog from "./DetailsDialog";
 import { TextareaAutosize, TextField, Button } from "@mui/material";
 
-const RequestField = ({item}) => {
+const RequestField = ({ item }) => {
   const [response, setResponse] = useState({
     response: "",
     price: 0,
@@ -37,7 +37,9 @@ const RequestField = ({item}) => {
               setResponse({ ...response, price: e.target.value })
             }
           />
-          <Button type="submit" variant = 'contained' sx ={{marginLeft : "10px"}}>Send</Button>
+          <Button type="submit" variant="contained" sx={{ marginLeft: "10px" }}>
+            Send
+          </Button>
         </div>
       </form>
 
