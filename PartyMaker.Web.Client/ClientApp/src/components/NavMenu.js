@@ -3,14 +3,14 @@ import {  Container, Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { isAuth } from '../utils/helpers';
-// import {useMedia} from 'react-use-media';
+ import {useMedia} from 'react-use-media';
 
 export function NavMenu(){
   const [state, setState] = useState({
     userAuth : false
   });
   const [open,setOpen] = useState(false);
-  // const media = useMedia({ maxWidth : 590});
+  const media = useMedia({ maxWidth : 590});
 
 
   useEffect(()=>{
@@ -28,7 +28,7 @@ export function NavMenu(){
     else setOpen(true);
 }
 
-  return !true ?<>
+  return !media ?<>
         <header>
           <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white  box-shadow h-100 " >
               <Container>
