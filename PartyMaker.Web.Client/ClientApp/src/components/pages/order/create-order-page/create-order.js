@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Button, IconButton } from "@mui/material";
 import AccordionItem from "../components/AccordionItem";
 import Item from "../components/Item";
-// import {useMedia} from 'react-use-media';
+import {useMedia} from 'react-use-media';
 
 const CreateOrder = () => {
   const [accordionState, setAccordionState] = useState([]);
   const [orderState, setOrderState] = useState([]);
-//   const media = useMedia({ maxWidth: 430 });
+  const media = useMedia({ maxWidth: 430 });
 
   const handleAdd = (new_element) => {
     console.log(new_element);
@@ -30,7 +30,7 @@ const CreateOrder = () => {
     <div className="container pb-">
       <h1 className="text-center my-2">Create new order</h1>
       <div className="d-flex justify-content-between align-items-center my-4">
-        {!true ? (
+        {!media ? (
           <Button
             endIcon={<i className="fas fa-plus"></i>}
             variant="contained"
