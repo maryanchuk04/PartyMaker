@@ -20,6 +20,10 @@ export function NavMenu(){
       });
     }
   },[])
+  useEffect(()=>{
+    
+    console.log(media);
+  },[media])
 
   const handleMenuClick =()=>{  
     if(open){
