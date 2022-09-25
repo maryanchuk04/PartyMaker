@@ -5,7 +5,7 @@ using PartyMaker.Domain.Entities;
 namespace PartyMaker.MsSqlDatabase;
 /// To update Db use this commands
 /// cd PartyMaker.MsSqlDatabase
-/// dotnet-ef migrations add AddIdentity -s ../PartyMaker.Web.Client/
+/// dotnet-ef migrations add RemoveDuplicatedFields -s ../PartyMaker.Web.Client/
 /// dotnet-ef database update -s ../PartyMaker.Web.Client/  
 /// dotnet-ef  migrations remove -s ../PartyMaker.Web.Client/
 /// dotnet-ef database update 20220912151020_Initial -s ../PartyMaker.Web.Client/ 
