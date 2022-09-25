@@ -3,7 +3,7 @@ import {  Container, Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { isAuth } from '../utils/helpers';
- import {useMedia} from 'react-use-media';
+ import {useMedia} from 'use-media';
 
 export function NavMenu(){
   const [state, setState] = useState({
