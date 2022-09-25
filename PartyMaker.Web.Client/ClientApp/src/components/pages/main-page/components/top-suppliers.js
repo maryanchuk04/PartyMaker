@@ -48,10 +48,11 @@ const tempTopSuppliers = [
 
 const TopSuppliers = () => {
   const [suppliers, setSuppliers] = useState(tempTopSuppliers);
-  const media = useMedia({maxWidth : "950px"})
-    useEffect(()=>{
+  const media = useMedia({maxWidth : 950});
+    
+  useEffect(()=>{
       console.log(media)
-    },[]);
+    },[media]);
 
 
   return (
