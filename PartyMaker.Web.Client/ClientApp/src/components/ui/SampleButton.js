@@ -2,8 +2,8 @@ import React from 'react'
 import './button.css'
 
 const SampleButton = (props) => {
-  const {children, onClick, type} = props;
-  return <button type = {type} onClick = {onClick} className = 'sample-button'>
+  const {children, onClick, type, className} = props;
+  return <button type = {type} onClick = {onClick} className = {`sample-button ${className}`}>
       {children}
   </button>
 }
