@@ -1,0 +1,14 @@
+﻿.create-supplier-form {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    width: 45%;
+    text-align: center;
+    padding: 3%;
+    border: solid 3px black;
+    border-radius: 25px;
+}
+
+.create-supplier-form .field {
+    margin: 0 0 10px;
+}
