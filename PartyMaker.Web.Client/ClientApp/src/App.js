@@ -15,6 +15,7 @@ import TopButton from "./components/ui/TopButton";
 import CreateOrder from "./components/pages/order/create-order-page/create-order";
 import { green } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Contacts from "./components/pages/contacts/contacts";
 
 export default function App() {
   const muiTheme = createTheme({
@@ -25,7 +26,7 @@ export default function App() {
     },
   });
   const [showButton, setShowButton] = useState();
-  const HEADER_HEIGHT = 134.4;
+  const HEADER_HEIGHT = 70;
   useEffect(() => {
     window.addEventListener("scroll", handleVisibleButton);
   }, []);
@@ -46,7 +47,7 @@ export default function App() {
   return (
     <Layout>
       <ThemeProvider theme={muiTheme}>
-        <div style={{ height: window.innerHeight - HEADER_HEIGHT }}>
+        <div style={{ height: window.innerHeight - HEADER_HEIGHT}}>
           <Route exact path="/" component={Home} />
           <Route path="/auth/suppliers" component={SupplierLogin} />
           <Route path="/auth/customers" component={CustomerLogin} />
@@ -55,7 +56,8 @@ export default function App() {
           <Route path="/auth/login" component={SingInPage} />
           <Route path="/create-order" component={CreateOrder} />
           <Route path="/supplierWorkspace" component={SupplierWorkspace} />
-          <Route path = "/customer/profile" component = {CustomerProfile}/>  
+          <Route path = "/customer/profile" component = {CustomerProfile}/>
+          <Route path ="/сontact" component = {Contacts}/>  
           <TopButton handleScrollUp={handleScrollUp} showButton={showButton} />
         </div>
       </ThemeProvider>
