@@ -1,9 +1,15 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PartyMaker.Domain.Entities;
+using PartyMaker.Infrastructure.Configuration;
 using PartyMaker.MsSqlDatabase;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Config Mail Client
+var mailClientConfiguration = new MailClientConfiguration();
+builder.Configuration.GetSection("MailClient").Bind(mailClientConfiguration);
+builder.Services.AddSingleton(mailClientConfiguration);
 
 // Add services to the container.
 
