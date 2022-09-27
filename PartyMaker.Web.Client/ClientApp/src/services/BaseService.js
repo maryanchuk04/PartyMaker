@@ -1,5 +1,5 @@
 export class BaseService{
-    baseUrl = "https://localhost:7295/api/";
+    baseUrl = process.env.REACT_APP_API_PORT;
 
     async getData(url){
         console.log(url);
