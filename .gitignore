@@ -457,3 +457,4 @@ $RECYCLE.BIN/
 ##For Mac
 .DS_Store
 .env
+**/.env
