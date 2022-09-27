@@ -6,6 +6,8 @@ using System.Security.Claims;
 
 namespace PartyMaker.Admin.Controllers;
 
+[ApiController]
+[Route("api/[controller]")]
 public class ExternalLoginController : ControllerBase
 {
     private readonly UserManager<PartyMakerUser> _userManager;

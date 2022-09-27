@@ -21,6 +21,6 @@ public class MailClient : IMailClient
         var mailFrom = new EmailAddress(from, fromUserName);
         var mailTo = new EmailAddress(to);
         var msg = MailHelper.CreateSingleEmail(mailFrom, mailTo, subject, plainContent, htmlContent);
-        //await _client.SendEmailAsync(msg);
+        var res = await _client.SendEmailAsync(msg);
     }
 }
