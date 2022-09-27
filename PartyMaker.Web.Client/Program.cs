@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using PartyMaker.Application.Services;
 using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Interfaces.Infrastructure;
+using PartyMaker.Domain.Interfaces.Services;
 using PartyMaker.Infrastructure.Configuration;
+using PartyMaker.Infrastructure.SendGrid;
 using PartyMaker.MsSqlDatabase;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +49,8 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.ExpireTimeSpan = TimeSpan.FromDays(365);
     options.Cookie.Name = "_partymaker";
 });
+builder.Services.AddSingleton<IMailClient, MailClient>();
+builder.Services.AddSingleton<IMailService, MailService>();
 
 
 var app = builder.Build();
