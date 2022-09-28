@@ -5,18 +5,27 @@ namespace PartyMaker.MsSqlDatabase.Dao;
 
 public class ItemDao : IItemDao
 {
-    public async Task<Item> Create()
+    private readonly PartyMakerContext _context;
+
+    public ItemDao(PartyMakerContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public async Task<Item> Update()
+    public void Update(Item item)
     {
-        throw new NotImplementedException();
+        _context.Items.Update(item);
+        _context.SaveChanges();
     }
 
-    public async Task Delete(Guid id)
+    public void Delete(Guid id)
     {
-        throw new NotImplementedException();
+        var item = _context.Items.FirstOrDefault(x=>x.Id == id);
+        if (item == null)
+        {
+            return;
+        }
+        _context.Items.Remove(item);
+        _context.SaveChanges();
     }
 }

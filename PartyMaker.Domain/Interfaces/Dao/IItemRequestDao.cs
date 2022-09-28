@@ -1,12 +1,11 @@
 using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Enumerations;
 
 namespace PartyMaker.Domain.Interfaces.Dao;
 
 public interface IItemRequestDao
 {
-    Task<ItemRequest> Create();
+    void Update(Guid id, string description, string response, double price, RequestStatus requestStatus, Guid supplierServiceId, Guid itemId);
 
-    Task<ItemRequest> Update();
-
-    Task Delete(Guid id);
+    void Delete(Guid id);
 }

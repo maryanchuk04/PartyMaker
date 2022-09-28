@@ -5,9 +5,7 @@ namespace PartyMaker.Domain.Interfaces.Services;
 
 public interface IItemService
 {
-    Task<Item> Create(ItemDto item);
+    void Update(ItemDto item);
 
-    Task<Item> Update(ItemDto item);
-
-    Task Delete(Guid id);
+    void Delete(Guid id);
 }

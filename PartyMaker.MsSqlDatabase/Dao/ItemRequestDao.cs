@@ -1,22 +1,54 @@
 using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Interfaces.Dao;
 
 namespace PartyMaker.MsSqlDatabase.Dao;
 
 public class ItemRequestDao : IItemRequestDao
 {
-    public async Task<ItemRequest> Create()
+    private readonly PartyMakerContext _context;
+
+    public ItemRequestDao(PartyMakerContext context)
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public async Task<ItemRequest> Update()
+    public void Update(Guid id, string description, string response, double price,
+        RequestStatus requestStatus, Guid supplierServiceId, Guid itemId)
     {
-        throw new NotImplementedException();
+        var itemRequest = _context.ItemRequests.FirstOrDefault(x => x.Id == id);
+        var item = _context.Items.FirstOrDefault(x => x.Id == itemId);
+        var supplierService = _context.SupplierServices.FirstOrDefault(x => x.Id == supplierServiceId);
+        if (itemRequest == null || item == null || supplierService == null)
+        {
+            return;
+        }
+
+        var updatedItemRequest = new ItemRequest()
+        {
+            Id = id,
+            DateTimeCreated = itemRequest.DateTimeCreated,
+            Item = item,
+            Description = description,
+            DateTimeModified = DateTime.Now,
+            RequestStatus = requestStatus,
+            Response = response,
+            Price = price,
+            SupplierService = supplierService,
+            ItemId = itemId,
+        };
+        _context.ItemRequests.Update(updatedItemRequest);
+        _context.SaveChanges();
     }
 
-    public async Task Delete(Guid id)
+    public void Delete(Guid id)
     {
-        throw new NotImplementedException();
+        var itemRequest = _context.ItemRequests.FirstOrDefault(x=>x.Id == id);
+        if (itemRequest == null)
+        {
+            return;
+        }
+        _context.ItemRequests.Remove(itemRequest);
+        _context.SaveChanges();
     }
 }
