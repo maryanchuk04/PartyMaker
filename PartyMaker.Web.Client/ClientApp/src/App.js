@@ -7,6 +7,8 @@ import "./custom.css";
 import CustomerLogin from "./components/pages/customerLogin";
 import SupplierLogin from "./components/pages/supplier-page/supplierLogin";
 import SupplierWorkspace from "./components/ui/supplier-workspace/SideMenu";
+import SupplierProfileEdit from "./components/pages/supplier-profile/supplierProfileEdit";
+import SupplierProfile from "./components/pages/supplier-profile/supplierProfile";
 
 import AuthPreviewPage from "./components/auth-pages/auth-preview-page/auth-preview";
 import SingInPage from "./components/auth-pages/sign-in/sign-in";
@@ -54,6 +56,8 @@ export default function App() {
           <Route path="/auth/login" component={SingInPage} />
           <Route path="/create-order" component={CreateOrder} />
           <Route path="/supplierWorkspace" component={SupplierWorkspace} />
+          <Route path="/supplierProfileEdit" component={SupplierProfileEdit} />
+          <Route path="/supplier/:id" component={SupplierProfile} />
           <TopButton handleScrollUp={handleScrollUp} showButton={showButton} />
         </div>
       </ThemeProvider>
