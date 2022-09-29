@@ -26,7 +26,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp 
+        run: dotnet publish PartyMaker.Web.Client -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.Application -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.Domain -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.MsSqlDatabase -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.Infrastructure -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.Tests -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'partymaker'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7AFDCF1FA90B4774B70D5E5ED5905FF7 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_16178BF6543242F0B51161E2EB65FCCB }}
           package: .

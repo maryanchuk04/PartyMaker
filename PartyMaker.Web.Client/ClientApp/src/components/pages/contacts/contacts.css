@@ -1,0 +1,21 @@
+.contacts input{
+    width:100%;
+    border : 0;
+    font-size: 20px;
+    padding: 10%;
+    outline: none;
+    min-width: 100px;
+    margin-bottom: 10px;
+    border : 1px solid #1aa94b;
+    box-shadow: 0;
+}
+.contacts textarea{
+    border : 0;
+    width: 100%;
+    resize: none;
+    outline: none;
+    padding: 20px;
+    font-size: 20px;
+    border : 1px solid #1aa94b;
+    margin-top: 20px;
+}

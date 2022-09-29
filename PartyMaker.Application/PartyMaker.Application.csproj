@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Services" />
+      <ProjectReference Include="..\PartyMaker.Domain\PartyMaker.Domain.csproj" />
     </ItemGroup>
 
 </Project>

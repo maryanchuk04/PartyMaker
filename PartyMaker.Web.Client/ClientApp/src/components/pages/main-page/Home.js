@@ -1,5 +1,4 @@
-import React, { Component, useEffect, useRef, useState } from 'react';
-import useMedia from 'use-media';
+import React, { useEffect, useRef, useState } from 'react';
 import './components/home.css'
 import HowItWorks from './components/how-it-works';
 import SliderComponent from './components/slider';

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, IconButton } from "@mui/material";
 import AccordionItem from "../components/AccordionItem";
 import Item from "../components/Item";
-import useMedia from "use-media";
+import {useMedia} from 'use-media';
 
 const CreateOrder = () => {
   const [accordionState, setAccordionState] = useState([]);
