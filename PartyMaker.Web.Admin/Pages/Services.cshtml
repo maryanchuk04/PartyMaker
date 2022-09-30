@@ -1,0 +1,111 @@
+﻿@page
+@model ServicesModel
+@{
+    ViewData["Title"] = "Services";
+}
+
+
+<div class="content d-flex flex-column flex-column-fluid">
+    <div class="post d-flex flex-column-fluid" id="kt_post">
+        <div id="kt_content_container" class="container-xxl">
+            <div class="card">
+                <div class="card-header border-0 pt-6">
+                    <div class="card-title">
+                        <h3>Services</h3>
+                    </div>
+                    <div class="card-toolbar">
+                        <div class="d-flex justify-content-end">
+                               <a id="btn-create-service" class="btn btn-success">Create Service</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-row-bordered table-hover align-middle gs-6 gy-5 no-footer">
+                            <thead>
+                                <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Created Date</th>                                    
+                                    <th>Updated Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var s in Model.Services)
+                                {
+                                    <tr>
+                                        <td>@s.Name</td>
+                                        <td>@s.Description</td>
+                                        <td>@s.CreatedDate</td>
+                                        <td>@s.UpdatedDate</td>
+                                        <td>
+                                            <div class="d-flex justify-content-end">
+                                                <a data-serviceid = "@s.Id" class="btn-edit-service btn btn-sm btn-secondary me-2">
+                                                    Edit
+                                                </a>
+                                                <form method="post" asp-page-handler="Remove" onsubmit="return confirm('Are you sure you want to remove subscription pack?');">
+                                                    <input type="hidden" name="subscriptionPackId" value="@s.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-secondary">Remove</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-upsert-service" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-content">
+            <form method="post" id="upsert-service-form">
+                <div class="modal-header">
+                    <h3 id="create-service" class="fw-bolder">Create service</h3>
+                    <h3 id="update-service" class="fw-bolder d-none">Update service</h3>
+                    <div class="btn btn-icon btn-sm btn-active-icon-success" data-bs-dismiss="modal">
+                        <span class="svg-icon svg-icon-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor"></rect>
+                                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor"></rect>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-body p-7">
+                    <input asp-for="ServiceUpsertModel.Id" type="hidden" value="" />
+                    <div class="fv-row mb-7">
+                        <label class="fs-6 fw-bold mb-2">
+                            <span class="required">Name</span>
+                        </label>
+                        <input asp-for="ServiceUpsertModel.Name" type="text" class="form-control form-control-solid"/>
+                        <span asp-validation-for="ServiceUpsertModel.Name" class="text-danger"></span>
+                    </div>
+                    <div class="fv-row mb-7">
+                        <label class="fs-6 fw-bold mb-2">
+                            <span class="required">Description</span>
+                        </label>
+                        <textarea asp-for="ServiceUpsertModel.Description" class="form-control form-control-solid"></textarea>
+                        <span asp-validation-for="ServiceUpsertModel.Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="modal-footer flex-right">
+                    <button type="button" class="btn btn-light me-3" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="~/js/pages/page-services.js" asp-append-version="true"></script>
+}
+

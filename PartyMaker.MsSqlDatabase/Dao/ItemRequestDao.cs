@@ -27,10 +27,10 @@ public class ItemRequestDao : IItemRequestDao
         var updatedItemRequest = new ItemRequest()
         {
             Id = id,
-            DateTimeCreated = itemRequest.DateTimeCreated,
+            DateCreated = itemRequest.DateCreated,
             Item = item,
             Description = description,
-            DateTimeModified = DateTime.Now,
+            DateModified = DateTime.Now,
             RequestStatus = requestStatus,
             Response = response,
             Price = price,
