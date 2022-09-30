@@ -6,6 +6,7 @@ import NumberField from "../../../ui/NumberField";
 import DetailsField from "./DetailsField";
 import MapControl from "./MapControl";
 import SuppliersList from "./SuppliersList";
+import { SupplierService } from "../../../../services/SupplierService";
 const tempTopSuppliers = [
   {
     id: 1,
@@ -62,6 +63,7 @@ const tempTopSuppliers = [
 ];
 
 const Item = ({ submitItem, handleClear, index }) => {
+  const supplierService = new SupplierService();
   const [supplierState, setSupplierState] = useState([]);
   const [itemState, setItemState] = useState({
     suppliers: [],
@@ -76,8 +78,7 @@ const Item = ({ submitItem, handleClear, index }) => {
     qty: 0,
   });
 
-  const handleSubmitItem = (e) => {
-    e.preventDefault();
+  const handleSubmitItem = () => {
     console.log(itemState);
     submitItem(itemState);
   };
@@ -85,23 +86,32 @@ const Item = ({ submitItem, handleClear, index }) => {
   useEffect(() => {
     //get services from db
   }, []);
-  const handleChangeComboBox = (itemId) => {
-    setItemState({
-      ...itemState,
-      suppliers: tempTopSuppliers,
-      service: itemId,
-    });
-    setSupplierState(tempTopSuppliers);
+  
+  const handleChangeComboBox = async (itemId) => {
+    const res = await supplierService.getSuppliersByServiceId(itemId);
+    if (res.ok) {
+      const responce = await res.json();
+      console.log(responce);
+      setItemState({
+        ...itemState,
+        suppliers: responce,
+        service: itemId,
+      });
+      setSupplierState(responce);
+    }
   };
 
-  const handleChooseLocation = (location) => setItemState({ ...itemState, address: location });
-  const handleChooseDetails = (details) => setItemState({ ...itemState, details: details });
+  const handleChooseLocation = (location) =>
+    setItemState({ ...itemState, address: location });
+  const handleChooseDetails = (details) =>
+    setItemState({ ...itemState, details: details });
   const handleQty = (number) => setItemState({ ...itemState, qty: number });
   const handleDate = (date) => setItemState({ ...itemState, date: date });
-  const handleRequestSuppliers = (data) => setItemState({ ...itemState, suppliers: data });
+  const handleRequestSuppliers = (data) =>
+    setItemState({ ...itemState, suppliers: data });
 
   return (
-    <form onSubmit={handleSubmitItem}>
+    <div>
       <div className="row w-100 m-auto">
         <div className="col col-md-auto">
           <ComboBox
@@ -143,11 +153,11 @@ const Item = ({ submitItem, handleClear, index }) => {
         >
           Clear
         </Button>
-        <Button variant="outlined" type="submit">
+        <Button variant="outlined" type="button" onClick={handleSubmitItem}>
           Submit
         </Button>
       </div>
-    </form>
+    </div>
   );
 };
 

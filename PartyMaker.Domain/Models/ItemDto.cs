@@ -11,10 +11,12 @@ public class ItemDto
     public int TotalPrice { get; set; }
     public ItemStatus ItemStatus { get; set; }
 
+    public DateTime DateExecution { get; set; }
+
     public Guid OrderId { get; set; }
     public AddressDto? AddressDto { get; set; }
 
     public Guid? AcceptedItemRequestId { get; set; }
 
-    public ItemStatusHistoryDto ItemStatusHistoryDto { get; set; }
+    public List<ItemRequestDto> ItemRequestDtos { get; set; }
 }

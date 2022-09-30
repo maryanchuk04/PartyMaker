@@ -34,7 +34,11 @@ const AutoComplete = ({ setCoordinates, fromMapValue, disable }) => {
       getGeocode({ address: description }).then((results) => {
         const { lat, lng } = getLatLng(results[0]);
         console.log("📍 Coordinates: ", { lat, lng });
-        setCoordinates({ lat, lng });
+        setCoordinates({
+          location : description,
+          latitude : lat,
+          longitude : lng
+        });
       });
     };
 
@@ -56,7 +60,7 @@ const AutoComplete = ({ setCoordinates, fromMapValue, disable }) => {
             onClick={handleSelect(suggestion)}
             className="ac-item"
           >
-            <strong>{main_text}</strong> <small>{secondary_text}</small>
+            <small>{main_text}</small> <small>{secondary_text}</small>
           </li>
           <Divider sx={{ borderColor: "black" }} />
         </>

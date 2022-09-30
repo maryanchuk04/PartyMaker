@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PartyMaker.Domain.Entities;
 using PartyMaker.Domain.Interfaces.Dao;
 
@@ -61,5 +62,13 @@ public class SupplierServiceDao : ISupplierServiceDao
         }
         _context.SupplierServices.Remove(supplierService);
         _context.SaveChanges();
+    }
+
+    public SupplierService GetById(Guid id)
+    {
+        return _context.SupplierServices
+            .Include(x => x.Service)
+            .Include(x => x.Supplier)
+            .FirstOrDefault(x => x.Id == id);
     }
 }
