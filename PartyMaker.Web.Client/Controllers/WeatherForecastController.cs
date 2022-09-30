@@ -1,9 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PartyMaker.Domain.Enumerations;
+using System.Data;
 namespace PartyMaker.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+
+
+[Authorize(Roles = UserRole.Customer + "," + UserRole.Supplier)]
+
 public class WeatherForecastController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
