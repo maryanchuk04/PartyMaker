@@ -7,6 +7,8 @@ import "./custom.css";
 import CustomerLogin from "./components/pages/customerLogin";
 import SupplierLogin from "./components/pages/supplier-page/supplierLogin";
 import SupplierWorkspace from "./components/ui/supplier-workspace/SideMenu";
+import SupplierProfileEdit from "./components/pages/supplier-profile/supplierProfileEdit";
+import SupplierProfile from "./components/pages/supplier-profile/supplierProfile";
 import CustomerProfile from './components/pages/customer-profile/customer-profile'
 
 import AuthPreviewPage from "./components/auth-pages/auth-preview-page/auth-preview";
@@ -57,6 +59,8 @@ export default function App() {
           <Route path="/auth/login" component={SingInPage} />
           <Route path="/create-order" component={CreateOrder} />
           <Route path="/supplierWorkspace" component={SupplierWorkspace} />
+          <Route path="/supplierProfileEdit" component={SupplierProfileEdit} />
+          <Route path="/supplier/:id" component={SupplierProfile} />
           <Route path = "/customer/profile" component = {CustomerProfile}/>
           <Route path = "/order/:id" component = {OrderDetailsPage}/>
           <Route path ="/сontact" component = {Contacts}/>  

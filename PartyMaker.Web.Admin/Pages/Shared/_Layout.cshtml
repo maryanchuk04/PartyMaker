@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PartyMaker </title>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+    <link href="assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
+
+    @await RenderSectionAsync("Styles", required: false)
+    <style>
+    .select2-container--bootstrap5 .select2-dropdown .select2-results__option.select2-results__option--selected{
+    background-color:#50cd89;
+    }
+    .menu-state-title-primary .menu-item.hover:not(.here)>.menu-link:not(.disabled):not(.active):not(.here) .menu-title, .menu-state-title-primary .menu-item:not(.here) .menu-link:hover:not(.disabled):not(.active):not(.here) .menu-title {
+    color: #50cd89;
+}
+</style>
+</head>
+<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed">
+    <div class="d-flex flex-column flex-root">
+        <div class="page d-flex flex-row flex-column-fluid">
+            <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
+                @*@if (User.Identity.IsAuthenticated)
+                {
+                    <partial name="_HeaderPartial"/>
+                }*@
+                  <partial name="_HeaderPartial"/>
+                @RenderBody()
+                <partial name="_FooterPartial"/>
+            </div>
+        </div>
+    </div>
+
+    <script>var hostUrl = "assets/";</script>
+    <script src="assets/plugins/global/plugins.bundle.js"></script>
+    <script src="assets/js/scripts.bundle.js"></script>
+
+    <script src="assets/js/widgets.bundle.js"></script>
+    <script src="assets/js/custom/widgets.js"></script>
+
+    <environment include="Development">
+		<script src="~/js/site.js" asp-append-version="true"></script>
+	</environment>
+
+	<environment exclude="Development">
+		<script src="~/js/site.min.js" asp-append-version="true"></script>
+	</environment>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

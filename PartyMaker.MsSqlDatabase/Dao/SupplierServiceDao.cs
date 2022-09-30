@@ -64,6 +64,15 @@ public class SupplierServiceDao : ISupplierServiceDao
         _context.SaveChanges();
     }
 
+    public List<SupplierService> GetSupplierServices(Guid supplierId)
+    {
+        return _context.SupplierServices
+            .Include(sup => sup.Image)
+            .Include(sup => sup.Service)
+            .Where(x => x.SupplierId == supplierId)
+            .ToList();
+    }
+
     public SupplierService GetById(Guid id)
     {
         return _context.SupplierServices

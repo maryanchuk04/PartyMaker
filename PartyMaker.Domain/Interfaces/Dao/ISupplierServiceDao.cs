@@ -10,6 +10,8 @@ public interface ISupplierServiceDao
 
     void Delete(Guid id);
 
+    List<SupplierService> GetSupplierServices(Guid supplierId);
+
     SupplierService GetById(Guid id);
 
 }

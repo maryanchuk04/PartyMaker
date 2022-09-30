@@ -1,18 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyMaker.Web.Client", "PartyMaker.Web.Client\PartyMaker.Web.Client.csproj", "{466535BB-5B43-4794-A153-4166B5B92896}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyMaker.Web.Client", "PartyMaker.Web.Client\PartyMaker.Web.Client.csproj", "{466535BB-5B43-4794-A153-4166B5B92896}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyMaker.Domain", "PartyMaker.Domain\PartyMaker.Domain.csproj", "{297527E0-E835-4442-8848-C8382EF50A63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyMaker.Domain", "PartyMaker.Domain\PartyMaker.Domain.csproj", "{297527E0-E835-4442-8848-C8382EF50A63}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyMaker.Infrastructure", "PartyMaker.Infrastructure\PartyMaker.Infrastructure.csproj", "{E7BD793B-3578-4DF2-8A70-1FD7887425D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyMaker.Infrastructure", "PartyMaker.Infrastructure\PartyMaker.Infrastructure.csproj", "{E7BD793B-3578-4DF2-8A70-1FD7887425D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyMaker.Application", "PartyMaker.Application\PartyMaker.Application.csproj", "{3A1DFB29-97B4-42EE-96A2-C7572760A8E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyMaker.Application", "PartyMaker.Application\PartyMaker.Application.csproj", "{3A1DFB29-97B4-42EE-96A2-C7572760A8E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyMaker.Web.Admin", "PartyMaker.Web.Admin\PartyMaker.Web.Admin.csproj", "{D5352A20-74E9-4F1E-AC2F-83A23CCCF280}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyMaker.MsSqlDatabase", "PartyMaker.MsSqlDatabase\PartyMaker.MsSqlDatabase.csproj", "{E6D32B82-DEE5-49DC-8D7B-0CC40CEA639D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyMaker.MsSqlDatabase", "PartyMaker.MsSqlDatabase\PartyMaker.MsSqlDatabase.csproj", "{E6D32B82-DEE5-49DC-8D7B-0CC40CEA639D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyMaker.Tests", "PartyMaker.Tests\PartyMaker.Tests.csproj", "{416CBBEC-5FFB-4422-AC2F-C9F88EDC471A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyMaker.Tests", "PartyMaker.Tests\PartyMaker.Tests.csproj", "{416CBBEC-5FFB-4422-AC2F-C9F88EDC471A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyMaker.Web.Admin", "PartyMaker.Web.Admin\PartyMaker.Web.Admin.csproj", "{BDEA9995-7919-4FB9-BBE4-57C3881CC2C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,10 +39,6 @@ Global
 		{3A1DFB29-97B4-42EE-96A2-C7572760A8E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A1DFB29-97B4-42EE-96A2-C7572760A8E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A1DFB29-97B4-42EE-96A2-C7572760A8E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5352A20-74E9-4F1E-AC2F-83A23CCCF280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5352A20-74E9-4F1E-AC2F-83A23CCCF280}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5352A20-74E9-4F1E-AC2F-83A23CCCF280}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5352A20-74E9-4F1E-AC2F-83A23CCCF280}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E6D32B82-DEE5-49DC-8D7B-0CC40CEA639D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E6D32B82-DEE5-49DC-8D7B-0CC40CEA639D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6D32B82-DEE5-49DC-8D7B-0CC40CEA639D}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -48,5 +47,15 @@ Global
 		{416CBBEC-5FFB-4422-AC2F-C9F88EDC471A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{416CBBEC-5FFB-4422-AC2F-C9F88EDC471A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{416CBBEC-5FFB-4422-AC2F-C9F88EDC471A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDEA9995-7919-4FB9-BBE4-57C3881CC2C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDEA9995-7919-4FB9-BBE4-57C3881CC2C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDEA9995-7919-4FB9-BBE4-57C3881CC2C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDEA9995-7919-4FB9-BBE4-57C3881CC2C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AFE432BF-36D2-49EB-A334-0025E12C909A}
 	EndGlobalSection
 EndGlobal
