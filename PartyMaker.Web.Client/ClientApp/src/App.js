@@ -16,6 +16,7 @@ import CreateOrder from "./components/pages/order/create-order-page/create-order
 import { green } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Contacts from "./components/pages/contacts/contacts";
+import OrderDetailsPage from "./components/pages/order/order-details-page/order-details-page";
 
 export default function App() {
   const muiTheme = createTheme({
@@ -57,6 +58,7 @@ export default function App() {
           <Route path="/create-order" component={CreateOrder} />
           <Route path="/supplierWorkspace" component={SupplierWorkspace} />
           <Route path = "/customer/profile" component = {CustomerProfile}/>
+          <Route path = "/order/:id" component = {OrderDetailsPage}/>
           <Route path ="/сontact" component = {Contacts}/>  
           <TopButton handleScrollUp={handleScrollUp} showButton={showButton} />
         </div>
