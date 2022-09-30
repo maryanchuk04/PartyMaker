@@ -44,7 +44,7 @@ const CreateOrder = () => {
   }
 
   return (
-    <div className="container pb-">
+    <div className="container pb-4">
       <h1 className="text-center my-2">Create new order</h1>
       <div className="d-flex justify-content-between align-items-center my-4">
         {!media ? (

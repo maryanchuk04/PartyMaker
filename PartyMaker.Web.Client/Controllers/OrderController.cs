@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using PartyMaker.Domain.Entities;
 using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Interfaces.Services;
 using PartyMaker.Domain.Models;
@@ -38,11 +39,28 @@ public class OrderController : ControllerBase
                     ItemStatus = ItemStatus.New,
                     DateCreated = DateTime.Now,
                     DateExecution = oItemViewModel.DateExecution,
+                    ItemRequestDtos = MapItemRequests(oItemViewModel.ItemRequests)
                 });
             }
             _orderService.Create(orderViewModel.CustomerId, itemDtos);
             return Ok();
         }
         return BadRequest();
+    }
+
+    [NonAction]
+    private List<ItemRequestDto> MapItemRequests(List<ItemRequestViewModel> itemRequestViewModels)
+    {
+        List<ItemRequestDto> itemRequests = new List<ItemRequestDto>();
+        foreach (var itemReqView in itemRequestViewModels)
+        {
+            itemRequests.Add(new ItemRequestDto()
+            {
+                ServiceId = itemReqView.ServiceId,
+                SupplierId = itemReqView.SupplierId
+            });
+        }
+
+        return itemRequests;
     }
 }
