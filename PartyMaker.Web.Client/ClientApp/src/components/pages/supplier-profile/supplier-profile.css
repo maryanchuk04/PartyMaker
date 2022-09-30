@@ -1,0 +1,15 @@
+﻿.profile-pic {
+    width: 50%;
+    height: auto;
+    margin:10px;
+    min-width:45vh;
+}
+.service-pic {
+    max-width:90%;
+    height: auto;
+}
+.image-preview {
+    margin-bottom: 2%;
+    aspect-ratio: 1 / 1;
+    width: 300px;
+}

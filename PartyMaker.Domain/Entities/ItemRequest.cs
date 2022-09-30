@@ -5,9 +5,9 @@ namespace PartyMaker.Domain.Entities;
 public class ItemRequest
 {
     public Guid Id { get; set; }
-    public DateTime DateTimeCreated { get; set; }
+    public DateTime DateCreated { get; set; }
     public string Description { get; set; }
-    public DateTime DateTimeModified { get; set; }
+    public DateTime DateModified { get; set; }
     public string Response { get; set; }
     public double Price { get; set; }
     public RequestStatus RequestStatus { get; set; }

@@ -17,11 +17,15 @@ public class WeatherForecastController : ControllerBase
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
+    private readonly IMailService _mailService;
+
+
     private readonly ILogger<WeatherForecastController> _logger;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, IMailService mailService)
     {
         _logger = logger;
+        _mailService = mailService;
     }
 
     [HttpGet]
@@ -35,4 +39,7 @@ public class WeatherForecastController : ControllerBase
             })
             .ToArray();
     }
+
+    [HttpGet("[action]/{to}")]
+    public async Task Send(string to) => await _mailService.SendRegistrationMailAsync(to);
 }

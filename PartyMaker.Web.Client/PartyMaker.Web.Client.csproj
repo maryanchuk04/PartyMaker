@@ -39,6 +39,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PartyMaker.Application\PartyMaker.Application.csproj" />
+      <ProjectReference Include="..\PartyMaker.Infrastructure\PartyMaker.Infrastructure.csproj" />
       <ProjectReference Include="..\PartyMaker.MsSqlDatabase\PartyMaker.MsSqlDatabase.csproj" />
     </ItemGroup>
 
