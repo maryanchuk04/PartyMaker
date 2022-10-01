@@ -11,16 +11,19 @@ const SupplierLogin = () => {
   const supplierService = new SupplierService();
   const baseService = new BaseService();
   const history = useHistory();
+
   const [supplierState, setSupplierState] = useState({
     name: "",
     email: "",
     password: "",
-    confirm: "",
+    passwordConfirm: "",
+    role: "supplier"
   });
 
   async function createSupplier(e) {
     e.preventDefault();
     console.log(supplierState);
+
     const res = await supplierService.insertNewSupplier(supplierState);
     if (res.ok) {
       alert("Supplier registered succesfully");
@@ -74,7 +77,7 @@ const SupplierLogin = () => {
           className="field"
           required
           onChange={(e) =>
-            setSupplierState({ ...supplierState, confirm: e.target.value })
+            setSupplierState({ ...supplierState, passwordConfirm: e.target.value })
           }
           sx={{ marginY: "10px" }}
         />

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartyMaker.MsSqlDatabase;
 
@@ -11,9 +12,10 @@ using PartyMaker.MsSqlDatabase;
 namespace PartyMaker.MsSqlDatabase.Migrations
 {
     [DbContext(typeof(PartyMakerContext))]
-    partial class PartyMakerContextModelSnapshot : ModelSnapshot
+    [Migration("20220926154439_MyOwnMigration")]
+    partial class MyOwnMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -231,12 +233,6 @@ namespace PartyMaker.MsSqlDatabase.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateExecution")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ItemStatus")
                         .HasColumnType("int");
 
@@ -271,10 +267,10 @@ namespace PartyMaker.MsSqlDatabase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("DateTimeCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("DateModified")
+                    b.Property<DateTime>("DateTimeModified")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -484,19 +480,6 @@ namespace PartyMaker.MsSqlDatabase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -513,6 +496,7 @@ namespace PartyMaker.MsSqlDatabase.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyName")
