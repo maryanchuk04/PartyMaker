@@ -56,7 +56,9 @@ builder.Services.AddSingleton<IMailClient, MailClient>();
 builder.Services.AddSingleton<IMailService, MailService>();
 builder.Services.AddScoped<IOrderDao, OrderDao>();
 builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<ISupplierDao, SupplierDao>();
+builder.Services.AddScoped<ISuppliersDao, SuppliersDao>();
+builder.Services.AddScoped<IServicesService, ServicesService>();
+builder.Services.AddScoped<IServicesDao, ServicesDao>();
 
 var app = builder.Build();
 

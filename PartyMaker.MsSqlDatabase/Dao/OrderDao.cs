@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PartyMaker.Domain.Entities;
 using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Interfaces.Dao;
@@ -49,5 +50,15 @@ public class OrderDao : IOrderDao
 
         _context.Orders.Remove(order);
         _context.SaveChanges();
+    }
+
+    public Order GetOrderById(Guid id)
+    {
+        return _context.Orders
+            .Include(x => x.Items)
+                .ThenInclude(x=>x.Address)
+            .Include(x=>x.Items)
+                .ThenInclude(x=>x.ItemRequests)
+            .FirstOrDefault(x => x.Id == id);
     }
 }

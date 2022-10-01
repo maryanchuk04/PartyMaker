@@ -2,19 +2,19 @@ import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
 import { reverseGeocode } from "../../utils/helpers";
 
-const Map = ({ handleSelect }) => {
+const Map = ({ handleSelect, initCenter }) => {
   const defaultProps = {
     center: {
       lat: 50.4501,
       lng: 30.5234,
     },
   };
-  const [center, setCenter] = useState({ ...defaultProps.center });
+  const [center, setCenter] = useState(initCenter || { ...defaultProps.center });
 
   const [xy, setXY] = useState({});
   useEffect(() => {}, []);
   return (
-    <div style={{ height: "50vh", width: "100%", position: "relative" }}>
+    <div style={{ height: "100%", width: "100%", position: "relative" }}>
       <GoogleMapReact
         defaultCenter={defaultProps.center}
         defaultZoom={8}

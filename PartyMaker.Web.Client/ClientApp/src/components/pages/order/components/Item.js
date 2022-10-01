@@ -7,6 +7,7 @@ import DetailsField from "./DetailsField";
 import MapControl from "./MapControl";
 import SuppliersList from "./SuppliersList";
 import { SupplierService } from "../../../../services/SupplierService";
+import { ServicesService } from "../../../../services/ServicesService";
 const tempTopSuppliers = [
   {
     id: 1,
@@ -64,6 +65,8 @@ const tempTopSuppliers = [
 
 const Item = ({ submitItem, handleClear, index }) => {
   const supplierService = new SupplierService();
+  const servicesService = new ServicesService();
+  const [services, setServices] = useState([]);
   const [supplierState, setSupplierState] = useState([]);
   const [itemState, setItemState] = useState({
     suppliers: [],
@@ -84,10 +87,20 @@ const Item = ({ submitItem, handleClear, index }) => {
   };
 
   useEffect(() => {
-    //get services from db
+    (async ()=> {
+      const res = await servicesService.getAllServices();
+      if(res.ok){
+        const response = await res.json();
+        setServices(response);
+      }
+    })()
   }, []);
   
   const handleChangeComboBox = async (itemId) => {
+    setItemState({
+      ...itemState,
+      service: itemId,
+    });
     const res = await supplierService.getSuppliersByServiceId(itemId);
     if (res.ok) {
       const responce = await res.json();
@@ -95,7 +108,6 @@ const Item = ({ submitItem, handleClear, index }) => {
       setItemState({
         ...itemState,
         suppliers: responce,
-        service: itemId,
       });
       setSupplierState(responce);
     }
@@ -117,7 +129,7 @@ const Item = ({ submitItem, handleClear, index }) => {
           <ComboBox
             label={"Choose the service"}
             handleChange={handleChangeComboBox}
-            arrayData={[{ id: 12, name: "ballons" }]}
+            arrayData={services}
           />
           <DatePicker
             handleChange={handleDate}

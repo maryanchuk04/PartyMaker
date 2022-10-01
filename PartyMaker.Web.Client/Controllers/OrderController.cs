@@ -48,6 +48,12 @@ public class OrderController : ControllerBase
         return BadRequest();
     }
 
+    [HttpGet("[action]/{id}")]
+    public IActionResult GetOrderById(Guid id)
+    {
+        return Ok(_orderService.GetById(id));
+    }
+
     [NonAction]
     private List<ItemRequestDto> MapItemRequests(List<ItemRequestViewModel> itemRequestViewModels)
     {

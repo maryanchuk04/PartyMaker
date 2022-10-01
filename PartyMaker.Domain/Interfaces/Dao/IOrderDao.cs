@@ -7,4 +7,6 @@ public interface IOrderDao
     void Create(Guid customerId, List<Item> items, double totalPrice);
 
     void Delete(Guid id);
+
+    Order GetOrderById(Guid id);
 }

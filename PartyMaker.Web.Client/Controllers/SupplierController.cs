@@ -1,23 +1,24 @@
 using System.Dynamic;
 using Microsoft.AspNetCore.Mvc;
 using PartyMaker.Domain.Interfaces.Dao;
+using PartyMaker.Domain.Interfaces.Services;
 
 namespace PartyMaker.Controllers;
 [ApiController]
 [Route("api/[controller]")]
 public class SupplierController : ControllerBase
 {
-    private readonly ISupplierDao _supplierDao;
+    private readonly ISuppliersService _suppliersService;
 
-    public SupplierController(ISupplierDao supplierDao)
+    public SupplierController(ISuppliersService suppliersService)
     {
-        _supplierDao = supplierDao;
+        _suppliersService = suppliersService;
     }
 
     [HttpGet("[action]/{serviceId}")]
     public IActionResult GetSuppliersByServiceId(Guid serviceId)
     {
-        var suppliers = _supplierDao.GetByServiceId(serviceId);
+        var suppliers = _suppliersService.GetByServiceId(serviceId);
         return Ok(suppliers);
     }
 }

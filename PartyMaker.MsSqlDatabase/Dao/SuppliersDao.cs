@@ -15,10 +15,30 @@ public class SuppliersDao : ISuppliersDao
 
     public List<Supplier> GetSupliers()
     {
-        return _context.Suppliers.Include(sup => sup.User).ToList(); 
+        return _context.Suppliers.Include(sup => sup.User).ToList();
     }
     public Supplier GetById(Guid id)
     {
         return _context.Suppliers.FirstOrDefault(x => x.Id == id);
     }
+
+    public Supplier GetSuppliersInfoById(Guid id)
+    {
+        var supplier = _context.Suppliers
+            .Include(x => x.SupplierServices)
+            .Include(x=>x.User)
+            .FirstOrDefault(x => x.Id == id);
+        return supplier;
+    }
+
+    public List<Supplier> GetByServiceId(Guid id)
+    {
+        return _context.SupplierServices
+            .Include(x => x.Service)
+            .Include(x => x.Supplier)
+            .Where(x=>x.Service.Id == id)
+            .Select(x=>x.Supplier)
+            .ToList();
+    }
+
 }
