@@ -21,4 +21,15 @@ public class SuppliersDao : ISuppliersDao
     {
         return _context.Suppliers.FirstOrDefault(x => x.Id == id);
     }
+
+    public void Deactivate(Guid id)
+    {
+        var supplier = _context.Suppliers.FirstOrDefault(x => x.Id == id);
+        if (supplier == null)
+        {
+            return;
+        }
+        supplier.IsDeleted = true;
+        _context.SaveChanges();
+    }
 }

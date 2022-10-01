@@ -29,4 +29,9 @@ public class SuppliersService : ISuppliersService
     {
         return _supplierServiceDao.GetSupplierServices(supplierId);
     }
+
+    public void Deactivate(Guid id)
+    {
+        _suppliersDao.Deactivate(id);
+    }
 }

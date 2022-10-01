@@ -21,6 +21,7 @@ public class SuppliersModel : PageModel
     public void OnGet()
     {
         Suppliers = _suppliersService.GetSuppliers()
+            .Where(sup => !sup.IsDeleted)
             .Select(sup =>
             new SupplierModel{ 
                 Id = sup.Id,
@@ -44,5 +45,10 @@ public class SuppliersModel : PageModel
                 Description = sups.Description})
             .ToList();
         return new JsonResult(services);
+    }
+    public IActionResult OnPostDeactivate(Guid supplierId)
+    {
+        _suppliersService.Deactivate(supplierId);
+        return RedirectToPage();
     }
 }

@@ -49,4 +49,16 @@ public class ServicesDao : IServicesDao
     {
         return _context.Services.FirstOrDefault(s => s.Id == id);
     }
+
+    public void Deactivate(Guid id, DateTime updatedDate)
+    {
+        var service = _context.Services.FirstOrDefault(s => s.Id == id);
+        if (service == null)
+        {
+            return;
+        }
+        service.IsDeleted = true;
+        service.DateUpdated = updatedDate;
+        _context.SaveChanges();
+    }
 }

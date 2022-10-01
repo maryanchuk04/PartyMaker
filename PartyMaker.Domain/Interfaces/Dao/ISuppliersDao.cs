@@ -6,4 +6,5 @@ public interface ISuppliersDao
 {
     List<Supplier> GetSupliers();
     Supplier GetById(Guid id);
+    void Deactivate(Guid id);
 }

@@ -8,4 +8,5 @@ public interface IServicesService
     List<Service> GetServices();
     Service UpsertService(ServiceUpsertModel upsertModel);
     Service GetById(Guid id);
+    void Deactivate(Guid id);
 }

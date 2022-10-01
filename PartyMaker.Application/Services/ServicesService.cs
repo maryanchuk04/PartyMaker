@@ -35,4 +35,9 @@ public class ServicesService : IServicesService
     {
         return _servicesDao.GetById(id);
     }
+
+    public void Deactivate(Guid id)
+    {
+        _servicesDao.Deactivate(id, DateTime.Now);
+    }
 }
