@@ -1,12 +1,15 @@
+using System.Net;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using PartyMaker.Application.Services;
 using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Interfaces.Dao;
 using PartyMaker.Domain.Interfaces.Infrastructure;
 using PartyMaker.Domain.Interfaces.Services;
 using PartyMaker.Infrastructure.Configuration;
 using PartyMaker.Infrastructure.SendGrid;
 using PartyMaker.MsSqlDatabase;
+using PartyMaker.MsSqlDatabase.Dao;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +54,13 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 builder.Services.AddSingleton<IMailClient, MailClient>();
 builder.Services.AddSingleton<IMailService, MailService>();
+builder.Services.AddScoped<IOrderDao, OrderDao>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<ISuppliersDao, SuppliersDao>();
+builder.Services.AddScoped<IServicesService, ServicesService>();
+builder.Services.AddScoped<IServicesDao, ServicesDao>();
+builder.Services.AddScoped<ISuppliersService, SuppliersService>();
+builder.Services.AddScoped<ISupplierServiceDao, SupplierServiceDao>();
 
 
 var app = builder.Build();

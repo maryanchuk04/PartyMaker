@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartyMaker.MsSqlDatabase;
 
@@ -11,9 +12,10 @@ using PartyMaker.MsSqlDatabase;
 namespace PartyMaker.MsSqlDatabase.Migrations
 {
     [DbContext(typeof(PartyMakerContext))]
-    partial class PartyMakerContextModelSnapshot : ModelSnapshot
+    [Migration("20221002062013_NullableResonseFromSupplier")]
+    partial class NullableResonseFromSupplier
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -513,9 +515,6 @@ namespace PartyMaker.MsSqlDatabase.Migrations
                     b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("UserId")
                         .IsRequired()

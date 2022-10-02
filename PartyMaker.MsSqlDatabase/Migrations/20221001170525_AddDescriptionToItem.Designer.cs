@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PartyMaker.MsSqlDatabase;
 
@@ -11,9 +12,10 @@ using PartyMaker.MsSqlDatabase;
 namespace PartyMaker.MsSqlDatabase.Migrations
 {
     [DbContext(typeof(PartyMakerContext))]
-    partial class PartyMakerContextModelSnapshot : ModelSnapshot
+    [Migration("20221001170525_AddDescriptionToItem")]
+    partial class AddDescriptionToItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -277,6 +279,10 @@ namespace PartyMaker.MsSqlDatabase.Migrations
                     b.Property<DateTime>("DateModified")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<Guid>("ItemId")
                         .HasColumnType("uniqueidentifier");
 
@@ -287,6 +293,7 @@ namespace PartyMaker.MsSqlDatabase.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Response")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("SupplierServiceId")
@@ -508,14 +515,12 @@ namespace PartyMaker.MsSqlDatabase.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("UserId")
                         .IsRequired()

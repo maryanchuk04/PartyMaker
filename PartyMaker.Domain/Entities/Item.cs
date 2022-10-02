@@ -11,6 +11,7 @@ public class Item
     public int TotalPrice { get; set; }
     public ItemStatus ItemStatus { get; set; }
     public DateTime DateExecution { get; set; }
+    public string? Description { get; set; }
 
     public Order Order { get; set; }
     public Address Address { get; set; }

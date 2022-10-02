@@ -2,32 +2,53 @@ import React, { useState } from "react";
 import { Button, IconButton } from "@mui/material";
 import AccordionItem from "../components/AccordionItem";
 import Item from "../components/Item";
-import {useMedia} from 'use-media';
+import { useMedia } from "use-media";
+import { OrderService } from "../../../../services/OrderService";
+import { ArrowForwardIosOutlined } from "@material-ui/icons";
+import AlertWrapper from "../../../ui/Alert";
 
 const CreateOrder = () => {
   const [accordionState, setAccordionState] = useState([]);
+  const [alert, setAlert] = useState({ show: false, message: "", type: "" });
   const [orderState, setOrderState] = useState([]);
   const media = useMedia({ maxWidth: 430 });
+  const service = new OrderService();
 
   const handleAdd = (new_element) => {
     console.log(new_element);
     setAccordionState((prev) => [...prev, new_element]);
   };
 
-  const handleSubmitItem = (item) => setOrderState((prev) => [...prev, item]);
+  const handleSubmitItem = (item) => {
+    setOrderState((prev) => [...prev, item]);
+  };
 
   const handleCancel = () => setAccordionState([]);
 
   const handleRemoveItem = (index) =>
     setAccordionState(accordionState.filter((x) => x !== index));
-
-  function createOrder() {
-    //create Order
-    console.log(orderState);
+  const handleShowMessage = (message) =>{
+    setAlert({ show: true, message: message, type: "success" });
+    setTimeout(() => setAlert({ ...alert, show: false }), 5000);
+  }
+  async function createOrder() {
+    const res = await service.createOrder({
+      customerId: "cd7fcf95-4ca1-457d-bcaa-8fc0e9aecd4b",
+      items: orderState,
+    });
+    if (res.ok) {
+      //maybe redirect details page
+      setAlert({ show: true, message: "Order Created!", type: "success" });
+      setTimeout(() => setAlert({ ...alert, show: false }), 5000);
+      handleCancel();
+    } else {
+      setAlert({ show: true, message: "Something went wrong", type: "error" });
+      setTimeout(() => setAlert({ ...alert, show: false }), 5000);
+    }
   }
 
   return (
-    <div className="container pb-">
+    <div className="container pb-4">
       <h1 className="text-center my-2">Create new order</h1>
       <div className="d-flex justify-content-between align-items-center my-4">
         {!media ? (
@@ -48,7 +69,11 @@ const CreateOrder = () => {
         )}
         <div className="d-flex justify-content-end">
           <Button onClick={handleCancel}>Cancel</Button>
-          <Button variant="contained" sx={{ marginLeft: "20px" }}>
+          <Button
+            variant="contained"
+            sx={{ marginLeft: "20px" }}
+            onClick={createOrder}
+          >
             Create order
           </Button>
         </div>
@@ -66,9 +91,17 @@ const CreateOrder = () => {
               submitItem={handleSubmitItem}
               handleClear={handleRemoveItem}
               index={index}
+              handleShowMessage = {handleShowMessage}
             />
           </AccordionItem>
         ))
+      )}
+      {alert.show && (
+        <AlertWrapper
+          message={alert.message}
+          type={alert.type}
+          onClose={() => setAlert({ ...alert, show: false })}
+        />
       )}
     </div>
   );

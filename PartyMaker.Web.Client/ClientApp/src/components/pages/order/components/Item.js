@@ -6,6 +6,8 @@ import NumberField from "../../../ui/NumberField";
 import DetailsField from "./DetailsField";
 import MapControl from "./MapControl";
 import SuppliersList from "./SuppliersList";
+import { SupplierService } from "../../../../services/SupplierService";
+import { ServicesService } from "../../../../services/ServicesService";
 const tempTopSuppliers = [
   {
     id: 1,
@@ -61,53 +63,92 @@ const tempTopSuppliers = [
   },
 ];
 
-const Item = ({ submitItem, handleClear, index }) => {
+const Item = ({ submitItem, handleClear, index, handleShowMessage }) => {
+  const supplierService = new SupplierService();
+  const servicesService = new ServicesService();
+  const [services, setServices] = useState([]);
   const [supplierState, setSupplierState] = useState([]);
   const [itemState, setItemState] = useState({
     suppliers: [],
-    service: null,
+    service: "",
     address: {
       location: "",
       longitude: 0,
       latitude: 0,
     },
-    details: "",
+    description: "",
     date: "",
     qty: 0,
+    price : 0
   });
 
-  const handleSubmitItem = (e) => {
-    e.preventDefault();
+  const handleSubmitItem = () => {
     console.log(itemState);
-    submitItem(itemState);
+    
+    const finalObj = {
+      address : itemState.address,
+      description : itemState.description,
+      date : itemState.date,
+      qty : itemState.qty,
+      itemRequests : [],
+      price : itemState.price
+    }
+    itemState?.suppliers.forEach(element => {
+        finalObj.itemRequests.push({
+          supplierId : element.id,
+          serviceId : itemState.service
+        })
+    });
+    
+    console.log(finalObj);
+  
+    submitItem(finalObj);
+    handleShowMessage("Service add.");
   };
 
   useEffect(() => {
-    //get services from db
+    (async ()=> {
+      const res = await servicesService.getAllServices();
+      if(res.ok){
+        const response = await res.json();
+        setServices(response);
+      }
+    })()
   }, []);
-  const handleChangeComboBox = (itemId) => {
-    setItemState({
-      ...itemState,
-      suppliers: tempTopSuppliers,
-      service: itemId,
-    });
-    setSupplierState(tempTopSuppliers);
+  
+  const handleChangeComboBox = async (itemId) => {
+    console.log(itemId);
+    const res = await supplierService.getSuppliersByServiceId(itemId);
+    if (res.ok) {
+      const responce = await res.json();
+      console.log(responce);
+      setItemState({
+        ...itemState,
+        suppliers: responce,
+        service : itemId
+      });
+      setSupplierState(responce);
+    }
   };
-
-  const handleChooseLocation = (location) => setItemState({ ...itemState, address: location });
-  const handleChooseDetails = (details) => setItemState({ ...itemState, details: details });
+  const handleChooseComboItem=(id) => setItemState({...itemState, service : id})
+  const handleChooseLocation = (location) =>
+    setItemState({ ...itemState, address: location });
+  const handleChooseDetails = (details) =>
+    setItemState({ ...itemState, description: details });
   const handleQty = (number) => setItemState({ ...itemState, qty: number });
   const handleDate = (date) => setItemState({ ...itemState, date: date });
-  const handleRequestSuppliers = (data) => setItemState({ ...itemState, suppliers: data });
+  const handleRequestSuppliers = (data) =>
+    setItemState({ ...itemState, suppliers: data });
+  const handleChangePrice = (price) => setItemState({...itemState, price : price});
 
   return (
-    <form onSubmit={handleSubmitItem}>
+    <div>
       <div className="row w-100 m-auto">
         <div className="col col-md-auto">
           <ComboBox
             label={"Choose the service"}
             handleChange={handleChangeComboBox}
-            arrayData={[{ id: 12, name: "ballons" }]}
+            arrayData={services}
           />
           <DatePicker
             handleChange={handleDate}
@@ -116,11 +157,22 @@ const Item = ({ submitItem, handleClear, index }) => {
           />
         </div>
         <div className="col col-md-3" style={{ minWidth: "320px" }}>
-          <NumberField
-            label={"Count"}
-            handleChange={handleQty}
-            required={true}
-          />
+          <div className = "row">
+            <div className = 'col w-50'>
+              <NumberField
+                label={"Count"}
+                handleChange={handleQty}
+                required={true}
+              />
+            </div>
+            <div className = 'col w-50'>
+              <NumberField
+                label={"Yor price for one"}
+                handleChange={handleChangePrice}
+                required={true}
+              />
+          </div>
+          </div>
           <DetailsField
             label={"Service details"}
             handleChooseDetails={handleChooseDetails}
@@ -143,11 +195,11 @@ const Item = ({ submitItem, handleClear, index }) => {
         >
           Clear
         </Button>
-        <Button variant="outlined" type="submit">
+        <Button variant="outlined" type="button" onClick={handleSubmitItem}>
           Submit
         </Button>
       </div>
-    </form>
+    </div>
   );
 };
 

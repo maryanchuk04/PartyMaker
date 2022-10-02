@@ -9,7 +9,7 @@ const DetailsField = ({ label, defaultValue, handleChooseDetails }) => {
       maxRows={8}
       minRows={8}
       defaultValue={defaultValue}
-      sx={{ width: "100%" }}
+      sx={{ width: "100%"}}
       onChange={(e) => handleChooseDetails(e.target.value)}
     />
   );

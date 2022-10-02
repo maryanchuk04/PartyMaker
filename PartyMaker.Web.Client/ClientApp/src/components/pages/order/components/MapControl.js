@@ -19,7 +19,7 @@ const MapControl = ({ handleChooseLocation }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={(e)=>handleSubmit(e)}>
       <div className="d-flex align-items-center my-2 justify-content-between">
         <Button
           variant="outlined"
@@ -34,18 +34,18 @@ const MapControl = ({ handleChooseLocation }) => {
             open={open}
             close={() => setOpen(false)}
             title={"Delivery address"}
-            handleSubmit={handleSubmit}
+            handleSubmit = {handleSubmit}
           >
-            <div>
+            <div style = {{height:"50vh"}}>
               <Map handleSelect={setLocationState} />
             </div>
           </SimpleModal>
         ) : null}
-        <Button variant="outlined" type="submit">
+        <Button variant="outlined" onClick = {handleSubmit}>
           Save
         </Button>
       </div>
-      <AutoComplete fromMapValue={locationState.location} />
+      <AutoComplete setCoordinates ={setLocationState} fromMapValue={locationState.location} />
     </form>
   );
 };

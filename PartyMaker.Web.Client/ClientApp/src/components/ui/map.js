@@ -2,35 +2,41 @@ import React, { useEffect, useState } from "react";
 import GoogleMapReact from "google-map-react";
 import { reverseGeocode } from "../../utils/helpers";
 
-const Map = ({ handleSelect }) => {
+const Map = ({ handleSelect, initCenter, disable = false }) => {
   const defaultProps = {
     center: {
       lat: 50.4501,
       lng: 30.5234,
     },
   };
-  const [center, setCenter] = useState({ ...defaultProps.center });
+  const [center, setCenter] = useState(initCenter || { ...defaultProps.center });
 
-  const [xy, setXY] = useState({});
+  useEffect(()=>{
+    setCenter(initCenter)
+  }, [initCenter])
+
   useEffect(() => {}, []);
   return (
-    <div style={{ height: "50vh", width: "100%", position: "relative" }}>
+    <div style={{ height: "100%", width: "100%", position: "relative" }}>
       <GoogleMapReact
         defaultCenter={defaultProps.center}
         defaultZoom={8}
         center={center}
         onClick={async (coordinates) => {
-          setCenter({ lat: coordinates.lat, lng: coordinates.lng });
-          const res = await reverseGeocode({
-            lng: coordinates.lng,
-            lat: coordinates.lat,
-          });
-          console.log(res);
-          handleSelect({
-            latitude: coordinates.lat,
-            longitude: coordinates.lng,
-            location: res.address.LongLabel,
-          });
+          if(!disable){
+            setCenter({ lat: coordinates.lat, lng: coordinates.lng });
+            const res = await reverseGeocode({
+              lng: coordinates.lng,
+              lat: coordinates.lat,
+            });
+            console.log(res);
+            handleSelect({
+              latitude: coordinates.lat,
+              longitude: coordinates.lng,
+              location: res.address.LongLabel,
+            });
+          }
+          
         }}
       >
         <Marker />
@@ -38,6 +44,7 @@ const Map = ({ handleSelect }) => {
     </div>
   );
 };
+
 
 const Marker = (props) => {
   return (

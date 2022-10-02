@@ -9,5 +9,10 @@ public interface ISupplierServiceDao
     void Update(string description, string imageUrl, Guid supplierId, Guid serviceId);
 
     void Delete(Guid id);
+
     List<SupplierService> GetSupplierServices(Guid supplierId);
+
+    SupplierService GetById(Guid id);
+
+    SupplierService GetSupplierService(Guid serviceId, Guid supplierId);
 }

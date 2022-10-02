@@ -29,7 +29,6 @@ public class ItemRequestDao : IItemRequestDao
             Id = id,
             DateCreated = itemRequest.DateCreated,
             Item = item,
-            Description = description,
             DateModified = DateTime.Now,
             RequestStatus = requestStatus,
             Response = response,

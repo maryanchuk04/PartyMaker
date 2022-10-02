@@ -72,4 +72,20 @@ public class SupplierServiceDao : ISupplierServiceDao
             .Where(x => x.SupplierId == supplierId)
             .ToList();
     }
+
+    public SupplierService GetById(Guid id)
+    {
+        return _context.SupplierServices
+            .Include(x => x.Service)
+            .Include(x => x.Supplier)
+            .FirstOrDefault(x => x.Id == id);
+    }
+
+    public SupplierService GetSupplierService(Guid serviceId, Guid supplierId)
+    {
+        return _context.SupplierServices
+            .Include(x => x.Service)
+            .Include(x => x.Service)
+            .FirstOrDefault(x => x.SupplierId == supplierId && x.Service.Id == serviceId);
+    }
 }

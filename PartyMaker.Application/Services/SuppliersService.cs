@@ -30,6 +30,21 @@ public class SuppliersService : ISuppliersService
         return _supplierServiceDao.GetSupplierServices(supplierId);
     }
 
+    public Supplier GetSuppliersInfoById(Guid id)
+    {
+        return _suppliersDao.GetSuppliersInfoById(id);
+    }
+
+    public List<Supplier> GetByServiceId(Guid id)
+    {
+        return _suppliersDao.GetByServiceId(id);
+    }
+
+    public void CreateSupplierService(Guid supplierId, Guid serviceId, string description, string imageUrl)
+    {
+        _supplierServiceDao.Create(description, imageUrl, supplierId, serviceId);
+    }
+
     public void Deactivate(Guid id)
     {
         _suppliersDao.Deactivate(id);

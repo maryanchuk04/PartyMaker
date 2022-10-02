@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./alert.css";
 import { Alert, IconButton } from "@mui/material";
 
-const AlertWrapper = ({ message, handleClose }) => {
+const AlertWrapper = ({ message, handleClose, type }) => {
+
+  useEffect(()=>{
+    console.log(type);
+  },[])
   return (
     <>
       <Alert
-        severity="success"
+        severity={type}
         className="alert"
         onClose={handleClose}
         action={
