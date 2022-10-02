@@ -10,26 +10,26 @@ namespace PartyMaker.Application.Services;
 public class OrderService : IOrderService
 {
     private readonly IOrderDao _orderDao;
+    private readonly ISupplierServiceDao _supplierServiceDao;
 
-    public OrderService(IOrderDao orderDao)
+    public OrderService(IOrderDao orderDao, ISupplierServiceDao supplierServiceDao)
     {
         _orderDao = orderDao;
+        _supplierServiceDao = supplierServiceDao;
     }
 
-    public void  Create(Guid customerId, List<ItemDto> items)
+    public void Create(Guid customerId, List<ItemDto> items)
     {
         if (items.Count == 0)
         {
             return;
         }
         items.ForEach(x=>x.TotalPrice = x.Price * x.Qty);
+        items.ForEach(x=> x.ItemRequestDtos
+            .ForEach(x=>x.SupplierServiceId = _supplierServiceDao.GetSupplierService(x.ServiceId.Value, x.SupplierId.Value).Id));
+
         double totalPrice = items.Select(x => x.TotalPrice.Value).Sum();
         var itemsList = MapToItems(items);
-        foreach (var item in itemsList)
-        {
-
-        }
-
         _orderDao.Create(customerId,itemsList, totalPrice);
     }
 
@@ -54,7 +54,7 @@ public class OrderService : IOrderService
         return orderDto;
     }
 
-    private static List<Item> MapToItems(List<ItemDto> itemDtos)
+    private List<Item> MapToItems(List<ItemDto> itemDtos)
     {
         List<Item> items = new List<Item>();
         foreach (var itemDto in itemDtos)
@@ -83,6 +83,7 @@ public class OrderService : IOrderService
                         ItemStatus = ItemStatus.New
                     }
                 },
+                ItemRequests = this.MapItemRequests(itemDto.ItemRequestDtos)
             });
         }
 
@@ -102,17 +103,64 @@ public class OrderService : IOrderService
                 TotalPrice = item.TotalPrice,
                 DateCreated = item.DateCreated,
                 Description = item.Description,
+                DateExecution = item.DateExecution,
                 AddressDto = new AddressDto()
                 {
                     Latitude = item.Address.Latitude.Value,
                     Longitude = item.Address.Longitude.Value,
                     Location = item.Address.Location
                 },
-                ItemStatus = item.ItemStatus
+                ItemStatus = item.ItemStatus,
+                ItemRequestDtos = MapItemRequests(item.ItemRequests.ToList())
             };
             itemsDto.Add(dto);
         }
 
         return itemsDto;
+    }
+
+    private List<ItemRequest> MapItemRequests(List<ItemRequestDto> itemRequestDtos)
+    {
+        var itemsRequests = new List<ItemRequest>();
+        foreach (var itemRequest in itemRequestDtos)
+        {
+            itemsRequests.Add(new ItemRequest()
+            {
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now,
+                Id = Guid.NewGuid(),
+                RequestStatus = RequestStatus.Sent,
+                SupplierService = _supplierServiceDao.GetById(itemRequest.SupplierServiceId.Value),
+            });
+        }
+
+        return itemsRequests;
+    }
+
+    private List<ItemRequestDto> MapItemRequests(List<ItemRequest> itemRequests)
+    {
+        var itemsRequests = new List<ItemRequestDto>();
+        foreach (var itemRequest in itemRequests)
+        {
+            itemsRequests.Add(new ItemRequestDto()
+            {
+                DateCreated = itemRequest.DateCreated,
+                DateModified = itemRequest.DateModified,
+                Id = itemRequest.Id,
+                RequestStatus = itemRequest.RequestStatus,
+                Response = itemRequest.Response,
+                Price = itemRequest.Price,
+                SupplierService = new SupplierServiceDto()
+                {
+                    Id = itemRequest.SupplierService.Id,
+                    SupplierId = itemRequest.SupplierService.Supplier.Id,
+                    Service = itemRequest.SupplierService.Service,
+                    Description = itemRequest.SupplierService.Description,
+                    SupplierCompanyName = itemRequest.SupplierService.Supplier.CompanyName,
+                }
+            });
+        }
+
+        return itemsRequests;
     }
 }

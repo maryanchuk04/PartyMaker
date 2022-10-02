@@ -80,4 +80,12 @@ public class SupplierServiceDao : ISupplierServiceDao
             .Include(x => x.Supplier)
             .FirstOrDefault(x => x.Id == id);
     }
+
+    public SupplierService GetSupplierService(Guid serviceId, Guid supplierId)
+    {
+        return _context.SupplierServices
+            .Include(x => x.Service)
+            .Include(x => x.Service)
+            .FirstOrDefault(x => x.SupplierId == supplierId && x.Service.Id == serviceId);
+    }
 }

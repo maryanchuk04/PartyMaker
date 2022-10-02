@@ -52,7 +52,7 @@ public class AccountController : ControllerBase
                 }
                 await _userManager.AddToRoleAsync(await _userManager.FindByNameAsync(supplier.UserName), UserRole.Supplier);
             }
-            
+
 
             if(model.Role == UserRole.Customer)
             {
@@ -63,7 +63,7 @@ public class AccountController : ControllerBase
             {
                 UserName = model.Email,
                 Email = model.Email,
-                FirstName = model.FirstName, 
+                FirstName = model.FirstName,
                 LastName = model.LastName,
                 Customer = new Customer
                 {
@@ -117,7 +117,7 @@ public class AccountController : ControllerBase
     {
         // Delete auth cookies
         await _signInManager.SignOutAsync();
-        return RedirectToAction("Index", "Home");
+        return Ok();
     }
 
 }

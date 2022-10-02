@@ -14,4 +14,5 @@ public interface ISupplierServiceDao
 
     SupplierService GetById(Guid id);
 
+    SupplierService GetSupplierService(Guid serviceId, Guid supplierId);
 }

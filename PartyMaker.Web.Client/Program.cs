@@ -59,6 +59,9 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<ISuppliersDao, SuppliersDao>();
 builder.Services.AddScoped<IServicesService, ServicesService>();
 builder.Services.AddScoped<IServicesDao, ServicesDao>();
+builder.Services.AddScoped<ISuppliersService, SuppliersService>();
+builder.Services.AddScoped<ISupplierServiceDao, SupplierServiceDao>();
+
 
 var app = builder.Build();
 

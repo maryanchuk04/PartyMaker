@@ -27,7 +27,10 @@ const CreateOrder = () => {
 
   const handleRemoveItem = (index) =>
     setAccordionState(accordionState.filter((x) => x !== index));
-
+  const handleShowMessage = (message) =>{
+    setAlert({ show: true, message: message, type: "success" });
+    setTimeout(() => setAlert({ ...alert, show: false }), 5000);
+  }
   async function createOrder() {
     const res = await service.createOrder({
       customerId: "cd7fcf95-4ca1-457d-bcaa-8fc0e9aecd4b",
@@ -37,6 +40,7 @@ const CreateOrder = () => {
       //maybe redirect details page
       setAlert({ show: true, message: "Order Created!", type: "success" });
       setTimeout(() => setAlert({ ...alert, show: false }), 5000);
+      handleCancel();
     } else {
       setAlert({ show: true, message: "Something went wrong", type: "error" });
       setTimeout(() => setAlert({ ...alert, show: false }), 5000);
@@ -87,6 +91,7 @@ const CreateOrder = () => {
               submitItem={handleSubmitItem}
               handleClear={handleRemoveItem}
               index={index}
+              handleShowMessage = {handleShowMessage}
             />
           </AccordionItem>
         ))

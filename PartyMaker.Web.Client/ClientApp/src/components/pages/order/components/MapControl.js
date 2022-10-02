@@ -36,7 +36,7 @@ const MapControl = ({ handleChooseLocation }) => {
             title={"Delivery address"}
             handleSubmit = {handleSubmit}
           >
-            <div>
+            <div style = {{height:"50vh"}}>
               <Map handleSelect={setLocationState} />
             </div>
           </SimpleModal>

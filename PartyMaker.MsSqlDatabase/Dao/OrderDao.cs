@@ -22,6 +22,14 @@ public class OrderDao : IOrderDao
             return;
         }
 
+        foreach (var item in items)
+        {
+            foreach (var itemItemRequest in item.ItemRequests)
+            {
+                itemItemRequest.ItemId = item.Id;
+            }
+        }
+
         var order = new Order()
         {
             Id = Guid.NewGuid(),
@@ -59,6 +67,12 @@ public class OrderDao : IOrderDao
                 .ThenInclude(x=>x.Address)
             .Include(x=>x.Items)
                 .ThenInclude(x=>x.ItemRequests)
+                    .ThenInclude(x=>x.SupplierService)
+                        .ThenInclude(x=>x.Service)
+            .Include(x=>x.Items)
+                .ThenInclude(x=>x.ItemRequests)
+                    .ThenInclude(x=>x.SupplierService)
+                        .ThenInclude(x=>x.Supplier)
             .FirstOrDefault(x => x.Id == id);
     }
 }

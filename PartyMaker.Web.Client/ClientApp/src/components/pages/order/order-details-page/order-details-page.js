@@ -6,12 +6,12 @@ import DetailsContent from './DetailsContent';
 import { ClipLoader } from 'react-spinners';
 const OrderDetailsPage = () => {
     const [value, setValue] = useState(0);
-    const items = [0,1,2,3];
     const service = new OrderService();
     const [order,setOrder] = useState({});
     const {id} = useParams();
     const [loading, setLoading] = useState(true);
-    useEffect(()=>{
+    useEffect(()=>{  
+        setValue(0);
         async function getOrderInfo(){
             const res = await service.getOrderById(id);
             if(res.ok){
@@ -23,8 +23,17 @@ const OrderDetailsPage = () => {
         }
         (async()=>{
             await getOrderInfo();
+            
         })()
     },[])
+
+    const handleSubmitRequest = () =>{
+        
+    }
+
+    useEffect(()=>{
+        console.log(order?.items);
+    },[value])
 
   return (
     <div className = "container h-100 d-flex flex-column">

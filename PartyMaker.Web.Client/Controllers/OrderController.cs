@@ -36,6 +36,7 @@ public class OrderController : ControllerBase
                         Location = oItemViewModel.Address.Location,
                         Longitude = oItemViewModel.Address.Longitude
                     },
+                    Description = oItemViewModel.Description,
                     ItemStatus = ItemStatus.New,
                     DateCreated = DateTime.Now,
                     DateExecution = oItemViewModel.DateExecution,

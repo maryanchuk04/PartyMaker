@@ -12,3 +12,8 @@ export async function reverseGeocode(location){
 export function generateItemShortInfo(data){
     
 }
+
+export function convertDate(date){
+    const convertedDate = new Date(date);
+    return convertedDate.toLocaleString();
+}

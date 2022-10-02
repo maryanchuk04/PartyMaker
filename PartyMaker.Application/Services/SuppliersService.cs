@@ -39,4 +39,9 @@ public class SuppliersService : ISuppliersService
     {
         return _suppliersDao.GetByServiceId(id);
     }
+
+    public void CreateSupplierService(Guid supplierId, Guid serviceId, string description, string imageUrl)
+    {
+        _supplierServiceDao.Create(description, imageUrl, supplierId, serviceId);
+    }
 }

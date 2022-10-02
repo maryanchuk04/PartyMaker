@@ -2,6 +2,7 @@ using System.Dynamic;
 using Microsoft.AspNetCore.Mvc;
 using PartyMaker.Domain.Interfaces.Dao;
 using PartyMaker.Domain.Interfaces.Services;
+using PartyMaker.ViewModels.Supplier;
 
 namespace PartyMaker.Controllers;
 [ApiController]
@@ -21,4 +22,15 @@ public class SupplierController : ControllerBase
         var suppliers = _suppliersService.GetByServiceId(serviceId);
         return Ok(suppliers);
     }
+
+    [HttpPost("[action]/{supplierId}")]
+    public IActionResult AddSupplierService(Guid supplierId, SupplierServiceViewModel supplierServiceViewModel)
+    {
+        _suppliersService.CreateSupplierService(supplierId,
+            supplierServiceViewModel.serviceId,
+            supplierServiceViewModel.Description,
+            supplierServiceViewModel.Image);
+        return Ok();
+    }
+
 }
