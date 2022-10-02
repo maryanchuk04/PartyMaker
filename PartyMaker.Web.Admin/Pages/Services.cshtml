@@ -44,9 +44,9 @@
                                                 <a data-serviceid = "@s.Id" class="btn-edit-service btn btn-sm btn-secondary me-2">
                                                     Edit
                                                 </a>
-                                                <form method="post" asp-page-handler="Remove" onsubmit="return confirm('Are you sure you want to remove subscription pack?');">
-                                                    <input type="hidden" name="subscriptionPackId" value="@s.Id" />
-                                                    <button type="submit" class="btn btn-sm btn-secondary">Remove</button>
+                                                <form method="post" asp-page-handler="Deactivate" onsubmit="return confirm('Are you sure you want to deactivate service?');">
+                                                    <input type="hidden" name="serviceId" value="@s.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-secondary">Deactivate</button>
                                                 </form>
                                             </div>
                                         </td>

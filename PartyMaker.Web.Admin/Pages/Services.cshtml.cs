@@ -41,4 +41,9 @@ public class ServicesModel : PageModel
         var services = _servicesService.GetById(id);
         return new JsonResult(services);
     }
+    public IActionResult OnPostDeactivate(Guid serviceId)
+    {
+        _servicesService.Deactivate(serviceId);
+        return RedirectToPage();
+    }
 }

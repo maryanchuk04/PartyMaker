@@ -44,4 +44,9 @@ public class SuppliersService : ISuppliersService
     {
         _supplierServiceDao.Create(description, imageUrl, supplierId, serviceId);
     }
+
+    public void Deactivate(Guid id)
+    {
+        _suppliersDao.Deactivate(id);
+    }
 }

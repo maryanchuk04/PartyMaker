@@ -8,4 +8,5 @@ public interface IServicesDao
     Service Create(string name, string description, DateTime createdDate);
     Service Update(Guid id, string name, string description, DateTime updatedDate);
     Service GetById(Guid id);
+    void Deactivate(Guid id, DateTime updatedDate);
 }

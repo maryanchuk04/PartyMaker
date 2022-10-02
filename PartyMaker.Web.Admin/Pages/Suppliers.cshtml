@@ -53,9 +53,9 @@
                                                 <a data-supplierid = "@sup.Id" class="btn-view-supplier btn btn-sm btn-secondary me-2">
                                                     View
                                                 </a>
-                                                <form method="post" asp-page-handler="Remove" onsubmit="return confirm('Are you sure you want to remove subscription pack?');">
-                                                    <input type="hidden" name="subscriptionPackId" value="@sup.Id" />
-                                                    <button type="submit" class="btn btn-sm btn-secondary">Remove</button>
+                                                <form method="post" asp-page-handler="Deactivate" onsubmit="return confirm('Are you sure you want to deactivate supplier?');">
+                                                    <input type="hidden" name="supplierId" value="@sup.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-secondary">Deactivate</button>
                                                 </form>
                                             </div>
                                         </td>
