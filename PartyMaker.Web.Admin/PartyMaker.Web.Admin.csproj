@@ -16,8 +16,4 @@
     <ProjectReference Include="..\PartyMaker.MsSqlDatabase\PartyMaker.MsSqlDatabase.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Authentication\Pages\" />
-  </ItemGroup>
-
 </Project>

@@ -23,11 +23,10 @@
     <div class="d-flex flex-column flex-root">
         <div class="page d-flex flex-row flex-column-fluid">
             <div class="wrapper d-flex flex-column flex-row-fluid" id="kt_wrapper">
-                @*@if (User.Identity.IsAuthenticated)
+                @if (User.Identity.IsAuthenticated)
                 {
                     <partial name="_HeaderPartial"/>
-                }*@
-                  <partial name="_HeaderPartial"/>
+                }
                 @RenderBody()
                 <partial name="_FooterPartial"/>
             </div>

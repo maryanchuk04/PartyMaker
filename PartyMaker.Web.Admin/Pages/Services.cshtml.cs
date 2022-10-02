@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Interfaces.Services;
 using PartyMaker.Domain.Models;
 using PartyMaker.Web.Admin.Models.Services;
 
 namespace PartyMaker.Web.Admin.Pages;
 
+[Authorize(Roles = UserRole.Admin)]
 public class ServicesModel : PageModel
 {
     private readonly IServicesService _servicesService;

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace PartyMaker.Web.Admin.Areas.Authentication.Pages;
+namespace PartyMaker.Web.Admin.Pages;
 
 public class AccessDeniedModel : PageModel
 {

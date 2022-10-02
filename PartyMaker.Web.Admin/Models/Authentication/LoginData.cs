@@ -2,7 +2,7 @@
 
 namespace PartyMaker.Web.Admin.Models.Authentication;
 
-public class LoginModel
+public class LoginData
 {
     [Required]
     [EmailAddress]

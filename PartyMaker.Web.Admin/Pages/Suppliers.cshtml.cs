@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Interfaces.Services;
 using PartyMaker.Web.Admin.Models.Suppliers;
 
 namespace PartyMaker.Web.Admin.Pages;
 
+[Authorize(Roles = UserRole.Admin)]
 public class SuppliersModel : PageModel
 {
     private readonly ISuppliersService _suppliersService;

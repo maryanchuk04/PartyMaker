@@ -54,7 +54,6 @@ builder.Services.AddIdentity<PartyMakerUser, IdentityRole>(options =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/login";
-    options.LogoutPath = "/logout";
     options.AccessDeniedPath = "/denied";
     options.ExpireTimeSpan = TimeSpan.FromDays(365);
     options.Cookie.Name = "_partymakeradmin";
