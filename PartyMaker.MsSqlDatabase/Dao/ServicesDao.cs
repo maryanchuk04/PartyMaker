@@ -14,7 +14,7 @@ public class ServicesDao : IServicesDao
 
     public List<Service> GetServices()
     {
-        return _context.Services.Where(s => !s.IsDeleted).ToList();
+        return _context.Services.ToList();
     }
 
     public Service Create(string name, string description, DateTime createdDate)
@@ -58,6 +58,18 @@ public class ServicesDao : IServicesDao
             return;
         }
         service.IsDeleted = true;
+        service.DateUpdated = updatedDate;
+        _context.SaveChanges();
+    }
+
+    public void Activate(Guid id, DateTime updatedDate)
+    {
+        var service = _context.Services.FirstOrDefault(s => s.Id == id);
+        if (service == null)
+        {
+            return;
+        }
+        service.IsDeleted = false;
         service.DateUpdated = updatedDate;
         _context.SaveChanges();
     }

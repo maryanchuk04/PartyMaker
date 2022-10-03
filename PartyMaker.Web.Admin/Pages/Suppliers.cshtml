@@ -12,22 +12,20 @@
                     <div class="card-title">
                         <h3>Suppliers</h3>
                     </div>
-                    <div class="card-toolbar">
-                        <div class="d-flex justify-content-end">
-                            <!--begin::Filter-->
-                            <div class="w-150px me-3">
-                                <form id="form-pack-filter" method="get">
-                                    <select class="form-select form-select-solid" onchange="$('#form-pack-filter').submit()" data-control="select2" data-hide-search="true">
-                                        <option value="">All</option>
-                                    </select>
-                                </form>
-                            </div>
-                            <!--end::Filter-->
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#active-suppliers">Active</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#inactive-suppliers">Inactive</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="active-suppliers" role="tabpanel">
+                            <div class="table-responsive">
                         <table class="table table-row-bordered table-hover align-middle gs-6 gy-5 no-footer">
                             <thead>
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
@@ -40,7 +38,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var sup in Model.Suppliers)
+                                @foreach (var sup in Model.Suppliers.Where(sup => !sup.IsDeleted))
                                 {
                                     <tr>
                                         <td>@sup.FirstName @sup.LastName </td>
@@ -64,6 +62,48 @@
                             </tbody>
                         </table>
                     </div>
+                        </div>
+                        <div class="tab-pane fade" id="inactive-suppliers" role="tabpanel">
+                            <div class="table-responsive">
+                                <table class="table table-row-bordered table-hover align-middle gs-6 gy-5 no-footer">
+                                    <thead>
+                                        <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                            <th>Full Name</th>
+                                            <th>Company Name</th>
+                                            <th>City</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var sup in Model.Suppliers.Where(sup => sup.IsDeleted)) 
+                                        {
+                                            <tr>
+                                                <td>@sup.FirstName @sup.LastName </td>
+                                                <td>@sup.CompanyName</td>
+                                                <td>@sup.City</td>
+                                                <td>@sup.Email</td>
+                                                <td>@sup.Phone</td>
+                                                <td>
+                                                    <div class="d-flex justify-content-end">
+                                                        <a data-supplierid = "@sup.Id" class="btn-view-supplier btn btn-sm btn-secondary me-2">
+                                                            View
+                                                        </a>
+                                                        <form method="post" asp-page-handler="Activate">
+                                                            <input type="hidden" name="supplierId" value="@sup.Id" />
+                                                            <button type="submit" class="btn btn-sm btn-secondary">Activate</button>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>

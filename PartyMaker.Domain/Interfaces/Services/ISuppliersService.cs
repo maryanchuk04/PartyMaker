@@ -10,6 +10,6 @@ public interface ISuppliersService
     Supplier GetSuppliersInfoById(Guid id);
     List<Supplier> GetByServiceId(Guid id);
     void CreateSupplierService(Guid supplierId, Guid serviceId, string description, string imageUrl);
-
     void Deactivate(Guid id);
+    void Activate(Guid id);
 }

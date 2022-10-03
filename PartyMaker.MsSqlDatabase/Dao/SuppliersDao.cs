@@ -52,4 +52,15 @@ public class SuppliersDao : ISuppliersDao
         supplier.IsDeleted = true;
         _context.SaveChanges();
     }
+
+    public void Activate(Guid id)
+    {
+        var supplier = _context.Suppliers.FirstOrDefault(x => x.Id == id);
+        if (supplier == null)
+        {
+            return;
+        }
+        supplier.IsDeleted = false;
+        _context.SaveChanges();
+    }
 }

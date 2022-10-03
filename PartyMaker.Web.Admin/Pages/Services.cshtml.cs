@@ -31,7 +31,8 @@ public class ServicesModel : PageModel
                 Name = s.Name,
                 Description = s.Description, 
                 CreatedDate = s.DateCreated, 
-                UpdatedDate = s.DateUpdated})
+                UpdatedDate = s.DateUpdated,
+                IsDeleted = s.IsDeleted})
             .ToList(); 
     }
     public IActionResult OnPost()
@@ -47,6 +48,11 @@ public class ServicesModel : PageModel
     public IActionResult OnPostDeactivate(Guid serviceId)
     {
         _servicesService.Deactivate(serviceId);
+        return RedirectToPage();
+    }
+    public IActionResult OnPostActivate(Guid serviceId)
+    {
+        _servicesService.Activate(serviceId);
         return RedirectToPage();
     }
 }

@@ -20,7 +20,18 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
+                    <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-bs-toggle="tab" href="#active-services">Active</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="tab" href="#inactive-services">Inactive</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="active-services" role="tabpanel">
+                             <div class="table-responsive">
                         <table class="table table-row-bordered table-hover align-middle gs-6 gy-5 no-footer">
                             <thead>
                                 <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
@@ -32,7 +43,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var s in Model.Services)
+                                @foreach (var s in Model.Services.Where(s => !s.IsDeleted))
                                 {
                                     <tr>
                                         <td>@s.Name</td>
@@ -55,6 +66,46 @@
                             </tbody>
                         </table>
                     </div>
+                        </div>
+                        <div class="tab-pane fade" id="inactive-services" role="tabpanel">
+                             <div class="table-responsive">
+                        <table class="table table-row-bordered table-hover align-middle gs-6 gy-5 no-footer">
+                            <thead>
+                                <tr class="text-start text-gray-400 fw-bolder fs-7 text-uppercase gs-0">
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                    <th>Created Date</th>                                    
+                                    <th>Updated Date</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var s in Model.Services.Where(s => s.IsDeleted))
+                                {
+                                    <tr>
+                                        <td>@s.Name</td>
+                                        <td>@s.Description</td>
+                                        <td>@s.CreatedDate</td>
+                                        <td>@s.UpdatedDate</td>
+                                        <td>
+                                            <div class="d-flex justify-content-end">
+                                                <a data-serviceid = "@s.Id" class="btn-edit-service btn btn-sm btn-secondary me-2">
+                                                    Edit
+                                                </a>
+                                                <form method="post" asp-page-handler="Activate">
+                                                    <input type="hidden" name="serviceId" value="@s.Id" />
+                                                    <button type="submit" class="btn btn-sm btn-secondary">Activate</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                        </div>
+                    </div>
+                   
                 </div>
             </div>
         </div>

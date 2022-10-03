@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using PartyMaker.Domain.Entities;
 using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Interfaces.Services;
 using PartyMaker.Web.Admin.Models.Suppliers;
@@ -24,7 +23,6 @@ public class SuppliersModel : PageModel
     public void OnGet()
     {
         Suppliers = _suppliersService.GetSuppliers()
-            .Where(sup => !sup.IsDeleted)
             .Select(sup =>
             new SupplierModel{ 
                 Id = sup.Id,
@@ -33,7 +31,8 @@ public class SuppliersModel : PageModel
                 CompanyName = sup.CompanyName,
                 City = sup.City,
                 Email = sup.User.Email,
-                Phone = sup.User.Phone})
+                Phone = sup.User.Phone,
+                IsDeleted = sup.IsDeleted})
             .ToList();
     }
 
@@ -52,6 +51,11 @@ public class SuppliersModel : PageModel
     public IActionResult OnPostDeactivate(Guid supplierId)
     {
         _suppliersService.Deactivate(supplierId);
+        return RedirectToPage();
+    }
+    public IActionResult OnPostActivate(Guid supplierId)
+    {
+        _suppliersService.Activate(supplierId);
         return RedirectToPage();
     }
 }

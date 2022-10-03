@@ -49,4 +49,9 @@ public class SuppliersService : ISuppliersService
     {
         _suppliersDao.Deactivate(id);
     }
+
+    public void Activate(Guid id)
+    {
+        _suppliersDao.Activate(id);
+    }
 }
