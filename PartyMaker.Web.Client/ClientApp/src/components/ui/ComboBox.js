@@ -8,7 +8,8 @@ const ComboBox = ({ label, defaultValue, handleChange, arrayData }) => {
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        value={defaultValue}
+        
+        defaultValue = {defaultValue}
         label={label}
         onChange={(e) => {handleChange(e.target.value)}}
       >

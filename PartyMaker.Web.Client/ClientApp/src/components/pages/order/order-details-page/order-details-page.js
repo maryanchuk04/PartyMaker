@@ -39,7 +39,7 @@ const OrderDetailsPage = () => {
     <div className = "container h-100 d-flex flex-column">
         {loading ? <ClipLoader size={200} color= {"#1aa94b"} className = "m-auto"/> : 
         <div className = "h-100">
-            <h1 className = 'text-center' style = {{height : "5%"}}>Order</h1>
+            <h1 className = 'text-center pt-4' style = {{height : "5%"}}>Order</h1>
             <TabsWrapper items = {order?.items} value = {value} setValue = {setValue}/>
             <div style = {{height : "90%"}}>
                 <DetailsContent element = {order?.items[value]}/>

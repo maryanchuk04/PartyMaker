@@ -58,9 +58,9 @@ export default function App() {
           <Route path="/create-account" component={AuthPreviewPage} />
           <Route path="/auth/login" component={SingInPage} />
           <Route path="/create-order" component={CreateOrder} />
-          <Route path="/supplierWorkspace" component={SupplierWorkspace} />
-          <Route path="/supplierProfileEdit" component={SupplierProfileEdit} />
-          <Route path="/supplier/:id" component={SupplierProfile} />
+          <Route path="/supplier-workspace" component={SupplierWorkspace} />
+          <Route path="/supplier/profile-edit" component={SupplierProfileEdit} />
+          <Route path="/supplier/profile/:id" component={SupplierProfile} />
           <Route path = "/customer/profile" component = {CustomerProfile}/>
           <Route path = "/order/:id" component = {OrderDetailsPage}/>
           <Route path ="/сontact" component = {Contacts}/>  

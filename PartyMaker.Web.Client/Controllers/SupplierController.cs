@@ -27,10 +27,38 @@ public class SupplierController : ControllerBase
     public IActionResult AddSupplierService(Guid supplierId, SupplierServiceViewModel supplierServiceViewModel)
     {
         _suppliersService.CreateSupplierService(supplierId,
-            supplierServiceViewModel.serviceId,
+            supplierServiceViewModel.ServiceId,
             supplierServiceViewModel.Description,
             supplierServiceViewModel.Image);
         return Ok();
     }
 
+    [HttpPost("[action]/{supplierServiceId}")]
+    public IActionResult EditSupplierServiceInfo(Guid supplierServiceId,
+        SupplierServiceViewModel supplierServiceViewModel)
+    {
+        _suppliersService.ChangeSupplierServiceInfo(supplierServiceId, supplierServiceViewModel.ServiceId,
+            supplierServiceViewModel.Description, supplierServiceViewModel.Image);
+        return Ok();
+    }
+
+    [HttpDelete("[action]/{supplierServiceId}")]
+    public IActionResult DeleteSupplierService(Guid supplierServiceId)
+    {
+        return Ok();
+    }
+
+    [HttpGet("[action]/{id}")]
+    public IActionResult GetSupplierById(Guid id)
+    {
+        return Ok(_suppliersService.GetSuppliersInfoById(id));
+    }
+
+    [HttpPost("[action]/{id}")]
+    public IActionResult ChangeSupplierMainInfo(Guid id, SupplierMainInfoViewModel supplierMainInfoViewModel)
+    {
+        _suppliersService.ChangeSupplierMainInfo(id, supplierMainInfoViewModel.CompanyName,
+            supplierMainInfoViewModel.Phone, supplierMainInfoViewModel.City, supplierMainInfoViewModel.Description);
+        return Ok();
+    }
 }

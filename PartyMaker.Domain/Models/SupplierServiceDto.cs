@@ -8,5 +8,6 @@ public class SupplierServiceDto
     public Guid SupplierId { get; set; }
     public string SupplierCompanyName { get; set; }
     public Service Service { get; set; }
+    public string ImageUrl { get; set; }
     public string Description { get; set; }
 }

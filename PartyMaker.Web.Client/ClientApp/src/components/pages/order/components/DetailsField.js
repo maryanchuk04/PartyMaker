@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 const DetailsField = ({ label, defaultValue, handleChooseDetails }) => {
   return (
     <TextField
-      id="outlined-multiline-static"
+      id="outlined-textarea"
       label={label}
       multiline
       maxRows={8}
