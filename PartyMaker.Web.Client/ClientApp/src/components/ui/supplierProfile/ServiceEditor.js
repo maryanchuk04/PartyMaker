@@ -16,15 +16,15 @@ const ServiceEditor = (props) => {
         image: undefined,
     });
     return (
-        <div class="row w-100">
-            <div className="col-sm-4 d-flex align-items-center flex-column my-2">
+        <div class="row ">
+            <div className="col d-flex align-items-center flex-column my-2">
                 <img src={service.image} class="image-preview" />
                 <InputImage onChange={(e) => setService({ ...service, image: URL.createObjectURL(e.target.files[0]) })}>
                     Upload example
                 </InputImage>
             </div>
-            <div class="col-sm-8">
-                <Stack direction="column" className="m-2 w-100" spacing={2} >
+            <div class="col card mx-5 h-100 " style={{ minWidth: "200px" }}>
+                <Stack direction="column" className="my-4  h-100" spacing={2} >
                     <Box sx={{ width: 120 }}>
                         <FormControl fullWidth>
                             <InputLabel id="category-select-label">Category</InputLabel>
@@ -44,13 +44,13 @@ const ServiceEditor = (props) => {
                     <TextareaAutosize
                         placeholder="Service description"
                         minRows={2}
-                        className="response-field w-100 mb-2 p-2 "
+                        className="response-field p-2"
                         required
                         onChange={(e) =>
                             setService({ ...service, description: e.target.value })}
                     />
-                    <div className="d-flex justify-content-center h-50">
-                        <SampleButton onClick={profile.services[index] = service}>
+                    <div className="d-flex justify-content-center h-100">
+                        <SampleButton className="h-100" onClick={profile.services[index] = service}>
                             Save service
                         </SampleButton>
                     </div>
