@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyMaker.MsSqlDatabase", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyMaker.Tests", "PartyMaker.Tests\PartyMaker.Tests.csproj", "{416CBBEC-5FFB-4422-AC2F-C9F88EDC471A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PartyMaker.Web.Admin", "PartyMaker.Web.Admin\PartyMaker.Web.Admin.csproj", "{BDEA9995-7919-4FB9-BBE4-57C3881CC2C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PartyMaker.Web.Admin", "PartyMaker.Web.Admin\PartyMaker.Web.Admin.csproj", "{BDEA9995-7919-4FB9-BBE4-57C3881CC2C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

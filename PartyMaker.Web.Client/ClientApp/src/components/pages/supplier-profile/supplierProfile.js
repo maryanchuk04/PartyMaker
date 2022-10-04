@@ -39,7 +39,7 @@ const SupplierProfile = () => {
     <div className="container h-100 d-flex flex-column">
       <h1 className="text-center pt-4">Profile</h1>
       {loading ? <ClipLoader size={200} color= {"#1aa94b"} className = "m-auto"/> :<Paper elevation={3} className = 'mb-4'>
-        <div class="row p-2 m-auto w-100">
+        <div class="row p-2 m-auto " style = {{width : "90%"}}>
           <div className="col-md-auto text-center d-flex">
             <Avatar src={profile.imageUrl}  sx={{height : "300px", width : "300px"}} className = 'm-auto'/>
           </div>

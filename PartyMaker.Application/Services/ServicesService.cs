@@ -40,4 +40,9 @@ public class ServicesService : IServicesService
     {
         _servicesDao.Deactivate(id, DateTime.Now);
     }
+
+    public void Activate(Guid id)
+    {
+        _servicesDao.Activate(id, DateTime.Now);
+    }
 }

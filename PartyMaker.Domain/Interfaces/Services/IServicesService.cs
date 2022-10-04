@@ -9,4 +9,5 @@ public interface IServicesService
     Service UpsertService(ServiceUpsertModel upsertModel);
     Service GetById(Guid id);
     void Deactivate(Guid id);
+    void Activate(Guid id);
 }

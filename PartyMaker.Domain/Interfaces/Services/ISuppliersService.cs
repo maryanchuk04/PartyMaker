@@ -13,7 +13,7 @@ public interface ISuppliersService
     void CreateSupplierService(Guid supplierId, Guid serviceId, string description, string imageUrl);
     void ChangeSupplierMainInfo(Guid supplierId, string companyName, string phone, string city, string description);
     void Deactivate(Guid id);
-
+    void Activate(Guid id);
     void ChangeSupplierServiceInfo(Guid supplierServiceId, Guid serviceId, string description,
         string imageUrl);
 }
