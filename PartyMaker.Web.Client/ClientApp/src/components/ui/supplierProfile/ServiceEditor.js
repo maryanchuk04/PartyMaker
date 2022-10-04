@@ -12,7 +12,6 @@ const ServiceEditor = ({
   editService,
   createService,
   supplier,
-  setAllServices
 }) => {
   const serviceServices = new ServicesService();
   const [services, setServices] = useState([]);
@@ -28,7 +27,6 @@ const ServiceEditor = ({
             }
             return prev;
         }, [])
-        setAllServices(response)
         setServices(arr);
       }
     })();
