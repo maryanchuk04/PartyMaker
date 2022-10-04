@@ -26,7 +26,11 @@ public class SuppliersDao : ISuppliersDao
     {
         var supplier = _context.Suppliers
             .Include(x => x.SupplierServices)
+                .ThenInclude(x=>x.Image)
+            .Include(x=>x.SupplierServices)
+                .ThenInclude(x=>x.Service)
             .Include(x=>x.User)
+                .ThenInclude(x=>x.Image)
             .FirstOrDefault(x => x.Id == id);
         return supplier;
     }
@@ -39,6 +43,25 @@ public class SuppliersDao : ISuppliersDao
             .Where(x=>x.Service.Id == id)
             .Select(x=>x.Supplier)
             .ToList();
+    }
+
+    public void ChangeMainInfo(Guid supplierId, string companyName, string phone, string city, string description)
+    {
+        var supplier = _context.Suppliers
+            .Include(x => x.User)
+            .FirstOrDefault(x=>x.Id == supplierId);
+        if (supplier == null)
+        {
+            return;
+        }
+
+        supplier.City = city;
+        supplier.CompanyName = companyName;
+        supplier.Description = description;
+        supplier.User.Phone = phone;
+
+        _context.Suppliers.Update(supplier);
+        _context.SaveChanges();
     }
 
 

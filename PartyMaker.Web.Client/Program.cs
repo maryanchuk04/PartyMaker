@@ -61,7 +61,8 @@ builder.Services.AddScoped<IServicesService, ServicesService>();
 builder.Services.AddScoped<IServicesDao, ServicesDao>();
 builder.Services.AddScoped<ISuppliersService, SuppliersService>();
 builder.Services.AddScoped<ISupplierServiceDao, SupplierServiceDao>();
-
+builder.Services.AddScoped<IUserDao, UserDao>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

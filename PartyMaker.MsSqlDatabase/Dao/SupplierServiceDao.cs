@@ -33,22 +33,30 @@ public class SupplierServiceDao : ISupplierServiceDao
         _context.SaveChanges();
     }
 
-    public void Update(string description, string imageUrl, Guid supplierId, Guid serviceId)
+    public void Update(string description, string imageUrl, Guid serviceId, Guid supplierServiceId)
     {
-        var supplier = _context.Suppliers.FirstOrDefault(x => x.Id == supplierId);
+        var supplierService = _context.SupplierServices
+            .Include(x => x.Image)
+            .Include(x => x.Service)
+            .Include(x => x.Supplier).FirstOrDefault(x => x.Id == supplierServiceId);
+
         var service = _context.Services.FirstOrDefault(x => x.Id == serviceId);
-        if (service == null || supplier == null)
+        if (supplierService == null || service == null)
         {
             return;
         }
 
-        SupplierService supplierService = new SupplierService()
+        if (supplierService.Image == null)
         {
-            Description = description,
-            Image = new Image() {Url = imageUrl},
-            Supplier = supplier,
-            Service = service
-        };
+            supplierService.Image = new Image()
+            {
+                Url = imageUrl
+            };
+        }
+        else supplierService.Image.Url = imageUrl;
+
+        supplierService.Description = description;
+        supplierService.Service = service;
         _context.SupplierServices.Update(supplierService);
         _context.SaveChanges();
     }

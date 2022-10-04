@@ -1,4 +1,5 @@
 ﻿using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Models;
 
 namespace PartyMaker.Domain.Interfaces.Services;
 
@@ -7,9 +8,12 @@ public interface ISuppliersService
     List<Supplier> GetSuppliers();
     Supplier GetById(Guid id);
     List<SupplierService> GetSupplierServices(Guid supplierId);
-    Supplier GetSuppliersInfoById(Guid id);
+    SupplierDto GetSuppliersInfoById(Guid id);
     List<Supplier> GetByServiceId(Guid id);
     void CreateSupplierService(Guid supplierId, Guid serviceId, string description, string imageUrl);
+    void ChangeSupplierMainInfo(Guid supplierId, string companyName, string phone, string city, string description);
     void Deactivate(Guid id);
     void Activate(Guid id);
+    void ChangeSupplierServiceInfo(Guid supplierServiceId, Guid serviceId, string description,
+        string imageUrl);
 }

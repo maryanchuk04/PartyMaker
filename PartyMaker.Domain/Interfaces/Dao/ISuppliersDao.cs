@@ -10,4 +10,5 @@ public interface ISuppliersDao
     List<Supplier> GetByServiceId(Guid id);
     void Deactivate(Guid id);
     void Activate(Guid id);
+    void ChangeMainInfo(Guid supplierId, string companyName, string phone, string city, string description);
 }

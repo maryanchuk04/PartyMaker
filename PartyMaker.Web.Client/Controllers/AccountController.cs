@@ -99,9 +99,9 @@ public class AccountController : ControllerBase
         if (ModelState.IsValid)
         {
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: true);
-
             if (result.Succeeded)
             {
+
                 return Ok();
             }
         }

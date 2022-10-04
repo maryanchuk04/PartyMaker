@@ -6,7 +6,10 @@
 }
 .service-pic {
     max-width:90%;
-    height: auto;
+    width: 90%;
+    margin-top: 15px;
+    height: 270px;
+    object-fit: cover;
 }
 .image-preview {
     margin-bottom: 2%;

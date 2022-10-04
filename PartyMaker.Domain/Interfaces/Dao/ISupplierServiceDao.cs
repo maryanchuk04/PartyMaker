@@ -6,7 +6,7 @@ public interface ISupplierServiceDao
 {
     void Create(string description, string imageUrl, Guid supplierId, Guid serviceId);
 
-    void Update(string description, string imageUrl, Guid supplierId, Guid serviceId);
+    void Update(string description, string imageUrl, Guid serviceId, Guid supplierServiceId);
 
     void Delete(Guid id);
 
