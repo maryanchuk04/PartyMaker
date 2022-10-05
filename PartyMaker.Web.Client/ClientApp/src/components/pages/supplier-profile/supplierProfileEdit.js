@@ -1,7 +1,6 @@
 ﻿import React, { useEffect, useState } from "react";
 import "./supplier-profile.css";
 import { TextareaAutosize, TextField, Button } from "@mui/material";
-import SampleButton from "../../ui/SampleButton";
 import { Paper } from "@material-ui/core";
 import ServiceEditor from "../../ui/supplierProfile/ServiceEditor";
 import { SupplierService } from "../../../services/SupplierService";
@@ -59,7 +58,7 @@ const SupplierProfileEdit = () => {
 
   const uploadServiceHandle = async (imageUrl) => {
     const res = await userService.changeAvatar(
-      "ba22c755-6c01-474b-8a05-e228c8410e95",
+      getAuthState().userId,
       { url: imageUrl }
     );
     if (res.ok) {
@@ -73,7 +72,7 @@ const SupplierProfileEdit = () => {
 
   const saveMainInfo = async () => {
     const res = await service.changeSupplierMainInfo(
-      "6eea3dae-513d-41e9-f871-08daa46308ad",
+      getAuthState().supplierId,
       mainInfo
     );
     if (res.ok) {
@@ -103,7 +102,7 @@ const SupplierProfileEdit = () => {
 
   const createService = async (data) => {
     const res = await service.addNewServiceForSupplier(
-      "6eea3dae-513d-41e9-f871-08daa46308ad",
+      getAuthState().supplierId,
       data
     );
     if (res.ok) {
@@ -130,7 +129,7 @@ const SupplierProfileEdit = () => {
           <Paper className="mb-4 py-3" sx={{ minHeight: "100%" }}>
             <form>
               <div className="row h-100">
-                <div className="col-md-auto text-center m-3 ">
+                <div className="col-md-auto text-center">
                   <AvatarWrapper
                     avatarImage={supplier?.imageUrl}
                     setAvatar={setAvatar}
