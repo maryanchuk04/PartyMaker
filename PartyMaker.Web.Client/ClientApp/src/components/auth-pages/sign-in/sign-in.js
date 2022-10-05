@@ -36,14 +36,14 @@ const SignInPage = () => {
         if(response.customerId === ""){
           window.location ="/supplier/profile-edit";
         }
-      }, 5000);
+      }, 3000);
     } else {
       if (res.status === 400) {
         const response = await res.json();
         setAlert({ show: true, message: response.error, type: "error" });
         setTimeout(() => {
           setAlert({ ...alert, show: false });
-        }, 5000);
+        },3000);
       } else {
         setAlert({
           show: true,
@@ -52,7 +52,7 @@ const SignInPage = () => {
         });
         setTimeout(() => {
           setAlert({ ...alert, show: false });
-        }, 5000);
+        }, 3000);
       }
     }
   }

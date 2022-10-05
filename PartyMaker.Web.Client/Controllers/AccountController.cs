@@ -57,6 +57,7 @@ public class AccountController : ControllerBase
                     await _signInManager.SignInAsync(supplier, isPersistent: true);
                     return Ok(new
                     {
+                        customerId = "",
                         supplierId = supplier.Supplier.Id,
                         userId = supplier.Id
                     });
@@ -91,7 +92,8 @@ public class AccountController : ControllerBase
                 await _signInManager.SignInAsync(user, isPersistent: true);
                 return Ok(new
                 {
-                    supplierId = user.Customer.Id,
+                    supplierId = "",
+                    customerId = user.Customer.Id,
                     userId = user.Id
                 });
             }
