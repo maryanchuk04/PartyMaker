@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Enumerations;
 using PartyMaker.Web.Admin.Models.Authentication;
 
 namespace PartyMaker.Web.Admin.Pages;
@@ -28,18 +29,7 @@ public class LoginModel : PageModel
     public string ErrorMessage { get; set; }
 
     public async Task OnGetAsync()
-    {
-        //    var user = new PartyMakerUser { UserName = "admin@gmail.com", Email = "admin@gmail.com"};
-        //    var result = await _userManager.CreateAsync(user, "admin@gmail.com");
-        //    var adminRole = await _roleManager.FindByNameAsync(UserRole.Admin);
-
-        //    if (adminRole ==null)
-        //    {
-        //        await _roleManager.CreateAsync(new IdentityRole() { Name = UserRole.Admin });
-        //    }
-
-        //    await _userManager.AddToRoleAsync(await _userManager.FindByNameAsync(user.UserName), UserRole.Admin);
-
+    { 
     }
     public async Task<IActionResult> OnPostAsync()
     {
@@ -59,5 +49,20 @@ public class LoginModel : PageModel
             }
         }
         return Page();
+    }
+    public async Task<IActionResult> OnPostCreateAdminUserAsync()
+    {
+        var user = new PartyMakerUser { UserName = "admin@gmail.com", Email = "admin@gmail.com" };
+        var result = await _userManager.CreateAsync(user, "admin@gmail.com");
+        var adminRole = await _roleManager.FindByNameAsync(UserRole.Admin);
+
+        if (adminRole == null)
+        {
+            await _roleManager.CreateAsync(new IdentityRole() { Name = UserRole.Admin });
+        }
+
+        await _userManager.AddToRoleAsync(await _userManager.FindByNameAsync(user.UserName), UserRole.Admin);
+        
+        return RedirectToPage("Login");
     }
 }
