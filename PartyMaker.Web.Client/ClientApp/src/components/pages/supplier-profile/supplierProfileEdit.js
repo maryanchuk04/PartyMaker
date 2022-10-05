@@ -10,6 +10,8 @@ import AvatarWrapper from "../../ui/AvatarWrapper";
 import { UserService } from "../../../services/UserService";
 import AlertWrapper from "../../ui/Alert";
 import { ClipLoader } from "react-spinners";
+import { getAuthState, isAuth } from "../../../utils/helpers";
+import { useHistory } from "react-router";
 
 const SupplierProfileEdit = () => {
   const [loading, setLoading] = useState(true);
@@ -24,11 +26,15 @@ const SupplierProfileEdit = () => {
     description: "",
     companyName: "",
   });
+  const history = useHistory();
 
   useEffect(() => {
+    if(!isAuth()){
+      history.push("/auth/login");
+    }
     (async () => {
       const res = await service.getSupplierById(
-        "6eea3dae-513d-41e9-f871-08daa46308ad"
+        getAuthState().supplierId
       );
       if (res.ok) {
         const response = await res.json();

@@ -16,4 +16,5 @@ public interface ISuppliersService
     void Activate(Guid id);
     void ChangeSupplierServiceInfo(Guid supplierServiceId, Guid serviceId, string description,
         string imageUrl);
+    Guid GetSupplierIdByUserId(Guid userId);
 }

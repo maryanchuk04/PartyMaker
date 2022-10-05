@@ -77,6 +77,11 @@ public class SuppliersService : ISuppliersService
         _supplierServiceDao.Update(description, imageUrl, serviceId, supplierServiceId);
     }
 
+    public Guid GetSupplierIdByUserId(Guid userId)
+    {
+        return _suppliersDao.GetSupplierIdByUserId(userId);
+    }
+
     public void ChangeSupplierMainInfo(Guid supplierId, string companyName, string phone, string city, string description)
     {
         _suppliersDao.ChangeMainInfo(supplierId, companyName, phone, city,description);

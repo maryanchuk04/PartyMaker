@@ -9,11 +9,6 @@ namespace PartyMaker.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-     
-        //[DataType(DataType.Text)]
-        //public string UserName { get; set; }
-
-
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
