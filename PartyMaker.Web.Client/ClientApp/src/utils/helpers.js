@@ -2,7 +2,7 @@ import axios from "axios"
 const GEOCODE_URL = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&langCode=EN&location=";
 
 export function isAuth(){
-    return localStorage.getItem("tokent")==null;
+    return localStorage.getItem("authState")!==null;
 }
 
 export async function reverseGeocode(location){
@@ -19,8 +19,6 @@ export function convertDate(date){
     return convertedDate.toLocaleString();
 }
 
-
-
 export function uploadImage(img) {
     let body = new FormData()
     body.set('key','4b76823349508cfe6987b62ea7b72eb8')
@@ -33,4 +31,17 @@ export function uploadImage(img) {
     }).then((result) => {
       return result.data.data.image.url;
     })
-  }
+}
+
+export function setAuthState(data){
+  localStorage.setItem("authState", JSON.stringify(data));
+}
+
+export function getAuthState(){
+  return JSON.parse(localStorage.getItem("authState"));
+}
+
+export function logOut(){
+  localStorage.clear();
+  window.location = '/';
+}

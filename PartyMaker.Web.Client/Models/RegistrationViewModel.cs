@@ -6,11 +6,13 @@ namespace PartyMaker.Models
 {
     public class RegistrationViewModel
     {
-        
+        [DataType(DataType.Text)]
+        public string? CompanyName { get; set; }
+
         [DataType(DataType.Text)]
         public string? FirstName { get; set; }
 
-        
+
         [DataType(DataType.Text)]
         public string? LastName { get; set; }
 
@@ -30,6 +32,6 @@ namespace PartyMaker.Models
         public string PasswordConfirm { get; set; }
 
         public string Role { get; set; }
-       
+
     }
 }

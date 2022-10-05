@@ -6,14 +6,16 @@ import SampleButton from "../../ui/SampleButton";
 import "./supplier-login.css";
 import { useHistory } from "react-router-dom";
 import { BaseService } from "../../../services/BaseService";
+import AlertWrapper from '../../ui/Alert'
+import {setAuthState} from '../../../utils/helpers'
 
 const SupplierLogin = () => {
   const supplierService = new SupplierService();
   const baseService = new BaseService();
   const history = useHistory();
-
+  const [alert, setAlert] = useState({ show: false, message: "", type: "" });
   const [supplierState, setSupplierState] = useState({
-    name: "",
+    companyName: "",
     email: "",
     password: "",
     passwordConfirm: "",
@@ -26,9 +28,26 @@ const SupplierLogin = () => {
 
     const res = await supplierService.insertNewSupplier(supplierState);
     if (res.ok) {
-      alert("Supplier registered succesfully");
-      history.push("/profile");
-      window.location.reload();
+      const response = await res.json();
+      setAuthState(response);
+      setAlert({ show: true, message: "Success!", type: "success" });
+      setTimeout(() => {
+        setAlert({ ...alert, show: false });
+        window.location = "/supplier/profile-edit";
+      }, 5000);
+    }else{
+      if(res.status === 400){
+        const response = await res.json();
+        setAlert({ show: true, message: response.errors.PasswordConfirm[0], type: "error" });
+        setTimeout(() => {
+            setAlert({ ...alert, show: false });
+        }, 5000);
+    }else{
+        setAlert({ show: true, message: "Something was wrong!", type: "error" });
+        setTimeout(() => {
+            setAlert({ ...alert, show: false });
+        }, 5000);
+    }
     }
   }
 
@@ -47,7 +66,7 @@ const SupplierLogin = () => {
           className="field"
           required
           onChange={(e) =>
-            setSupplierState({ ...supplierState, name: e.target.value })
+            setSupplierState({ ...supplierState, companyName: e.target.value })
           }
           sx={{ marginY: "10px" }}
         />
@@ -66,6 +85,7 @@ const SupplierLogin = () => {
           variant="standard"
           className="field"
           required
+          type= "password"
           onChange={(e) =>
             setSupplierState({ ...supplierState, password: e.target.value })
           }
@@ -76,13 +96,14 @@ const SupplierLogin = () => {
           variant="standard"
           className="field"
           required
+          type= "password"
           onChange={(e) =>
             setSupplierState({ ...supplierState, passwordConfirm: e.target.value })
           }
           sx={{ marginY: "10px" }}
         />
         <SampleButton type="submit">Sign up</SampleButton>
-        <Link to="/" className="m-auto mt-3" underline="hover">
+        <Link to="/auth/login" className="m-auto mt-3" underline="hover">
           {"Account is already exist"}
         </Link>
       </form>
@@ -95,6 +116,13 @@ const SupplierLogin = () => {
           ></path>
         </svg>
       </div>
+      {alert.show && (
+        <AlertWrapper
+          message={alert.message}
+          type={alert.type}
+          onClose={() => setAlert({ ...alert, show: false })}
+        />
+      )}
     </div>
   );
 };

@@ -1,0 +1,16 @@
+.not-found-page{
+    height: 100%;
+}
+
+.not-found-page .not-found{
+    position: absolute;
+    top : 20%;
+}
+
+.not-found-page .not-found .dis1{
+    font-size: 150px;
+}
+
+.not-found-page .not-found .dis1 span{
+    font-weight: 800;
+}

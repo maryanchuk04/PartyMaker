@@ -64,6 +64,19 @@ public class SuppliersDao : ISuppliersDao
         _context.SaveChanges();
     }
 
+    public Guid GetSupplierIdByUserId(Guid userId)
+    {
+        var supplier = _context.Suppliers.FirstOrDefault(x => x.UserId == userId.ToString());
+        if (supplier == null)
+        {
+            return Guid.Empty;
+        }
+        else
+        {
+            return supplier.Id;
+        }
+    }
+
 
     public void Deactivate(Guid id)
     {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using PartyMaker.Models;
 using PartyMaker.Domain.Enumerations;
 using Microsoft.AspNetCore.Authorization;
+using PartyMaker.Domain.Interfaces.Services;
 
 
 namespace PartyMaker.Web.Client.Controllers;
@@ -16,12 +17,16 @@ public class AccountController : ControllerBase
     private readonly UserManager<PartyMakerUser> _userManager;
     private readonly SignInManager<PartyMakerUser> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
+    private readonly ISuppliersService _suppliersService;
+    private readonly ICustomerService _customerService;
 
-    public AccountController(UserManager<PartyMakerUser> userManager, SignInManager<PartyMakerUser> signInManager, RoleManager<IdentityRole> roleManager)
+    public AccountController(UserManager<PartyMakerUser> userManager, SignInManager<PartyMakerUser> signInManager, RoleManager<IdentityRole> roleManager, ISuppliersService suppliersService, ICustomerService customerService)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _roleManager = roleManager;
+        _suppliersService = suppliersService;
+        _customerService = customerService;
     }
 
     [HttpPost("[action]")]
@@ -35,11 +40,13 @@ public class AccountController : ControllerBase
 
                 var supplier = new PartyMakerUser
                 {
+                    Id = Guid.NewGuid().ToString(),
                     UserName = model.Email,
                     Email = model.Email,
                     Supplier = new Supplier
                     {
-                        CompanyName = model.Email,
+                        Id = Guid.NewGuid(),
+                        CompanyName = model.CompanyName ?? model.Email,
                     }
                 };
 
@@ -48,7 +55,11 @@ public class AccountController : ControllerBase
                 if (res.Succeeded)
                 {
                     await _signInManager.SignInAsync(supplier, isPersistent: true);
-                    return Ok();
+                    return Ok(new
+                    {
+                        supplierId = supplier.Supplier.Id,
+                        userId = supplier.Id
+                    });
                 }
                 await _userManager.AddToRoleAsync(await _userManager.FindByNameAsync(supplier.UserName), UserRole.Supplier);
             }
@@ -61,12 +72,14 @@ public class AccountController : ControllerBase
 
             var user = new PartyMakerUser
             {
+                Id = Guid.NewGuid().ToString(),
                 UserName = model.Email,
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Customer = new Customer
                 {
+                    Id = Guid.NewGuid(),
                     UserName = model.Email,
                 }
             };
@@ -76,7 +89,11 @@ public class AccountController : ControllerBase
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: true);
-                return Ok();
+                return Ok(new
+                {
+                    supplierId = user.Customer.Id,
+                    userId = user.Id
+                });
             }
             else
             {
@@ -101,8 +118,15 @@ public class AccountController : ControllerBase
             var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: true);
             if (result.Succeeded)
             {
-
-                return Ok();
+                var user = await _userManager.FindByNameAsync(model.Email);
+                var customerId = _customerService.GetCustomerIdByUserId(new Guid(user.Id));
+                var supplierId = _suppliersService.GetSupplierIdByUserId(new Guid(user.Id));
+                return Ok(new
+                {
+                    userId = user.Id,
+                    customerId = customerId == Guid.Empty ? "" : customerId.ToString(),
+                    supplierId = supplierId == Guid.Empty ? "" : supplierId.ToString()
+                });
             }
         }
         return BadRequest(new
