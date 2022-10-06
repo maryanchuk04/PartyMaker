@@ -43,6 +43,7 @@ public class SuppliersService : ISuppliersService
             Phone = supplier.User.Phone,
             ImageUrl = supplier.User.Image?.Url,
             Description = supplier.Description,
+            IsDeleted = supplier.IsDeleted,
             SupplierServices = new List<SupplierServiceDto>()
         };
 
@@ -62,9 +63,24 @@ public class SuppliersService : ISuppliersService
         return supplierDto;
     }
 
-    public List<Supplier> GetByServiceId(Guid id)
+    public List<SupplierDto> GetByServiceId(Guid id)
     {
-        return _suppliersDao.GetByServiceId(id);
+        var suppliers = _suppliersDao.GetByServiceId(id);
+        var suppliersDtos = new List<SupplierDto>();
+        foreach (var supplier in suppliers)
+        {
+            suppliersDtos.Add(new SupplierDto()
+            {
+                Id = supplier.Id,
+                City = supplier.City,
+                Email = supplier.User.Email,
+                CompanyName = supplier.CompanyName,
+                Description = supplier.Description,
+                ImageUrl = supplier.User.Image?.Url,
+            });
+        }
+
+        return suppliersDtos;
     }
 
     public void CreateSupplierService(Guid supplierId, Guid serviceId, string description, string imageUrl)

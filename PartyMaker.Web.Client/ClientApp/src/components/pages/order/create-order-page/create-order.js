@@ -6,6 +6,7 @@ import { useMedia } from "use-media";
 import { OrderService } from "../../../../services/OrderService";
 import { ArrowForwardIosOutlined } from "@material-ui/icons";
 import AlertWrapper from "../../../ui/Alert";
+import { getAuthState } from "../../../../utils/helpers";
 
 const CreateOrder = () => {
   const [accordionState, setAccordionState] = useState([]);
@@ -33,7 +34,7 @@ const CreateOrder = () => {
   }
   async function createOrder() {
     const res = await service.createOrder({
-      customerId: "cd7fcf95-4ca1-457d-bcaa-8fc0e9aecd4b",
+      customerId: getAuthState().customerId,
       items: orderState,
     });
     if (res.ok) {

@@ -15,7 +15,10 @@ public class SuppliersDao : ISuppliersDao
 
     public List<Supplier> GetSupliers()
     {
-        return _context.Suppliers.Include(sup => sup.User).ToList();
+        return _context.Suppliers
+            .Include(sup => sup.User)
+            .Where(x=>x.IsDeleted == false)
+            .ToList();
     }
     public Supplier GetById(Guid id)
     {
@@ -40,8 +43,11 @@ public class SuppliersDao : ISuppliersDao
         return _context.SupplierServices
             .Include(x => x.Service)
             .Include(x => x.Supplier)
+                .ThenInclude(x=>x.User)
+                    .ThenInclude(x=>x.Image)
             .Where(x=>x.Service.Id == id)
             .Select(x=>x.Supplier)
+                .Where(x=>x.IsDeleted == false)
             .ToList();
     }
 

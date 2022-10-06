@@ -1,6 +1,6 @@
 ﻿import React, { useEffect, useState } from "react";
 import "./supplier-profile.css";
-import { TextareaAutosize, TextField, Button } from "@mui/material";
+import { AlertTitle, TextField, Button, Alert } from "@mui/material";
 import { Paper } from "@material-ui/core";
 import ServiceEditor from "../../ui/supplierProfile/ServiceEditor";
 import { SupplierService } from "../../../services/SupplierService";
@@ -11,6 +11,7 @@ import AlertWrapper from "../../ui/Alert";
 import { ClipLoader } from "react-spinners";
 import { getAuthState, isAuth } from "../../../utils/helpers";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 const SupplierProfileEdit = () => {
   const [loading, setLoading] = useState(true);
@@ -28,13 +29,11 @@ const SupplierProfileEdit = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if(!isAuth()){
+    if (!isAuth()) {
       history.push("/auth/login");
     }
     (async () => {
-      const res = await service.getSupplierById(
-        getAuthState().supplierId
-      );
+      const res = await service.getSupplierById(getAuthState().supplierId);
       if (res.ok) {
         const response = await res.json();
         setSupplier(response);
@@ -57,10 +56,9 @@ const SupplierProfileEdit = () => {
   }
 
   const uploadServiceHandle = async (imageUrl) => {
-    const res = await userService.changeAvatar(
-      getAuthState().userId,
-      { url: imageUrl }
-    );
+    const res = await userService.changeAvatar(getAuthState().userId, {
+      url: imageUrl,
+    });
     if (res.ok) {
       setAlert({ show: true, message: "Avatar Changed!", type: "success" });
       setTimeout(() => setAlert({ ...alert, show: false }), 5000);
@@ -111,7 +109,7 @@ const SupplierProfileEdit = () => {
     } else {
       setAlert({ show: true, message: "Somethind was wrong!", type: "error" });
       setTimeout(() => {
-          setAlert({ ...alert, show: false })
+        setAlert({ ...alert, show: false });
       }, 5000);
     }
   };
@@ -126,6 +124,11 @@ const SupplierProfileEdit = () => {
       ) : (
         <>
           <h1 className="text-center pt-4">Profile</h1>
+          {supplier.isDeleted && (
+            <Alert severity='error' className = 'w-100 my-2' style ={{backgroundColor: "rgb(253, 237, 237)"}}>
+               <strong> You account was disabled!    </strong><Link to = '/сontact'>Please write in support...</Link>
+            </Alert>
+          )}
           <Paper className="mb-4 py-3" sx={{ minHeight: "100%" }}>
             <form>
               <div className="row h-100">

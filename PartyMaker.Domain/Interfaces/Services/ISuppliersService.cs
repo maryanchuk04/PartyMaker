@@ -9,7 +9,7 @@ public interface ISuppliersService
     Supplier GetById(Guid id);
     List<SupplierService> GetSupplierServices(Guid supplierId);
     SupplierDto GetSuppliersInfoById(Guid id);
-    List<Supplier> GetByServiceId(Guid id);
+    List<SupplierDto> GetByServiceId(Guid id);
     void CreateSupplierService(Guid supplierId, Guid serviceId, string description, string imageUrl);
     void ChangeSupplierMainInfo(Guid supplierId, string companyName, string phone, string city, string description);
     void Deactivate(Guid id);

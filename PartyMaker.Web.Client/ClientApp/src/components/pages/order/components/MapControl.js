@@ -25,6 +25,7 @@ const MapControl = ({ handleChooseLocation }) => {
           variant="outlined"
           color="primary"
           onClick={handleOpen}
+          className = "w-100"
           startIcon={<i className="fas fa-map"></i>}
         >
           Map
@@ -41,9 +42,6 @@ const MapControl = ({ handleChooseLocation }) => {
             </div>
           </SimpleModal>
         ) : null}
-        <Button variant="outlined" onClick = {handleSubmit}>
-          Save
-        </Button>
       </div>
       <AutoComplete setCoordinates ={setLocationState} fromMapValue={locationState.location} />
     </form>

@@ -9,5 +9,6 @@ public class SupplierDto
     public string? Phone { get; set; }
     public string? ImageUrl { get; set; }
     public string? Description { get; set; }
+    public bool? IsDeleted { get; set; }
     public List<SupplierServiceDto>? SupplierServices { get; set; }
 }

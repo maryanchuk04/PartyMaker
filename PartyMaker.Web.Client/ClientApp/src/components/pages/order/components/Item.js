@@ -77,7 +77,7 @@ const Item = ({ submitItem, handleClear, index, handleShowMessage }) => {
       latitude: 0,
     },
     description: "",
-    date: "",
+    dateExecution: Date.now().toLocaleString(),
     qty: 0,
     price : 0
   });
@@ -88,7 +88,7 @@ const Item = ({ submitItem, handleClear, index, handleShowMessage }) => {
     const finalObj = {
       address : itemState.address,
       description : itemState.description,
-      date : itemState.date,
+      dateExecution : itemState.dateExecution,
       qty : itemState.qty,
       itemRequests : [],
       price : itemState.price
@@ -136,7 +136,7 @@ const Item = ({ submitItem, handleClear, index, handleShowMessage }) => {
   const handleChooseDetails = (details) =>
     setItemState({ ...itemState, description: details });
   const handleQty = (number) => setItemState({ ...itemState, qty: number });
-  const handleDate = (date) => setItemState({ ...itemState, date: date });
+  const handleDate = (date) => setItemState({ ...itemState, dateExecution: date });
   const handleRequestSuppliers = (data) =>
     setItemState({ ...itemState, suppliers: data });
   const handleChangePrice = (price) => setItemState({...itemState, price : price});
@@ -152,7 +152,7 @@ const Item = ({ submitItem, handleClear, index, handleShowMessage }) => {
           />
           <DatePicker
             handleChange={handleDate}
-            value={itemState.date}
+            value={itemState.dateExecution}
             required={true}
           />
         </div>
