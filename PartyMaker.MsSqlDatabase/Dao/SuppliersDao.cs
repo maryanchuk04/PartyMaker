@@ -17,7 +17,6 @@ public class SuppliersDao : ISuppliersDao
     {
         return _context.Suppliers
             .Include(sup => sup.User)
-            .Where(x=>x.IsDeleted == false)
             .ToList();
     }
     public Supplier GetById(Guid id)
