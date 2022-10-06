@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Interfaces.Dao;
 
 namespace PartyMaker.MsSqlDatabase.Dao;
@@ -81,6 +82,19 @@ public class SuppliersDao : ISuppliersDao
         {
             return supplier.Id;
         }
+    }
+
+    public List<Item> GetSupplierItems(Guid supplierId, RequestStatus status)
+    {
+        var items = _context.ItemRequests
+            .Include(x => x.Item)
+            .Include(x=>x.SupplierService)
+                .ThenInclude(x=>x.Supplier)
+            .Where(x => x.SupplierService.SupplierId == supplierId && x.RequestStatus == status)
+            .Select(x=>x.Item)
+            .ToList();
+
+        return items;
     }
 
 

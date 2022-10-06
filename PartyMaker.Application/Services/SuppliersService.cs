@@ -1,4 +1,5 @@
 ﻿using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Interfaces.Dao;
 using PartyMaker.Domain.Interfaces.Services;
 using PartyMaker.Domain.Models;
@@ -96,6 +97,20 @@ public class SuppliersService : ISuppliersService
     public Guid GetSupplierIdByUserId(Guid userId)
     {
         return _suppliersDao.GetSupplierIdByUserId(userId);
+    }
+
+    public List<ItemDto> GetSupplierItems(Guid supplierId, RequestStatus status)
+    {
+        var items = _suppliersDao.GetSupplierItems(supplierId, status);
+        var itemsDto = new List<ItemDto>();
+        foreach (var item in items)
+        {
+            itemsDto.Add(new ItemDto()
+            {
+                Id = item.Id,
+            });
+        }
+        return itemsDto;
     }
 
     public void ChangeSupplierMainInfo(Guid supplierId, string companyName, string phone, string city, string description)
