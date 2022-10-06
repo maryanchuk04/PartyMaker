@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 
 const DetailsWrapper = ({item}) => {
     useEffect(()=>{
-        console.log(item)
     },[])
   return (
     <div className = 'w-100'>

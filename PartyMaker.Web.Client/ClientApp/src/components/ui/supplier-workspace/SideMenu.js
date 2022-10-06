@@ -29,7 +29,6 @@ const SupplierWorkspace = () => {
            if(res.ok){
                const response = await res.json();
                setArray(response);
-               console.log(response);
                setLoading(false);
            }
         })()

@@ -16,7 +16,6 @@ const OrderDetailsPage = () => {
             const res = await service.getOrderById(id);
             if(res.ok){
                 const responce =await res.json();
-                console.log(responce);
                 setOrder(responce);
                 setLoading(false)
             } 
@@ -32,16 +31,15 @@ const OrderDetailsPage = () => {
     }
 
     useEffect(()=>{
-        console.log(order?.items);
     },[value])
 
   return (
     <div className = "container h-100 d-flex flex-column">
         {loading ? <ClipLoader size={200} color= {"#1aa94b"} className = "m-auto"/> : 
         <div className = "h-100">
-            <h1 className = 'text-center pt-4' style = {{height : "5%"}}>Order</h1>
+            <h1 className = 'text-center pt-4'>Order</h1>
             <TabsWrapper items = {order?.items} value = {value} setValue = {setValue}/>
-            <div style = {{height : "90%"}}>
+            <div>
                 <DetailsContent element = {order?.items[value]}/>
             </div>
         </div>

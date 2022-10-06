@@ -14,12 +14,12 @@ public class OrderDao : IOrderDao
         _context = context;
     }
 
-    public void Create(Guid customerId, List<Item> items, double totalPrice)
+    public Guid Create(Guid customerId, List<Item> items, double totalPrice)
     {
         var customer = _context.Customers.FirstOrDefault(x => x.Id == customerId);
         if (customer == null || items.Count == 0)
         {
-            return;
+            throw new NullReferenceException("Items or User not exist");
         }
 
         foreach (var item in items)
@@ -44,8 +44,9 @@ public class OrderDao : IOrderDao
         {
             item.Order = order;
         }
-        _context.Orders.Add(order);
+        var res = _context.Orders.Add(order);
         _context.SaveChanges();
+        return res.Entity.Id;
     }
 
     public void Delete(Guid id)

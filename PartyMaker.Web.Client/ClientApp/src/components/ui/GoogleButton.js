@@ -21,17 +21,13 @@ const GoogleButton = () => {
   }, []);
 
   const handleCallbackResponse = (response) => {
-    console.log("Login Success", response);
-    //if you want only google profile data u can write response.profileObj
     setGoogleResponse(response);
-    console.log(googleResponse);
   };
   return (
     <GoogleLogin
       clientId="361271152420-l9ggnenveihf9u1a9q91b2uj8qsgfec6.apps.googleusercontent.com"
       onSuccess={handleCallbackResponse}
       onFailure={(res) => {
-        console.log("Failed", res);
       }}
       isSignedIn={true}
       cookiePolicy={"single_host_origin"}

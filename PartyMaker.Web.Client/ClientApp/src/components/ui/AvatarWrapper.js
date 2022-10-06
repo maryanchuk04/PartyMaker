@@ -11,7 +11,6 @@ const AvatarWrapper = ({ avatarImage, setAvatar, uploadServiceHandle }) => {
   const uploadNewImage = async (e) => {
     setFile(e);
     const files = Object(e.currentTarget.files)[0];
-    console.log(files);
     setFile(files);
     const res = await uploadImage(files);
     setAvatar(res);

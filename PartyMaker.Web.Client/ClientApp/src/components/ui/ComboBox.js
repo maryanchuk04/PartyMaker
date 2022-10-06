@@ -11,7 +11,7 @@ const ComboBox = ({ label, defaultValue, handleChange, arrayData }) => {
         
         defaultValue = {defaultValue}
         label={label}
-        onChange={(e) => {handleChange(e.target.value)}}
+        onChange={(e) => {handleChange(e.target.value, arrayData.find(x=>x.id == e.target.value))}}
       >
         {arrayData?.map((item) => (
           <MenuItem value={item.id}>{item.name}</MenuItem>

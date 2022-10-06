@@ -18,11 +18,11 @@ public class OrderService : IOrderService
         _supplierServiceDao = supplierServiceDao;
     }
 
-    public void Create(Guid customerId, List<ItemDto> items)
+    public Guid Create(Guid customerId, List<ItemDto> items)
     {
         if (items.Count == 0)
         {
-            return;
+            throw new NullReferenceException("Item must be not clear");
         }
         items.ForEach(x=>x.TotalPrice = x.Price * x.Qty);
         items.ForEach(x=> x.ItemRequestDtos
@@ -30,7 +30,8 @@ public class OrderService : IOrderService
 
         double totalPrice = items.Select(x => x.TotalPrice.Value).Sum();
         var itemsList = MapToItems(items);
-        _orderDao.Create(customerId,itemsList, totalPrice);
+        var res = _orderDao.Create(customerId,itemsList, totalPrice);
+        return res;
     }
 
     public void Delete(Guid id) => _orderDao.Delete(id);
@@ -67,6 +68,7 @@ public class OrderService : IOrderService
                 TotalPrice = itemDto.TotalPrice.Value,
                 DateCreated = itemDto.DateCreated.Value,
                 Description = itemDto.Description,
+                DateExecution = itemDto.DateExecution.Value,
                 Address = new Address()
                 {
                     Latitude = itemDto.AddressDto.Latitude.Value,

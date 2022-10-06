@@ -11,7 +11,7 @@ export async function reverseGeocode(location){
 }
 
 export function generateItemShortInfo(data){
-    
+    return  `${data.service}, Date : ${data.date.toLocaleString()}, Qty : ${data.qty}, Price for 1 : ${data.price}`;
 }
 
 export function convertDate(date){

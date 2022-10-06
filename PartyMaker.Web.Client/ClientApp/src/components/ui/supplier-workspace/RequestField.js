@@ -15,7 +15,6 @@ const RequestField = ({ item }) => {
 
   function sendResponse(e) {
     e.preventDefault();
-    console.log(response);
     // request to backend
   }
   return (

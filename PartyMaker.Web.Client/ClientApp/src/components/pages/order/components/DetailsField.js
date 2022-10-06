@@ -1,6 +1,6 @@
 import React from "react";
 import { TextField } from "@mui/material";
-const DetailsField = ({ label, defaultValue, handleChooseDetails }) => {
+const DetailsField = ({ label, defaultValue, handleChooseDetails,disabled = false }) => {
   return (
     <TextField
       id="outlined-textarea"
@@ -11,6 +11,7 @@ const DetailsField = ({ label, defaultValue, handleChooseDetails }) => {
       defaultValue={defaultValue}
       sx={{ width: "100%"}}
       onChange={(e) => handleChooseDetails(e.target.value)}
+      disabled = {disabled}
     />
   );
 };

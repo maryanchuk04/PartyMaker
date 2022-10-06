@@ -8,62 +8,10 @@ import MapControl from "./MapControl";
 import SuppliersList from "./SuppliersList";
 import { SupplierService } from "../../../../services/SupplierService";
 import { ServicesService } from "../../../../services/ServicesService";
-const tempTopSuppliers = [
-  {
-    id: 1,
-    image:
-      "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
-    companyName: "Google",
-    supplierServices: ["Cakes", "Balls", "Hourse"],
-  },
-  {
-    id: 2,
-    image:
-      "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
-    companyName: "apple",
-    supplierServices: ["Cakes", "Balls", "Hourse"],
-  },
-  {
-    id: 3,
-    image:
-      "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
-    companyName: "hello",
-    supplierServices: [
-      "Cakes",
-      "Balls",
-      "Hourse",
-      "Cakes",
-      "Balls",
-      "Hourse",
-      "Cakes",
-      "Balls",
-      "Hourse",
-      "Cakes",
-      "Balls",
-      "Hourse",
-      "Hourse",
-      "Cakes",
-      "Balls",
-      "Hourse",
-    ],
-  },
-  {
-    id: 4,
-    image:
-      "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
-    companyName: "Case",
-    supplierServices: ["Cakes", "Balls", "Hourse"],
-  },
-  {
-    id: 5,
-    image:
-      "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
-    companyName: "Supplier1",
-    supplierServices: ["Cakes", "Balls", "Hourse"],
-  },
-];
+import { generateItemShortInfo } from "../../../../utils/helpers";
 
 const Item = ({ submitItem, handleClear, index, handleShowMessage }) => {
+  const [serviceString, setServiceString] = useState("")
   const supplierService = new SupplierService();
   const servicesService = new ServicesService();
   const [services, setServices] = useState([]);
@@ -83,7 +31,6 @@ const Item = ({ submitItem, handleClear, index, handleShowMessage }) => {
   });
 
   const handleSubmitItem = () => {
-    console.log(itemState);
     
     const finalObj = {
       address : itemState.address,
@@ -100,9 +47,13 @@ const Item = ({ submitItem, handleClear, index, handleShowMessage }) => {
         })
     });
     
-    console.log(finalObj);
-  
-    submitItem(finalObj);
+    const resStr = generateItemShortInfo({
+      service : serviceString,
+      date : finalObj.dateExecution,
+      qty : finalObj.qty,
+      price : finalObj.price
+    });
+    submitItem(finalObj, resStr,index);
     handleShowMessage("Service add.");
   };
 
@@ -116,12 +67,11 @@ const Item = ({ submitItem, handleClear, index, handleShowMessage }) => {
     })()
   }, []);
   
-  const handleChangeComboBox = async (itemId) => {
-    console.log(itemId);
+  const handleChangeComboBox = async (itemId, value) => {
+    setServiceString(value.name);
     const res = await supplierService.getSuppliersByServiceId(itemId);
     if (res.ok) {
       const responce = await res.json();
-      console.log(responce);
       setItemState({
         ...itemState,
         suppliers: responce,

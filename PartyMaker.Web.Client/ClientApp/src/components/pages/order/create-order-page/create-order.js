@@ -4,33 +4,41 @@ import AccordionItem from "../components/AccordionItem";
 import Item from "../components/Item";
 import { useMedia } from "use-media";
 import { OrderService } from "../../../../services/OrderService";
-import { ArrowForwardIosOutlined } from "@material-ui/icons";
 import AlertWrapper from "../../../ui/Alert";
 import { getAuthState } from "../../../../utils/helpers";
-
+import {useHistory} from 'react-router-dom'
 const CreateOrder = () => {
   const [accordionState, setAccordionState] = useState([]);
   const [alert, setAlert] = useState({ show: false, message: "", type: "" });
   const [orderState, setOrderState] = useState([]);
   const media = useMedia({ maxWidth: 430 });
   const service = new OrderService();
-
+  const history = useHistory();
   const handleAdd = (new_element) => {
-    console.log(new_element);
     setAccordionState((prev) => [...prev, new_element]);
   };
 
-  const handleSubmitItem = (item) => {
+  const handleSubmitItem = (item, infoStr, index) => {
+    const accordion = accordionState.map((elem, elemIndex)=>{
+      if(elemIndex == index){
+        return infoStr;
+      }
+      return elem;
+    });
+    setAccordionState(accordion);
     setOrderState((prev) => [...prev, item]);
   };
 
   const handleCancel = () => setAccordionState([]);
 
   const handleRemoveItem = (index) =>
-    setAccordionState(accordionState.filter((x) => x !== index));
+    setAccordionState(accordionState.filter((x, Xindex) => Xindex !== index));
+
   const handleShowMessage = (message) =>{
     setAlert({ show: true, message: message, type: "success" });
-    setTimeout(() => setAlert({ ...alert, show: false }), 5000);
+    setTimeout(() => {
+      setAlert({ ...alert, show: false })
+    }, 3000);
   }
   async function createOrder() {
     const res = await service.createOrder({
@@ -38,9 +46,12 @@ const CreateOrder = () => {
       items: orderState,
     });
     if (res.ok) {
-      //maybe redirect details page
+      const response = await res.json();
       setAlert({ show: true, message: "Order Created!", type: "success" });
-      setTimeout(() => setAlert({ ...alert, show: false }), 5000);
+      setTimeout(() =>{
+         setAlert({ ...alert, show: false });
+         history.push(`/order/${response.orderId}`)
+      }, 3000);
       handleCancel();
     } else {
       setAlert({ show: true, message: "Something went wrong", type: "error" });
@@ -56,14 +67,14 @@ const CreateOrder = () => {
           <Button
             endIcon={<i className="fas fa-plus"></i>}
             variant="contained"
-            onClick={() => handleAdd(accordionState.length)}
+            onClick={() => handleAdd(`Service ${accordionState.length+1}`)}
           >
             Add service
           </Button>
         ) : (
           <IconButton
             color="primary"
-            onClick={() => handleAdd(accordionState.length)}
+            onClick={() => handleAdd(`Service ${accordionState.length+1}`)}
           >
             <i className="fas fa-plus"></i>
           </IconButton>
@@ -87,7 +98,7 @@ const CreateOrder = () => {
         </div>
       ) : (
         accordionState?.map((elem, index) => (
-          <AccordionItem title={`Service ${index + 1}`}>
+          <AccordionItem title={elem}>
             <Item
               submitItem={handleSubmitItem}
               handleClear={handleRemoveItem}

@@ -38,7 +38,6 @@ export default function App() {
   function handleVisibleButton() {
     const scrollHeight = window.pageYOffset;
     if (scrollHeight > 200) {
-      console.log("HI");
       return setShowButton(true);
     } else if (scrollHeight <= 200) {
       return setShowButton(false);
