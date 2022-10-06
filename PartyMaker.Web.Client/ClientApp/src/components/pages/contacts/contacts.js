@@ -17,7 +17,6 @@ const Contacts = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(state);
     const res = await service.sendMessage(state);
     if (res.ok) {
       setShow(true);

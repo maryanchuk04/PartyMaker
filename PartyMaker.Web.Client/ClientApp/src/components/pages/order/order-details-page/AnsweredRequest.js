@@ -4,8 +4,6 @@ import DetailsField from '../components/DetailsField'
 
 const AnsweredRequest = ({item, Item}) => {
     useEffect(()=>{
-        console.log(item)
-        
     },[])
   return (
     <div className = "w-100" style= {{maxHeight : "500px", overflowY: "scroll"}}>
@@ -21,7 +19,7 @@ const AnsweredRequest = ({item, Item}) => {
                 defaultValue={"asdasd"}
                 sx={{ width: "100%"}}
                 disabled
-                onChange={(e) => console.log(e)}
+                onChange={(e) => {}}
             />
             </div>
             <div className = 'col col-lg-3 d-flex flex-column justify-content-between'>

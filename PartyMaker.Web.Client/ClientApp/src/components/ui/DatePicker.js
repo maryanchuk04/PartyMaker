@@ -10,32 +10,22 @@ export default function DatePicker({
   value,
   handleChange,
   required,
+  disabled = false
 }) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateTimePicker
+          disabled = {disabled}
           openTo = 'day'
           value={value}
           onChange={(newValue) =>{
             handleChange(newValue.$d)
-            console.log(newValue)
           }  
             }
           renderInput={(params) => (
             <TextField {...params} label = "Date and time" className = 'w-100 my-3'/>
           )}
         />
-      {/* <StaticDatePicker
-        c
-        displayStaticWrapperAs="desktop"
-        openTo="day"
-        value={value}
-        onChange={(newValue) => {
-          handleChange(newValue.$d);
-        }}
-        disablePast={disablePast}
-        renderInput={(params) => <TextField {...params} required={required} />}
-      /> */}
     </LocalizationProvider>
   );
 }

@@ -43,8 +43,11 @@ public class OrderController : ControllerBase
                     ItemRequestDtos = MapItemRequests(oItemViewModel.ItemRequests)
                 });
             }
-            _orderService.Create(orderViewModel.CustomerId, itemDtos);
-            return Ok();
+            var res = _orderService.Create(orderViewModel.CustomerId, itemDtos);
+            return Ok(new
+            {
+                orderId = res
+            });
         }
         return BadRequest();
     }

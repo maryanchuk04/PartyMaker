@@ -24,7 +24,6 @@ const SupplierLogin = () => {
 
   async function createSupplier(e) {
     e.preventDefault();
-    console.log(supplierState);
 
     const res = await supplierService.insertNewSupplier(supplierState);
     if (res.ok) {

@@ -33,7 +33,6 @@ const AutoComplete = ({ setCoordinates, fromMapValue, disable }) => {
       clearSuggestions();
       getGeocode({ address: description }).then((results) => {
         const { lat, lng } = getLatLng(results[0]);
-        console.log("📍 Coordinates: ", { lat, lng });
         setCoordinates({
           location : description,
           latitude : lat,

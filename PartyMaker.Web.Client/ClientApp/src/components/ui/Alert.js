@@ -5,7 +5,6 @@ import { Alert, IconButton } from "@mui/material";
 const AlertWrapper = ({ message, handleClose, type }) => {
 
   useEffect(()=>{
-    console.log(type);
   },[])
   return (
     <>

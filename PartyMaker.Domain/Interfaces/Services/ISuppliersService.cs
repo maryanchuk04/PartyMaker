@@ -1,4 +1,5 @@
 ﻿using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Models;
 
 namespace PartyMaker.Domain.Interfaces.Services;
@@ -17,4 +18,5 @@ public interface ISuppliersService
     void ChangeSupplierServiceInfo(Guid supplierServiceId, Guid serviceId, string description,
         string imageUrl);
     Guid GetSupplierIdByUserId(Guid userId);
+    List<ItemDto> GetSupplierItems(Guid supplier, RequestStatus status);
 }

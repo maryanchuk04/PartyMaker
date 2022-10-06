@@ -1,13 +1,8 @@
 import React, {useEffect, useState} from "react";
 import { Tabs, Tab } from "@mui/material";
 const TabsWrapper = ({ items, value, setValue }) => {
-    useEffect(()=>{
-      console.log(items)
-      console.log(items[0].itemRequestDtos[0]?.supplierService.service.name)
-    },[])
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        console.log(newValue)
     };
   return (
     <Tabs

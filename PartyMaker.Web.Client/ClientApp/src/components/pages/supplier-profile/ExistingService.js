@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import AvatarWrapper from "../../ui/AvatarWrapper";
 const ExistingService = ({suppService}) => {
     useEffect(()=>{
-        console.log(suppService);
+
     },[])
   return (
     <div class="row w-100 m-1">

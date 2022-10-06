@@ -29,7 +29,6 @@ const Map = ({ handleSelect, initCenter, disable = false }) => {
               lng: coordinates.lng,
               lat: coordinates.lat,
             });
-            console.log(res);
             handleSelect({
               latitude: coordinates.lat,
               longitude: coordinates.lng,
