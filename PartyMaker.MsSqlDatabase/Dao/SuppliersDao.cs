@@ -88,9 +88,20 @@ public class SuppliersDao : ISuppliersDao
     {
         var items = _context.ItemRequests
             .Include(x => x.Item)
+                .ThenInclude(x=>x.ItemRequests)
+                    .ThenInclude(x=>x.SupplierService)
+                        .ThenInclude(x=>x.Supplier)
+            .Include(x => x.Item)
+                .ThenInclude(x=>x.ItemRequests)
+                    .ThenInclude(x=>x.SupplierService)
+                        .ThenInclude(x=>x.Service)
+            .Include(x=>x.Item)
+                .ThenInclude(x=>x.Address)
+            .Include(x=>x.Item)
+                .ThenInclude(x=>x.ItemStatusHistory)
             .Include(x=>x.SupplierService)
                 .ThenInclude(x=>x.Supplier)
-            .Where(x => x.SupplierService.SupplierId == supplierId && x.RequestStatus == status)
+            .Where(x => x.RequestStatus == status && x.SupplierService.Supplier.Id == supplierId)
             .Select(x=>x.Item)
             .ToList();
 

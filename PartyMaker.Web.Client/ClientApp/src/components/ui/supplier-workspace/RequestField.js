@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import DetailsDialog from "./DetailsDialog";
 import { TextareaAutosize, TextField, Button } from "@mui/material";
-
+import SimpleModal from "../SimpleModal";
+import DetailsWrapper from "./DetailsWrapper";
+import { getAuthState } from "../../../utils/helpers";
 const RequestField = ({ item }) => {
+  const [open,setOpen] = useState(false);
   const [response, setResponse] = useState({
     response: "",
     price: 0,
+    itemId : "",
+    supplierId : getAuthState().supplierId
   });
 
   function sendResponse(e) {
@@ -16,7 +21,10 @@ const RequestField = ({ item }) => {
   return (
     <div>
       <p>{item.shortInfo}</p>
-      <DetailsDialog />
+      {open  && <SimpleModal open = {open} close ={()=>setOpen(false)} title = {"Details"} oneButton = {true} handleSubmit = {()=>setOpen(false)}>
+            <DetailsWrapper item = {item}/>
+      </SimpleModal>}
+      <Button variant = 'outlined' onClick = {()=>setOpen(true)}>Details</Button>
       <form onSubmit={sendResponse}>
         <TextareaAutosize
           placeholder="Response..."
@@ -30,9 +38,10 @@ const RequestField = ({ item }) => {
         <div className="price-field d-flex w-100 justify-content-end my-1">
           <TextField
             size="small"
-            label="Price"
+            label="Price $"
             variant="outlined"
             required
+            type = 'number'
             onChange={(e) =>
               setResponse({ ...response, price: e.target.value })
             }

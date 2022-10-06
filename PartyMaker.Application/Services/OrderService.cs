@@ -78,7 +78,6 @@ public class OrderService : IOrderService
                 {
                     new ItemStatusHistory()
                     {
-                        Id = Guid.NewGuid(),
                         DateChanged = DateTime.Now,
                         ItemStatus = ItemStatus.New
                     }
