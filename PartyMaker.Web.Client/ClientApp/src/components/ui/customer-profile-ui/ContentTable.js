@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from 'react';
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,19 +9,58 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import OrderDetails from "./OrderDetails";
+import { getAuthState, isAuth } from "../../../utils/helpers";
 import SimpleModal from "../SimpleModal";
+import { CustomerLoginService } from "../../../services/CustomerProfileService";
+import { useHistory } from "react-router";
 
-const ContentTable = () => {
-  function createData(type, product, date, performer) {
-    return { type, product, date, performer };
+const ContentTable = ({state}) => {
+  const service = new CustomerLoginService();
+  const history = useHistory();
+  const [loading, setLoading] = useState(true);
+  const [customer, setCustomer] = useState({});
+
+  const [ordersInfo, setOrdersInfo] = useState([]);
+
+
+  useEffect(() => {
+    (async () => {
+        const res = await service.getCustomerById(
+            getAuthState().customerId
+        );
+        if (res.ok) {
+            const response = await res.json();
+            setCustomer(response);
+            console.log(response)
+            // setOrdersInfo(response.orders);
+            setLoading(false);
+        }
+    })();
+}, []);
+
+useEffect(() => {
+  (async () => {
+      const res = await service.getFilteredOrders(
+        getAuthState().customerId,
+        state
+
+      );
+      if (res.ok) {
+          const response = await res.json();
+          console.log(response)
+          setOrdersInfo(response);
+          setLoading(false);
+      }
+  })();
+}, [state]);
+
+  function createData(order) {
+    return {order};
   }
 
   const rows = [
-    createData("Balls", 50, "09/09/2022", "Ivan"),
-    createData("Balls", 50, "09/09/2022", "Ivan"),
-    createData("Falls", 50, "09/09/2022", "Ivan"),
-    createData("Balls", 50, "09/09/2022", "Ivan"),
-    createData("Balls", 50, "09/09/2022", "Ivan"),
+    createData(),
+
   ];
 
   const style = {
@@ -49,33 +88,19 @@ const ContentTable = () => {
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
         <TableHead>
-          <TableRow>
-            <TableCell>Type of item</TableCell>
-            <TableCell align="right">Quantity</TableCell>
-            <TableCell align="right">Date&nbsp;</TableCell>
-            <TableCell align="right">Performer&nbsp;</TableCell>
-            <TableCell align="right">Details of the order</TableCell>
-          </TableRow>
+
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {ordersInfo?.map((row) => (
             <TableRow
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell key={row.type} component="th" scope="row">
-                {row.type}
+              <TableCell component="th" scope="row">
+                {row.orderShortInfo}
               </TableCell>
-              <TableCell key={row.product} align="right">
-                {row.product}
-              </TableCell>
-              <TableCell key={row.date} align="right">
-                {row.date}
-              </TableCell>
-              <TableCell key={row.performer} align="right">
-                {row.performer}
-              </TableCell>
+              
               <TableCell align="right" className="mt-2 display-4">
-                <Button onClick={() => handleOpen(row)}>Show</Button>
+                <Button onClick={() => history.push(`/order/${row.id}`)}>Show</Button>
               </TableCell>
             </TableRow>
           ))}
