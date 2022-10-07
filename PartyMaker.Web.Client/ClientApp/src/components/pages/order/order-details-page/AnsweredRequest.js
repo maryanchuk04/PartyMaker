@@ -1,10 +1,33 @@
 import { Button, Divider, TextField } from '@mui/material'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState} from 'react'
 import DetailsField from '../components/DetailsField'
-
+import {CustomerService} from '../../../../services/CustomerService'
+import AlertWrapper from '../../../ui/AvatarWrapper'
 const AnsweredRequest = ({item, Item}) => {
+    const [alert, setAlert] = useState({ show: false, message: "", type: "" });
+    const service = new CustomerService();
     useEffect(()=>{
     },[])
+
+    const handleCancelRequest = async() =>{
+        const res = service.cancelResult(item.id)
+        if(res.ok){
+            setAlert({ show: true, message: "Request refused!", type: "success" });
+            setTimeout(() =>{
+               setAlert({ ...alert, show: false }); 
+            }, 3000);
+        }
+    }
+
+    const handleApproveRequest = async() =>{
+        const res = service.approveRequest(item.id)
+        if(res.ok){
+            setAlert({ show: true, message: "Request approved!", type: "success" });
+            setTimeout(() =>{
+               setAlert({ ...alert, show: false }); 
+            }, 3000);
+        }
+    }
   return (
     <div className = "w-100" style= {{maxHeight : "500px", overflowY: "scroll"}}>
         <p style = {{color : '#1aa94b'}}>Company : {item?.supplierService?.supplierCompanyName}</p>
@@ -16,7 +39,7 @@ const AnsweredRequest = ({item, Item}) => {
                 multiline
                 maxRows={8}
                 minRows={8}
-                defaultValue={"asdasd"}
+                defaultValue={item?.response}
                 sx={{ width: "100%"}}
                 disabled
                 onChange={(e) => {}}
@@ -29,15 +52,24 @@ const AnsweredRequest = ({item, Item}) => {
                     <p>Price for 1 : {Item.price}</p>
                 </div>
                 <div>
-                    <h1 className = 'd-flex w-100 align-items-center justify-content-end'>
+                    <h2 className = 'd-flex w-100 align-items-center justify-content-end'>
                         {item.price || 0}
                         <i className = 'fas fa-money-bill'></i>
-                    </h1>
-                    <Button variant = 'contained' className ='w-100'>Submit</Button>
+                    </h2>
+                    <div className = 'd-flex'>
+                        <Button variant = 'contained' color = 'error' className ='w-50' onClick = {handleCancelRequest}>Refuse</Button>
+                        <Button variant = 'contained' className ='w-50 mx-1' onClick = {handleApproveRequest}>Approve</Button>
+                    </div>
                 </div> 
             </div>
         </div>
         <Divider sx = {{marginY : "20px"}}/>
+        {alert.show && (
+      <AlertWrapper
+        message={alert.message}
+        type={alert.type}
+        onClose={() => setAlert({ ...alert, show: false })}
+      />)}
     </div>
   )
 }

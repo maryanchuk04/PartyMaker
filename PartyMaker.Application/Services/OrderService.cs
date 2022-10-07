@@ -55,6 +55,11 @@ public class OrderService : IOrderService
         return orderDto;
     }
 
+    public Customer GetCustomerByOrderId(Guid orderId)
+    {
+        return _orderDao.GetCustomerByOrderId(orderId);
+    }
+
     private List<Item> MapToItems(List<ItemDto> itemDtos)
     {
         List<Item> items = new List<Item>();
@@ -105,6 +110,7 @@ public class OrderService : IOrderService
                 DateCreated = item.DateCreated,
                 Description = item.Description,
                 DateExecution = item.DateExecution,
+                OrderId = item.Order.Id,
                 AddressDto = new AddressDto()
                 {
                     Latitude = item.Address.Latitude.Value,

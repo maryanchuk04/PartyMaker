@@ -5,8 +5,6 @@ import DetailsField from "../components/DetailsField";
 import AccordionItem from "../components/AccordionItem";
 import Requested from "./Requested";
 import AnsweredRequest from "./AnsweredRequest";
-import { TextField } from "@mui/material";
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {useMedia} from "use-media"
@@ -21,7 +19,7 @@ const DetailsContent = ({ element }) => {
     setObject(element);
     setAddress(element.addressDto);
     setRequested(element?.itemRequestDtos.filter(x=>x.requestStatus === 0));
-    setAnswered(element?.itemRequestDtos.filter(x=>x.requestStatus === 2));
+    setAnswered(element?.itemRequestDtos.filter(x=>x.requestStatus === 1));
   }, [element]);
 
   useEffect(()=>{

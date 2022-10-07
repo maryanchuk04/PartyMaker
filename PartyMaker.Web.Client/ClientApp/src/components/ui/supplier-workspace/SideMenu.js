@@ -10,7 +10,18 @@ import { ClipLoader } from 'react-spinners';
 const SupplierWorkspace = () => {
     const service = new SupplierService();
     const [loading, setLoading] = useState(false);
-    let tags = ['Requests', 'Finished','Active'];
+    let tags = [{
+        state : 0,
+        title : 'Requests'
+    },
+    {
+        title : 'Active',
+         state : 3
+    },
+    {
+        state : 5,
+        title : 'Finished'
+    }];
     const [array,setArray] = useState([]);
     const [state, setState] = useState(0);
     const handleSelectPage = (selectedPageId) => {
@@ -18,7 +29,7 @@ const SupplierWorkspace = () => {
     };
 
     const getActivePage = () => {
-        return <Page id={state} array = {array} />;
+        return <Page id={state} array = {array} setLoading = {setState} />;
     };
     useEffect(()=>{
         (async()=>{
@@ -41,7 +52,7 @@ const SupplierWorkspace = () => {
                     <MenuList>
                         {
                             tags?.map((tag,index) => (
-                                <MenuItem selected ={index === state} onClick={() => handleSelectPage(tags.indexOf(tag))}>{tag}</MenuItem>
+                                <MenuItem selected ={index === state} onClick={() => handleSelectPage(tag.state)}>{tag.title}</MenuItem>
                             ))
                         }
                     </MenuList>
