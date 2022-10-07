@@ -17,6 +17,11 @@ public class ServicesDao : IServicesDao
         return _context.Services.ToList();
     }
 
+    public List<Service> GetFiltredServices()
+    {
+        return _context.Services.Where(x => x.IsDeleted == false).ToList();
+    }
+
     public Service Create(string name, string description, DateTime createdDate)
     {
         var service = new Service
@@ -26,7 +31,7 @@ public class ServicesDao : IServicesDao
             DateCreated = createdDate,
             DateUpdated = createdDate
         };
-        _context.Services.Add(service);  
+        _context.Services.Add(service);
         _context.SaveChanges();
         return service;
     }

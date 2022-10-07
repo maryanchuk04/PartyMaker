@@ -17,6 +17,6 @@ public class ServicesController : ControllerBase
     [HttpGet("[action]")]
     public IActionResult GetAllServices()
     {
-        return Ok(_servicesService.GetServices());
+        return Ok(_servicesService.GetFiltredServices());
     }
 }
