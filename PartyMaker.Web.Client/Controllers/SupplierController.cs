@@ -61,4 +61,18 @@ public class SupplierController : ControllerBase
             supplierMainInfoViewModel.Phone, supplierMainInfoViewModel.City, supplierMainInfoViewModel.Description);
         return Ok();
     }
+
+    [HttpPost("[action]/{supplierId}")]
+    public IActionResult GetSuppliersItems(Guid supplierId, SupplierItemsViewModel supplierItemsViewModel)
+    {
+        var res = _suppliersService.GetSupplierItems(supplierId, supplierItemsViewModel.Status);
+        return Ok(res);
+    }
+
+    [HttpPost("[action]/{itemRequestId}")]
+    public IActionResult SendResponse(Guid itemRequestId, ResponseViewModel responseViewModel)
+    {
+        _suppliersService.SendResponse(itemRequestId, responseViewModel.Response, responseViewModel.TotalPrice);
+        return Ok();
+    }
 }

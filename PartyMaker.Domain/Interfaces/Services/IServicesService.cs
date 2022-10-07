@@ -10,4 +10,6 @@ public interface IServicesService
     Service GetById(Guid id);
     void Deactivate(Guid id);
     void Activate(Guid id);
+    List<Service> GetFiltredServices();
+
 }

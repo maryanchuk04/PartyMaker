@@ -4,7 +4,6 @@ import { convertDate } from '../../../../utils/helpers';
 
 const Requested = ({item, Item}) => {
     useEffect(()=>{
-        console.log(item);
     },[])
   return (
     <div className = 'w-100'>

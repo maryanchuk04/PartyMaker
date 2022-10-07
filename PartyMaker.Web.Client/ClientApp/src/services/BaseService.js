@@ -2,7 +2,6 @@ export class BaseService{
     baseUrl = process.env.REACT_APP_API_PORT;
 
     async getData(url){
-        console.log(url);
         return await fetch(this.baseUrl + url, {
             method: "get",
             headers: new Headers({

@@ -16,7 +16,7 @@ const SuppliersList = ({
       if (text === "") {
         return el;
       } else {
-        return el.companyName.toLowerCase().includes(text);
+        return el.companyName.toLowerCase().includes(text.toLowerCase());
       }
     });
     setSuppliersFiltred(res);

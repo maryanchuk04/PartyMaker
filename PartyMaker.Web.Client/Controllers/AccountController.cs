@@ -19,14 +19,16 @@ public class AccountController : ControllerBase
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly ISuppliersService _suppliersService;
     private readonly ICustomerService _customerService;
+    private readonly IMailService _mailService;
 
-    public AccountController(UserManager<PartyMakerUser> userManager, SignInManager<PartyMakerUser> signInManager, RoleManager<IdentityRole> roleManager, ISuppliersService suppliersService, ICustomerService customerService)
+    public AccountController(UserManager<PartyMakerUser> userManager, SignInManager<PartyMakerUser> signInManager, RoleManager<IdentityRole> roleManager, ISuppliersService suppliersService, ICustomerService customerService, IMailService mailService)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _roleManager = roleManager;
         _suppliersService = suppliersService;
         _customerService = customerService;
+        _mailService = mailService;
     }
 
     [HttpPost("[action]")]
@@ -55,6 +57,7 @@ public class AccountController : ControllerBase
                 if (res.Succeeded)
                 {
                     await _signInManager.SignInAsync(supplier, isPersistent: true);
+                    await _mailService.SendRegistrationMailAsync(model.Email);
                     return Ok(new
                     {
                         customerId = "",
@@ -90,6 +93,7 @@ public class AccountController : ControllerBase
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: true);
+                await _mailService.SendRegistrationMailAsync(model.Email);
                 return Ok(new
                 {
                     supplierId = "",

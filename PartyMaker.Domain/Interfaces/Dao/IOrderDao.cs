@@ -4,9 +4,8 @@ namespace PartyMaker.Domain.Interfaces.Dao;
 
 public interface IOrderDao
 {
-    void Create(Guid customerId, List<Item> items, double totalPrice);
-
+    Guid Create(Guid customerId, List<Item> items, double totalPrice);
     void Delete(Guid id);
-
     Order GetOrderById(Guid id);
+    Customer GetCustomerByOrderId(Guid orderId);
 }

@@ -28,10 +28,10 @@ const SupplierItem = ({
 
   return (
     <div className="d-flex justify-content-between align-items-center py-3">
-      <Avatar src={supplier.image} sx={{ width: 50, height: 50 }} />
+      <Avatar src={supplier.imageUrl} sx={{ width: 50, height: 50 }} />
       <div className="w-50 d-flex flex-column">
         <h4>{supplier.companyName}</h4>
-        <RatingWrapper value={4} isReadOnly={true} />
+        <h5>{supplier.email}</h5>
       </div>
       <Checkbox
         defaultChecked

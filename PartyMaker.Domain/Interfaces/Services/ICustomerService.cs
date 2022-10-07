@@ -9,4 +9,8 @@ public interface ICustomerService
     CustomerDto GetById(Guid id);
     void ChangeCustomerInfo(Guid customerId, string email, string userName, int age, string firstName, string lastName);
     List<OrderPreviewDto> GetFilterOrders(Guid id, int state);
+
+    void ApproveRequest(Guid itemRequestId);
+
+    void CancelRequest(Guid itemRequestId);
 }

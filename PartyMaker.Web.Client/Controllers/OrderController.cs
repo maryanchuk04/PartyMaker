@@ -12,6 +12,8 @@ namespace PartyMaker.Controllers;
 public class OrderController : ControllerBase
 {
     private readonly IOrderService _orderService;
+    private readonly ICustomerService _customerService;
+
 
     public OrderController(IOrderService orderService)
     {
@@ -43,8 +45,11 @@ public class OrderController : ControllerBase
                     ItemRequestDtos = MapItemRequests(oItemViewModel.ItemRequests)
                 });
             }
-            _orderService.Create(orderViewModel.CustomerId, itemDtos);
-            return Ok();
+            var res = _orderService.Create(orderViewModel.CustomerId, itemDtos);
+            return Ok(new
+            {
+                orderId = res
+            });
         }
         return BadRequest();
     }
@@ -53,6 +58,19 @@ public class OrderController : ControllerBase
     public IActionResult GetOrderById(Guid id)
     {
         return Ok(_orderService.GetById(id));
+    }
+
+    [HttpGet("[action]/{orderId}")]
+    public IActionResult GetCustomerByOrderId(Guid orderId)
+    {
+        var res = _orderService.GetCustomerByOrderId(orderId);
+        var customer = new CustomerInfoViewModel()
+        {
+            Email = res.User.Email,
+            FullName = res.User.FirstName + " " + res.User.LastName,
+            Phone = res.User.Phone
+        };
+        return Ok(customer);
     }
 
     [NonAction]

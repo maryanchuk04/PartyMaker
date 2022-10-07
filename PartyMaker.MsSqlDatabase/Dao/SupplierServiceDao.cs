@@ -93,7 +93,8 @@ public class SupplierServiceDao : ISupplierServiceDao
     {
         return _context.SupplierServices
             .Include(x => x.Service)
-            .Include(x => x.Service)
+            .Include(x => x.Supplier)
+            .Where(x=>x.Supplier.IsDeleted == false)
             .FirstOrDefault(x => x.SupplierId == supplierId && x.Service.Id == serviceId);
     }
 }

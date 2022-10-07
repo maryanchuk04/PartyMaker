@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Interfaces.Dao;
 
 namespace PartyMaker.MsSqlDatabase.Dao;
@@ -15,7 +16,9 @@ public class SuppliersDao : ISuppliersDao
 
     public List<Supplier> GetSupliers()
     {
-        return _context.Suppliers.Include(sup => sup.User).ToList();
+        return _context.Suppliers
+            .Include(sup => sup.User)
+            .ToList();
     }
     public Supplier GetById(Guid id)
     {
@@ -40,8 +43,11 @@ public class SuppliersDao : ISuppliersDao
         return _context.SupplierServices
             .Include(x => x.Service)
             .Include(x => x.Supplier)
+                .ThenInclude(x=>x.User)
+                    .ThenInclude(x=>x.Image)
             .Where(x=>x.Service.Id == id)
             .Select(x=>x.Supplier)
+                .Where(x=>x.IsDeleted == false)
             .ToList();
     }
 
@@ -75,6 +81,32 @@ public class SuppliersDao : ISuppliersDao
         {
             return supplier.Id;
         }
+    }
+
+    public List<Item> GetSupplierItems(Guid supplierId, RequestStatus status)
+    {
+        var items = _context.ItemRequests
+            .Include(x => x.Item)
+                .ThenInclude(x=>x.ItemRequests)
+                    .ThenInclude(x=>x.SupplierService)
+                        .ThenInclude(x=>x.Supplier)
+            .Include(x => x.Item)
+                .ThenInclude(x=>x.ItemRequests)
+                    .ThenInclude(x=>x.SupplierService)
+                        .ThenInclude(x=>x.Service)
+            .Include(x=>x.Item)
+                .ThenInclude(x=>x.Address)
+            .Include(x=>x.Item)
+                .ThenInclude(x=>x.ItemStatusHistory)
+            .Include(x=>x.Item)
+                .ThenInclude(x=>x.Order)
+            .Include(x=>x.SupplierService)
+                .ThenInclude(x=>x.Supplier)
+            .Where(x => x.RequestStatus == status && x.SupplierService.Supplier.Id == supplierId)
+            .Select(x=>x.Item)
+            .ToList();
+
+        return items;
     }
 
 

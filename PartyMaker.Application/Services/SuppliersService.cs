@@ -1,4 +1,5 @@
 ﻿using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Interfaces.Dao;
 using PartyMaker.Domain.Interfaces.Services;
 using PartyMaker.Domain.Models;
@@ -9,11 +10,12 @@ public class SuppliersService : ISuppliersService
 {
     private readonly ISuppliersDao _suppliersDao;
     private readonly ISupplierServiceDao _supplierServiceDao;
-
-    public SuppliersService(ISuppliersDao suppliersDao, ISupplierServiceDao supplierServiceDao)
+    private readonly IItemRequestDao _itemRequestDao;
+    public SuppliersService(ISuppliersDao suppliersDao, ISupplierServiceDao supplierServiceDao, IItemRequestDao itemRequestDao)
     {
         _suppliersDao = suppliersDao;
         _supplierServiceDao = supplierServiceDao;
+        _itemRequestDao = itemRequestDao;
     }
 
     public List<Supplier> GetSuppliers()
@@ -43,6 +45,7 @@ public class SuppliersService : ISuppliersService
             Phone = supplier.User.Phone,
             ImageUrl = supplier.User.Image?.Url,
             Description = supplier.Description,
+            IsDeleted = supplier.IsDeleted,
             SupplierServices = new List<SupplierServiceDto>()
         };
 
@@ -62,9 +65,24 @@ public class SuppliersService : ISuppliersService
         return supplierDto;
     }
 
-    public List<Supplier> GetByServiceId(Guid id)
+    public List<SupplierDto> GetByServiceId(Guid id)
     {
-        return _suppliersDao.GetByServiceId(id);
+        var suppliers = _suppliersDao.GetByServiceId(id);
+        var suppliersDtos = new List<SupplierDto>();
+        foreach (var supplier in suppliers)
+        {
+            suppliersDtos.Add(new SupplierDto()
+            {
+                Id = supplier.Id,
+                City = supplier.City,
+                Email = supplier.User.Email,
+                CompanyName = supplier.CompanyName,
+                Description = supplier.Description,
+                ImageUrl = supplier.User.Image?.Url,
+            });
+        }
+
+        return suppliersDtos;
     }
 
     public void CreateSupplierService(Guid supplierId, Guid serviceId, string description, string imageUrl)
@@ -82,6 +100,50 @@ public class SuppliersService : ISuppliersService
         return _suppliersDao.GetSupplierIdByUserId(userId);
     }
 
+    public List<ItemDto> GetSupplierItems(Guid supplierId, RequestStatus status)
+    {
+        var items = _suppliersDao.GetSupplierItems(supplierId, status);
+        var itemsDto = new List<ItemDto>();
+        foreach (var item in items)
+        {
+            itemsDto.Add(new ItemDto()
+            {
+                Id = item.Id,
+                Qty = item.Qty,
+                Price = item.Price,
+                TotalPrice = item.TotalPrice,
+                DateCreated = item.DateCreated,
+                Description = item.Description,
+                DateExecution = item.DateExecution,
+                OrderId = item.Order.Id,
+                AddressDto = new AddressDto()
+                {
+                    Latitude = item.Address.Latitude.Value,
+                    Longitude = item.Address.Longitude.Value,
+                    Location = item.Address.Location
+                },
+                ItemStatus = item.ItemStatus,
+                ItemRequestDtos = MapItemRequests(item.ItemRequests.ToList()).FindAll(x=>x.SupplierService.SupplierId == supplierId).ToList()
+            });
+        }
+        return itemsDto;
+    }
+
+    public void SendResponse(Guid itemRequestId, string response, int totalPrice)
+    {
+        var itemRequest = _itemRequestDao.GetItemRequestById(itemRequestId);
+        if (itemRequest == null)
+        {
+            return;
+        }
+
+        itemRequest.Response = response;
+        itemRequest.DateModified = DateTime.Now;
+        itemRequest.Price = totalPrice;
+        itemRequest.RequestStatus = RequestStatus.Proposal;
+        _itemRequestDao.UpdateItemRequest(itemRequest);
+    }
+
     public void ChangeSupplierMainInfo(Guid supplierId, string companyName, string phone, string city, string description)
     {
         _suppliersDao.ChangeMainInfo(supplierId, companyName, phone, city,description);
@@ -95,5 +157,32 @@ public class SuppliersService : ISuppliersService
     public void Activate(Guid id)
     {
         _suppliersDao.Activate(id);
+    }
+
+    private List<ItemRequestDto> MapItemRequests(List<ItemRequest> itemRequests)
+    {
+        var itemsRequests = new List<ItemRequestDto>();
+        foreach (var itemRequest in itemRequests)
+        {
+            itemsRequests.Add(new ItemRequestDto()
+            {
+                DateCreated = itemRequest.DateCreated,
+                DateModified = itemRequest.DateModified,
+                Id = itemRequest.Id,
+                RequestStatus = itemRequest.RequestStatus,
+                Response = itemRequest.Response,
+                Price = itemRequest.Price,
+                SupplierService = new SupplierServiceDto()
+                {
+                    Id = itemRequest.SupplierService.Id,
+                    SupplierId = itemRequest.SupplierService.Supplier.Id,
+                    Service = itemRequest.SupplierService.Service,
+                    Description = itemRequest.SupplierService.Description,
+                    SupplierCompanyName = itemRequest.SupplierService.Supplier.CompanyName,
+                }
+            });
+        }
+
+        return itemsRequests;
     }
 }

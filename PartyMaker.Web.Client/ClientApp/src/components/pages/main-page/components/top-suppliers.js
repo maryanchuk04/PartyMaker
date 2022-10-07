@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import {useMedia} from 'use-media';
+import { SupplierService } from '../../../../services/SupplierService';
 import SupplierShortInfo from "../../../supplier-short-info";
 const tempTopSuppliers = [
   {
@@ -47,10 +48,12 @@ const tempTopSuppliers = [
 ]
 
 const TopSuppliers = () => {
+  const services = new SupplierService();
+
   const [suppliers, setSuppliers] = useState(tempTopSuppliers);
   const media = useMedia({maxWidth : "950px"})
     useEffect(()=>{
-      console.log(media)
+      
     },[]);
 
 
