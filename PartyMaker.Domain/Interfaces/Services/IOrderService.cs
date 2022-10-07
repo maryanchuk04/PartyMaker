@@ -10,4 +10,6 @@ public interface IOrderService
     void Delete(Guid id);
 
     OrderDto GetById(Guid id);
+
+    Customer GetCustomerByOrderId(Guid orderId);
 }

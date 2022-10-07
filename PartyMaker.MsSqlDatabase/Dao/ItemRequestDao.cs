@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PartyMaker.Domain.Entities;
 using PartyMaker.Domain.Enumerations;
 using PartyMaker.Domain.Interfaces.Dao;
@@ -13,7 +14,7 @@ public class ItemRequestDao : IItemRequestDao
         _context = context;
     }
 
-    public void Update(Guid id, string description, string response, double price,
+    public void Update(Guid id, string response, double price,
         RequestStatus requestStatus, Guid supplierServiceId, Guid itemId)
     {
         var itemRequest = _context.ItemRequests.FirstOrDefault(x => x.Id == id);
@@ -48,6 +49,36 @@ public class ItemRequestDao : IItemRequestDao
             return;
         }
         _context.ItemRequests.Remove(itemRequest);
+        _context.SaveChanges();
+    }
+
+    public ItemRequest GetItemRequestById(Guid id)
+    {
+        return _context.ItemRequests
+            .Include(x => x.Item)
+            .ThenInclude(x => x.ItemStatusHistory).FirstOrDefault(x => x.Id == id);
+    }
+
+    public void UpdateItemRequest(ItemRequest itemRequest)
+    {
+        if (itemRequest == null)
+        {
+            return;
+        }
+
+        _context.ItemRequests.Update(itemRequest);
+        _context.SaveChanges();
+    }
+
+    public void CancelItemRequest(Guid itemRequestId)
+    {
+        var res = GetItemRequestById(itemRequestId);
+        if (res == null)
+        {
+            return;
+        }
+
+        _context.ItemRequests.Remove(res);
         _context.SaveChanges();
     }
 }

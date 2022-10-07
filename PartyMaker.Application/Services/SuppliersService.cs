@@ -10,11 +10,12 @@ public class SuppliersService : ISuppliersService
 {
     private readonly ISuppliersDao _suppliersDao;
     private readonly ISupplierServiceDao _supplierServiceDao;
-
-    public SuppliersService(ISuppliersDao suppliersDao, ISupplierServiceDao supplierServiceDao)
+    private readonly IItemRequestDao _itemRequestDao;
+    public SuppliersService(ISuppliersDao suppliersDao, ISupplierServiceDao supplierServiceDao, IItemRequestDao itemRequestDao)
     {
         _suppliersDao = suppliersDao;
         _supplierServiceDao = supplierServiceDao;
+        _itemRequestDao = itemRequestDao;
     }
 
     public List<Supplier> GetSuppliers()
@@ -114,6 +115,7 @@ public class SuppliersService : ISuppliersService
                 DateCreated = item.DateCreated,
                 Description = item.Description,
                 DateExecution = item.DateExecution,
+                OrderId = item.Order.Id,
                 AddressDto = new AddressDto()
                 {
                     Latitude = item.Address.Latitude.Value,
@@ -125,6 +127,21 @@ public class SuppliersService : ISuppliersService
             });
         }
         return itemsDto;
+    }
+
+    public void SendResponse(Guid itemRequestId, string response, int totalPrice)
+    {
+        var itemRequest = _itemRequestDao.GetItemRequestById(itemRequestId);
+        if (itemRequest == null)
+        {
+            return;
+        }
+
+        itemRequest.Response = response;
+        itemRequest.DateModified = DateTime.Now;
+        itemRequest.Price = totalPrice;
+        itemRequest.RequestStatus = RequestStatus.Proposal;
+        _itemRequestDao.UpdateItemRequest(itemRequest);
     }
 
     public void ChangeSupplierMainInfo(Guid supplierId, string companyName, string phone, string city, string description)

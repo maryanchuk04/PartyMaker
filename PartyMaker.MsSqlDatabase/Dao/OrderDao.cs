@@ -76,4 +76,17 @@ public class OrderDao : IOrderDao
                         .ThenInclude(x=>x.Supplier)
             .FirstOrDefault(x => x.Id == id);
     }
+
+    public Customer GetCustomerByOrderId(Guid orderId)
+    {
+        var order = _context.Orders
+            .Include(x => x.Customer)
+                .ThenInclude(x=>x.User)
+            .FirstOrDefault(x => x.Id == orderId);
+        if (order == null)
+        {
+            throw new NullReferenceException("Order is not exist");
+        }
+        return order.Customer;
+    }
 }

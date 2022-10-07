@@ -17,4 +17,6 @@ export class SupplierService {
         _baseService.setData(`Supplier/EditSupplierServiceInfo/${supplierServiceId}`, data);
 
     getSuppliersItems = (id, data) => _baseService.setData(`Supplier/GetSuppliersItems/${id}`,data);
+
+    sendResponse = (id,data) => _baseService.setData(`Supplier/SendResponse/${id}`,data);
 }

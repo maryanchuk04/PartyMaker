@@ -146,7 +146,7 @@ const Item = ({ submitItem, handleClear, index, handleShowMessage }) => {
           Clear
         </Button>
         <Button variant="outlined" type="button" onClick={handleSubmitItem}>
-          Submit
+          Add
         </Button>
       </div>
     </div>

@@ -98,6 +98,8 @@ public class SuppliersDao : ISuppliersDao
                 .ThenInclude(x=>x.Address)
             .Include(x=>x.Item)
                 .ThenInclude(x=>x.ItemStatusHistory)
+            .Include(x=>x.Item)
+                .ThenInclude(x=>x.Order)
             .Include(x=>x.SupplierService)
                 .ThenInclude(x=>x.Supplier)
             .Where(x => x.RequestStatus == status && x.SupplierService.Supplier.Id == supplierId)

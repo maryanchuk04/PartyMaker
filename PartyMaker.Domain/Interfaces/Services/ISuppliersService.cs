@@ -19,4 +19,5 @@ public interface ISuppliersService
         string imageUrl);
     Guid GetSupplierIdByUserId(Guid userId);
     List<ItemDto> GetSupplierItems(Guid supplier, RequestStatus status);
+    void SendResponse(Guid itemRequestId, string response, int totalPrice);
 }
