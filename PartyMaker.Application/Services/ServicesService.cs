@@ -11,7 +11,7 @@ public class ServicesService : IServicesService
 
     public ServicesService(IServicesDao servicesDao)
     {
-        _servicesDao = servicesDao; 
+        _servicesDao = servicesDao;
     }
 
     public List<Service> GetServices()
@@ -44,5 +44,10 @@ public class ServicesService : IServicesService
     public void Activate(Guid id)
     {
         _servicesDao.Activate(id, DateTime.Now);
+    }
+
+    public List<Service> GetFiltredServices()
+    {
+        return _servicesDao.GetFiltredServices();
     }
 }
