@@ -12,4 +12,6 @@ public interface IOrderService
     OrderDto GetById(Guid id);
 
     Customer GetCustomerByOrderId(Guid orderId);
+    void ReceivedItem(Guid itemRequestId);
+    void DeliveryItem(Guid itemRequestId);
 }

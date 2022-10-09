@@ -13,6 +13,7 @@ const RequestField = ({ item, setLoading}) => {
   const supplierService = new SupplierService();
   const [open,setOpen] = useState(false);
   const [customer, setCustomer] = useState({});
+  const [rejected, setRejected] = useState('');
   const [response, setResponse] = useState({
     response: "",
     price: 0,
@@ -44,6 +45,12 @@ const RequestField = ({ item, setLoading}) => {
       setLoading(0);
     }
   }
+
+  const handleRejected = (e) =>{
+    e.preventDefault();
+  }
+
+
   return (
     <div>
       <p>{generateItemShortInfo({
@@ -66,6 +73,22 @@ const RequestField = ({ item, setLoading}) => {
             setResponse({ ...response, response: e.target.value })
           }
         />
+        <form className="price-field d-flex w-100 my-1 mb-4" onSubmit = {handleRejected}>
+          <TextField
+          className = 'w-100'
+            size="small"
+            label="Rejected message"
+            variant="outlined"
+            required
+            type = 'number'
+            onChange={(e) =>
+              setRejected(e.target.value)
+            }
+          />
+          <Button type="submit" variant="outlined" color = 'error' sx={{ marginLeft: "10px" }}>
+            Reject
+          </Button>
+        </form>
         <div className="price-field d-flex w-100 justify-content-end my-1">
           <TextField
             size="small"

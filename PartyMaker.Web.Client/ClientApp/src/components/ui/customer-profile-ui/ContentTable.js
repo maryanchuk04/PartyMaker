@@ -32,7 +32,6 @@ const ContentTable = ({state}) => {
             const response = await res.json();
             setCustomer(response);
             console.log(response)
-            // setOrdersInfo(response.orders);
             setLoading(false);
         }
     })();
@@ -76,11 +75,6 @@ useEffect(() => {
   };
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = (obj) => {
-    setSelectedOrder(obj);
-    setOpen(true);
-  };
-  const handleClose = () => setOpen(false);
 
   const [selectedOrder, setSelectedOrder] = useState({});
 
@@ -96,7 +90,7 @@ useEffect(() => {
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.orderShortInfo}
+                {row.orderShortInfo.slice(0, row.orderShortInfo.length-2)}
               </TableCell>
               
               <TableCell align="right" className="mt-2 display-4">
@@ -106,13 +100,6 @@ useEffect(() => {
           ))}
         </TableBody>
       </Table>
-      {open ? (
-        <SimpleModal open={open} close={handleClose}>
-          <Box sx={style}>
-            <OrderDetails order={selectedOrder} />
-          </Box>
-        </SimpleModal>
-      ) : null}
     </TableContainer>
   );
 };

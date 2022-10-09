@@ -34,7 +34,6 @@ namespace PartyMaker.Controllers
         [HttpGet("[action]/{id}/{state}")]
         public IActionResult GetFilteredOrders(Guid id, int state)
         {
-
             return Ok(_customerService.GetFilterOrders(id, state));
         }
 
