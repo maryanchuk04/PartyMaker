@@ -1,3 +1,4 @@
+import { Avatar } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Tags from './ui/Tags'
@@ -6,7 +7,7 @@ const SupplierShortInfo = ({supplier}) => {
     <div  class="card mb-3">
         <div class="row g-0 ">
             <div class="col-md-4 d-flex align-items-center">
-                <img src={supplier?.image} class="img-fluid m-1 rounded overflow-hidden" alt={supplier?.companyName}/>
+                <Avatar src={supplier?.image}   alt={supplier?.companyName}sx={{ width: 120, height: 120 }} className = 'm-auto' />
             </div>
             <div class="col-md-8">
                 <div class="card-body d-flex flex-column justify-content-between h-100">
