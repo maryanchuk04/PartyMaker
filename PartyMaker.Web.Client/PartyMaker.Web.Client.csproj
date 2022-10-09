@@ -13,6 +13,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>PartyMaker</RootNamespace>
         <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+        <IsPublishable>false</IsPublishable >
     </PropertyGroup>
 
     <ItemGroup>
