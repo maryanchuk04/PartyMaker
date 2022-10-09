@@ -50,6 +50,8 @@ public class CustomerService : ICustomerService
             Email = customer.User.Email,
             Orders = shortInfo,
             Image = customer.User.Image?.Url,
+            FirstName = customer.User.FirstName,
+            LastName = customer.User.LastName
         };
     }
 
@@ -64,6 +66,7 @@ public class CustomerService : ICustomerService
             foreach (var req in item.ItemRequests)
             {
                 result += req.SupplierService.Service.Name + ", ";
+                break;
             }
         }
 
@@ -92,7 +95,7 @@ public class CustomerService : ICustomerService
         }
         return shortInfo;
     }
-    
+
     public void ApproveRequest(Guid itemRequestId)
     {
         var itemRequest = _itemRequestDao.GetItemRequestById(itemRequestId);
@@ -101,6 +104,7 @@ public class CustomerService : ICustomerService
             return;
         }
 
+        itemRequest.Item.Order.OrderStatus = OrderStatus.InProgress;
         itemRequest.RequestStatus = RequestStatus.Accepted;
         itemRequest.Item.AcceptedItemRequest = itemRequest;
         itemRequest.DateModified = DateTime.Now;

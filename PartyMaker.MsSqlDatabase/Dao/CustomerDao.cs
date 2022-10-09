@@ -57,7 +57,7 @@ public class CustomerDao : ICustomerDao
         }
 
         customer.User.Email = email;
-        customer.User.UserName = userName;
+        customer.UserName = userName;
         customer.Age = age;
         customer.User.FirstName = firstName;
         customer.User.LastName = lastName;

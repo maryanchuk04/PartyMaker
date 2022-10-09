@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using PartyMaker.Domain.Entities;
 using PartyMaker.Domain.Enumerations;
@@ -11,11 +12,13 @@ public class OrderService : IOrderService
 {
     private readonly IOrderDao _orderDao;
     private readonly ISupplierServiceDao _supplierServiceDao;
+    private readonly IItemRequestDao _itemRequestDao;
 
-    public OrderService(IOrderDao orderDao, ISupplierServiceDao supplierServiceDao)
+    public OrderService(IOrderDao orderDao, ISupplierServiceDao supplierServiceDao, IItemRequestDao itemRequestDao)
     {
         _orderDao = orderDao;
         _supplierServiceDao = supplierServiceDao;
+        _itemRequestDao = itemRequestDao;
     }
 
     public Guid Create(Guid customerId, List<ItemDto> items)
@@ -58,6 +61,48 @@ public class OrderService : IOrderService
     public Customer GetCustomerByOrderId(Guid orderId)
     {
         return _orderDao.GetCustomerByOrderId(orderId);
+    }
+
+    public void ReceivedItem(Guid itemRequestId)
+    {
+        var item = _itemRequestDao.GetItemRequestById(itemRequestId);
+        if (item == null)
+        {
+            return;
+        }
+
+        item.RequestStatus = RequestStatus.Finished;
+        item.DateModified = DateTime.Now;
+        item.Item.ItemStatus = ItemStatus.Delivery;
+        if (item.Item.Order.Items.All(x => x.ItemStatus == ItemStatus.Delivery))
+        {
+            item.Item.Order.OrderStatus = OrderStatus.Done;
+        }
+        item.Item.ItemStatusHistory.Add(new ItemStatusHistory()
+        {
+            ItemStatus = item.Item.ItemStatus,
+            DateChanged = DateTime.Now,
+            Item = item.Item
+        });
+
+        _itemRequestDao.UpdateItemRequest(item);
+    }
+
+    public void DeliveryItem(Guid itemRequestId)
+    {
+        var item = _itemRequestDao.GetItemRequestById(itemRequestId);
+        if (item == null)
+        {
+            return;
+        }
+
+        item.Item.ItemStatus = ItemStatus.Sent;
+        item.Item.ItemStatusHistory.Add(new ItemStatusHistory()
+        {
+            Item = item.Item,
+            DateChanged = DateTime.Now
+        });
+        _itemRequestDao.UpdateItemRequest(item);
     }
 
     private List<Item> MapToItems(List<ItemDto> itemDtos)

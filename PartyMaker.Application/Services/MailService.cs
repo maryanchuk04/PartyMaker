@@ -18,12 +18,12 @@ public class MailService : IMailService
     {
         var subject = "Wellcome to PartyMaker!";
         var htmlContent = $"<img src='https://i.ibb.co/cr9pDdT/flags-1.png' alt='wellcome'/><br/><h3>Wellcome to family dear {email}!!!</h3><br/>";
-        await _mailClient.SendMessageAsync(subject, "", htmlContent,_partyMakerEmail, email, _partyMakerName);
+        await _mailClient.SendHtmlMessageAsync(subject, htmlContent,_partyMakerEmail, email, _partyMakerName);
     }
 
     public async Task SendContactUsMessageAsync(string email, string name, string message)
     {
         var plainContent = $"From: {email}\nName: {name}\nContactUs message : {message}";
-        await _mailClient.SendMessageAsync("Contact Us", plainContent, "", _partyMakerEmail, _partyMakerEmail, name);
+        await _mailClient.SendTextMessageAsync("Contact Us", plainContent, _partyMakerEmail, _partyMakerEmail, name);
     }
 }

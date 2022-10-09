@@ -10,22 +10,28 @@ import { ClipLoader } from 'react-spinners';
 const SupplierWorkspace = () => {
     const service = new SupplierService();
     const [loading, setLoading] = useState(false);
+    const [checked, setChecked] = useState(0);
     let tags = [{
         state : 0,
-        title : 'Requests'
+        title : 'Requests',
     },
     {
         title : 'Active',
-         state : 3
+        state : 3,
     },
     {
-        state : 5,
-        title : 'Finished'
+        state : 1,
+        title : 'Answered',
+    },
+    {
+        state :7,
+        title : 'Finished',
     }];
     const [array,setArray] = useState([]);
     const [state, setState] = useState(0);
-    const handleSelectPage = (selectedPageId) => {
+    const handleSelectPage = (selectedPageId, index) => {
         setState(selectedPageId);
+        setChecked(index);
     };
 
     const getActivePage = () => {
@@ -52,16 +58,14 @@ const SupplierWorkspace = () => {
                     <MenuList>
                         {
                             tags?.map((tag,index) => (
-                                <MenuItem selected ={index === state} onClick={() => handleSelectPage(tag.state)}>{tag.title}</MenuItem>
+                                <MenuItem selected ={index == checked} onClick={() => handleSelectPage(tag.state, index)}>{tag.title}</MenuItem>
                             ))
                         }
                     </MenuList>
                 </Paper>
-
                 <Paper className="paper-info w-100 h-100 p-2 d-flex flex-column" style = {{overflowY: "scroll"}}>
                     {loading ? <ClipLoader size={200} color= {"#1aa94b"} className = "m-auto"/> : getActivePage()}
                 </Paper>
-
             </Stack>
         </div>
     );

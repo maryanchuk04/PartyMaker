@@ -56,7 +56,11 @@ public class ItemRequestDao : IItemRequestDao
     {
         return _context.ItemRequests
             .Include(x => x.Item)
-            .ThenInclude(x => x.ItemStatusHistory).FirstOrDefault(x => x.Id == id);
+                .ThenInclude(x => x.ItemStatusHistory)
+            .Include(x => x.Item)
+            .ThenInclude(x => x.Order)
+                .ThenInclude(x=>x.Items)
+            .FirstOrDefault(x => x.Id == id);
     }
 
     public void UpdateItemRequest(ItemRequest itemRequest)

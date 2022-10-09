@@ -9,23 +9,35 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {useMedia} from "use-media"
 import DatePicker from "../../../ui/DatePicker";
+import Approved from "./Approved";
+import { Alert } from "@mui/material";
 const DetailsContent = ({ element }) => {
   const [object, setObject] = useState({});
   const [address, setAddress] = useState(null);
   const [requested, setRequested] = useState([]);
+  const [replied, setReplied] = useState([]);
   const [answered, setAnswered] = useState([]);
+  const [approved, setApproved] = useState([]);
   const media = useMedia({maxWidth : 500});
+
   useEffect(() => {
     setObject(element);
     setAddress(element.addressDto);
     setRequested(element?.itemRequestDtos.filter(x=>x.requestStatus === 0));
+    setReplied(element?.itemRequestDtos.filter(x=>x.requestStatus === 2));
     setAnswered(element?.itemRequestDtos.filter(x=>x.requestStatus === 1));
+    setApproved(element?.itemRequestDtos.filter(x=>x.requestStatus === 3));
+    console.log(element)
   }, [element]);
 
   useEffect(()=>{
   },[address])
 
-  
+  const approve = (index, itemRequestId) =>{
+    console.log(itemRequestId);
+    setAnswered(answered.filter(x=>x.id !== itemRequestId))
+    setApproved(answered.filter(x=>x.id === itemRequestId))
+  }
 
   return (
     <div className="h-100 w-100 py-2">
@@ -53,10 +65,16 @@ const DetailsContent = ({ element }) => {
           )}
         </div>
       </div>
+      {element.itemStatus === 3 ? <Alert severity = "warning">This item is finished!</Alert> :
       <div className = 'w-100 my-2'>
-        <AccordionItem title = {`Answer  (${answered?.length})`}>
+        <AccordionItem title = {`Approved(${approved?.length})`}>
+          {approved?.map((item, key)=>(
+            <Approved item = {item} Item ={object}/>
+          ))}
+        </AccordionItem>
+        <AccordionItem title = {`Answered (${answered?.length})`}>
           {answered?.map((item, key)=>(
-            <AnsweredRequest item = {item} Item ={object}/>
+            <AnsweredRequest item = {item} Item ={object} approve = {approve} index = {key} disabled = {approved.length > 0}/>
           ))}
         </AccordionItem>
         <AccordionItem title = {`Requested (${requested?.length})`}>
@@ -67,6 +85,7 @@ const DetailsContent = ({ element }) => {
           </div>
         </AccordionItem>
       </div>
+      }
     </div>
   );
 };

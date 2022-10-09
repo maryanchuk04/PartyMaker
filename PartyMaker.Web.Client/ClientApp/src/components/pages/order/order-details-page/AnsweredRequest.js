@@ -3,7 +3,8 @@ import React, { useEffect, useState} from 'react'
 import DetailsField from '../components/DetailsField'
 import {CustomerService} from '../../../../services/CustomerService'
 import AlertWrapper from '../../../ui/AvatarWrapper'
-const AnsweredRequest = ({item, Item}) => {
+import './answered.css'
+const AnsweredRequest = ({item, Item, approve, index, disabled = false}) => {
     const [alert, setAlert] = useState({ show: false, message: "", type: "" });
     const service = new CustomerService();
     useEffect(()=>{
@@ -20,16 +21,21 @@ const AnsweredRequest = ({item, Item}) => {
     }
 
     const handleApproveRequest = async() =>{
+        console.log(index,item.id)
         const res = service.approveRequest(item.id)
         if(res.ok){
             setAlert({ show: true, message: "Request approved!", type: "success" });
             setTimeout(() =>{
-               setAlert({ ...alert, show: false }); 
+               setAlert({ ...alert, show: false });
+               approve(index,item.id); 
             }, 3000);
         }
+        
+        
     }
   return (
-    <div className = "w-100" style= {{maxHeight : "500px", overflowY: "scroll"}}>
+      <>
+    <div className = "w-100 my-2 p-3" style= {{maxHeight : "500px", overflowY: "scroll", position : "relative"}}>
         <p style = {{color : '#1aa94b'}}>Company : {item?.supplierService?.supplierCompanyName}</p>
         <div className = 'row'>
             <div className = 'col'>
@@ -64,13 +70,17 @@ const AnsweredRequest = ({item, Item}) => {
             </div>
         </div>
         <Divider sx = {{marginY : "20px"}}/>
-        {alert.show && (
+        {disabled && <div className = 'disabled-answer'>
+            <h1 className = 'm-auto'>You already choose another supplier!</h1>
+        </div>}
+    </div>
+    {alert.show && (
       <AlertWrapper
         message={alert.message}
         type={alert.type}
         onClose={() => setAlert({ ...alert, show: false })}
       />)}
-    </div>
+    </>
   )
 }
 

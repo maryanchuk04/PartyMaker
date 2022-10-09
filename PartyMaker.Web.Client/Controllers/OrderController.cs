@@ -73,6 +73,20 @@ public class OrderController : ControllerBase
         return Ok(customer);
     }
 
+    [HttpGet("[action]/{itemRequestId}")]
+    public IActionResult ReceivedItem(Guid itemRequestId)
+    {
+        _orderService.ReceivedItem(itemRequestId);
+        return Ok();
+    }
+
+    [HttpGet("[action]/{itemRequestId}")]
+    public IActionResult DeliveryItem(Guid itemRequestId)
+    {
+        _orderService.DeliveryItem(itemRequestId);
+        return Ok();
+    }
+
     [NonAction]
     private List<ItemRequestDto> MapItemRequests(List<ItemRequestViewModel> itemRequestViewModels)
     {
