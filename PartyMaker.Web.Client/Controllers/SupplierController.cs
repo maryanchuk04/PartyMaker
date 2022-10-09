@@ -75,4 +75,10 @@ public class SupplierController : ControllerBase
         _suppliersService.SendResponse(itemRequestId, responseViewModel.Response, responseViewModel.TotalPrice);
         return Ok();
     }
+
+    [HttpGet("[action]")]
+    public IActionResult GetTopSuppliers()
+    {
+        return Ok(_suppliersService.GetTopSuppliers());
+    }
 }

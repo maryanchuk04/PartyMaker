@@ -2,62 +2,16 @@ import React, { useEffect, useState } from 'react'
 import {useMedia} from 'use-media';
 import { SupplierService } from '../../../../services/SupplierService';
 import SupplierShortInfo from "../../../supplier-short-info";
-const tempTopSuppliers = [
-  {
-    id : "203210030101020312",
-    image : "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
-    companyName : "Supplier1",
-    supplierServices : [
-      "Cakes", "Balls", "Hourse"
-    ],
 
-  },
-  {
-    id : "203210030101020312",
-    image : "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
-    companyName : "Supplier1",
-    supplierServices : [
-      "Cakes", "Balls", "Hourse"
-    ],
-  },{
-    id : "203210030101020312",
-    image : "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
-    companyName : "Supplier1",
-    supplierServices : [
-      "Cakes", "Balls", "Hourse","Cakes", "Balls", "Hourse","Cakes", "Balls", "Hourse","Cakes", "Balls", "Hourse","Hourse","Cakes", "Balls", "Hourse"
-    ],
-
-  },{
-    id : "203210030101020312",
-    image : "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
-    companyName : "Supplier1",
-    supplierServices : [
-      "Cakes", "Balls", "Hourse"
-    ],
-
-  },
-  {
-    id : "203210030101020312",
-    image : "https://assets.entrepreneur.com/content/3x2/2000/20150805204041-google-company-building-corporate.jpeg",
-    companyName : "Supplier1",
-    supplierServices : [
-      "Cakes", "Balls", "Hourse"
-    ],
-
-  }
-]
-
-const TopSuppliers = () => {
+const TopSuppliers = ({suppliers}) => {
   const services = new SupplierService();
-
-  const [suppliers, setSuppliers] = useState(tempTopSuppliers);
   const media = useMedia({maxWidth : "950px"})
     useEffect(()=>{
-      
+      console.log(suppliers);
     },[]);
 
 
-  return (
+  return suppliers?.length !== 0 &&
     <div style ={{height:"fit-content", backgroundImage :"url('https://i.ibb.co/N7P4g3d/image-13.png')", backgroundSize:'cover', backgroundPosition: "center"}}>
       <div className="container py-2">
         <div className="display-6 text-center">
@@ -73,7 +27,7 @@ const TopSuppliers = () => {
 
         </div>
     </div>
-  )
+  
 }
 
 export default TopSuppliers

@@ -144,6 +144,25 @@ public class SuppliersService : ISuppliersService
         _itemRequestDao.UpdateItemRequest(itemRequest);
     }
 
+    public List<SupplierPreviewDto> GetTopSuppliers()
+    {
+        var res = _suppliersDao.GetTopSuppliers();
+        var supplierPreviewDtos = new List<SupplierPreviewDto>();
+        foreach (var supplier in res)
+        {
+            supplierPreviewDtos.Add(new SupplierPreviewDto()
+            {
+                Id = supplier.Id,
+                Services = supplier.SupplierServices.Select(x=>x.Service.Name).ToList(),
+                CompanyName = supplier.CompanyName,
+                Image = supplier.User.Image?.Url,
+                AverageRating = supplier.Ratings.Any() ? supplier.Ratings.Sum(x=>x.Stars) / supplier.Ratings.Count : 0,
+            });
+        }
+
+        return supplierPreviewDtos;
+    }
+
     public void ChangeSupplierMainInfo(Guid supplierId, string companyName, string phone, string city, string description)
     {
         _suppliersDao.ChangeMainInfo(supplierId, companyName, phone, city,description);

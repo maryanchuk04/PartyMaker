@@ -15,9 +15,10 @@ public class OrderController : ControllerBase
     private readonly ICustomerService _customerService;
 
 
-    public OrderController(IOrderService orderService)
+    public OrderController(IOrderService orderService, ICustomerService customerService)
     {
         _orderService = orderService;
+        _customerService = customerService;
     }
 
     [HttpPost("[action]")]

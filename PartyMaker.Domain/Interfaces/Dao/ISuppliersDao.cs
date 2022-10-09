@@ -14,4 +14,5 @@ public interface ISuppliersDao
     void ChangeMainInfo(Guid supplierId, string companyName, string phone, string city, string description);
     Guid GetSupplierIdByUserId(Guid userId);
     List<Item> GetSupplierItems(Guid supplier, RequestStatus status);
+    List<Supplier> GetTopSuppliers();
 }

@@ -12,7 +12,6 @@ import AlertWrapper from '../ui/Alert'
 const CustomerLogin = () => {
   const [alert, setAlert] = useState({ show: false, message: "", type: "" });
   const registrationService = new CustomerRegistrationService();
-  const baseService = new BaseService();
   const history = useHistory();
 
   const [customerData, setCustomerData] = useState({

@@ -20,4 +20,5 @@ public interface ISuppliersService
     Guid GetSupplierIdByUserId(Guid userId);
     List<ItemDto> GetSupplierItems(Guid supplier, RequestStatus status);
     void SendResponse(Guid itemRequestId, string response, int totalPrice);
+    List<SupplierPreviewDto> GetTopSuppliers();
 }

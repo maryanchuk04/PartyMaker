@@ -11,9 +11,9 @@ const SupplierShortInfo = ({supplier}) => {
             </div>
             <div class="col-md-8">
                 <div class="card-body d-flex flex-column justify-content-between h-100">
-                    <Link to= {`/supplier/${supplier.id}`}><h2>{supplier?.companyName}</h2></Link>
+                    <Link to= {`/supplier/profile/${supplier.id}`}><h2>{supplier?.companyName}</h2></Link>
                     <div className = "d-flex flex-wrap text-center">
-                        <Tags array = {supplier?.supplierServices} count = {9}/>
+                        <Tags array = {supplier?.services} count = {8} />
                     </div>   
                 </div>
             </div>

@@ -2,6 +2,7 @@ using System.ComponentModel.Design;
 using System.Runtime.CompilerServices;
 using PartyMaker.Domain.Entities;
 using PartyMaker.Domain.Enumerations;
+using PartyMaker.Domain.Helpers;
 using PartyMaker.Domain.Interfaces.Dao;
 using PartyMaker.Domain.Interfaces.Services;
 using PartyMaker.Domain.Models;
@@ -21,11 +22,11 @@ public class OrderService : IOrderService
         _itemRequestDao = itemRequestDao;
     }
 
-    public Guid Create(Guid customerId, List<ItemDto> items)
+    public Guid? Create(Guid customerId, List<ItemDto> items)
     {
         if (items.Count == 0)
         {
-            throw new NullReferenceException("Item must be not clear");
+            return null;
         }
         items.ForEach(x=>x.TotalPrice = x.Price * x.Qty);
         items.ForEach(x=> x.ItemRequestDtos
@@ -130,7 +131,7 @@ public class OrderService : IOrderService
                 {
                     new ItemStatusHistory()
                     {
-                        DateChanged = DateTime.Now,
+                        DateChanged = TimeProvider.Now,
                         ItemStatus = ItemStatus.New
                     }
                 },
@@ -178,8 +179,8 @@ public class OrderService : IOrderService
         {
             itemsRequests.Add(new ItemRequest()
             {
-                DateCreated = DateTime.Now,
-                DateModified = DateTime.Now,
+                DateCreated = TimeProvider.Now,
+                DateModified = TimeProvider.Now,
                 Id = Guid.NewGuid(),
                 RequestStatus = RequestStatus.Sent,
                 SupplierService = _supplierServiceDao.GetById(itemRequest.SupplierServiceId.Value),

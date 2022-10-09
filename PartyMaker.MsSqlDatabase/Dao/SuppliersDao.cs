@@ -20,6 +20,7 @@ public class SuppliersDao : ISuppliersDao
             .Include(sup => sup.User)
             .ToList();
     }
+
     public Supplier GetById(Guid id)
     {
         return _context.Suppliers.FirstOrDefault(x => x.Id == id);
@@ -107,6 +108,27 @@ public class SuppliersDao : ISuppliersDao
             .ToList();
 
         return items;
+    }
+
+    public List<Supplier> GetTopSuppliers()
+    {
+        var suppliers =  _context.Suppliers
+            .Include(x => x.Ratings)
+                .Include(x => x.User)
+            .ThenInclude(x => x.Image)
+                .Include(x => x.SupplierServices)
+            .ThenInclude(x => x.Service)
+            .ToList();
+
+        suppliers = suppliers
+            .Select(x=>new
+            {
+                Rating = x.Ratings.Any() ? x.Ratings.Sum(y => y.Stars) / x.Ratings.Count : 0,
+                Supplier = x
+            })
+            .OrderBy(x => x.Rating).Select(x=>x.Supplier).Take(5).ToList();
+
+        return suppliers;
     }
 
 

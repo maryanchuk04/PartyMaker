@@ -33,4 +33,10 @@
         </PackageReference>
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\PartyMaker.Domain\PartyMaker.Domain.csproj" />
+      <ProjectReference Include="..\PartyMaker.Web.Admin\PartyMaker.Web.Admin.csproj" />
+      <ProjectReference Include="..\PartyMaker.Web.Client\PartyMaker.Web.Client.csproj" />
+    </ItemGroup>
+
 </Project>

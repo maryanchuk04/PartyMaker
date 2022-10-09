@@ -1,4 +1,5 @@
 ﻿using PartyMaker.Domain.Entities;
+using PartyMaker.Domain.Helpers;
 using PartyMaker.Domain.Interfaces.Dao;
 using PartyMaker.Domain.Interfaces.Services;
 using PartyMaker.Domain.Models;
@@ -23,11 +24,11 @@ public class ServicesService : IServicesService
     {
         if(upsertModel.Id.HasValue)
         {
-            return _servicesDao.Update(upsertModel.Id.Value, upsertModel.Name, upsertModel.Description,DateTime.Now);
+            return _servicesDao.Update(upsertModel.Id.Value, upsertModel.Name, upsertModel.Description,TimeProvider.Now);
         }
         else
         {
-            return _servicesDao.Create(upsertModel.Name, upsertModel.Description, DateTime.Now);
+            return _servicesDao.Create(upsertModel.Name, upsertModel.Description, TimeProvider.Now);
         }
     }
 
@@ -38,12 +39,12 @@ public class ServicesService : IServicesService
 
     public void Deactivate(Guid id)
     {
-        _servicesDao.Deactivate(id, DateTime.Now);
+        _servicesDao.Deactivate(id, TimeProvider.Now);
     }
 
     public void Activate(Guid id)
     {
-        _servicesDao.Activate(id, DateTime.Now);
+        _servicesDao.Activate(id, TimeProvider.Now);
     }
 
     public List<Service> GetFiltredServices()

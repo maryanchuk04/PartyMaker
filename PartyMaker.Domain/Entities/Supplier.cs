@@ -11,4 +11,5 @@ public class Supplier
     public PartyMakerUser User { get; set; }
 
     public ICollection<SupplierService> SupplierServices { get; set; }
+    public ICollection<Rating> Ratings { get; set; }
 }
