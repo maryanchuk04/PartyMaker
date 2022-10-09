@@ -26,7 +26,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish PartyMaker.Web.Admin -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.Application -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.Domain -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.MsSqlDatabase -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.Infrastructure -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.Tests -c Release -o ${{env.DOTNET_ROOT}}/myapp
+        run: dotnet publish PartyMaker.Web.Admin -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.Application -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.Domain -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.MsSqlDatabase -c Release -o ${{env.DOTNET_ROOT}}/myapp && dotnet publish PartyMaker.Infrastructure -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
