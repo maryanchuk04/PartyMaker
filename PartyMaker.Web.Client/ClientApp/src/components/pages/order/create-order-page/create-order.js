@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, IconButton } from "@mui/material";
 import AccordionItem from "../components/AccordionItem";
 import Item from "../components/Item";
 import { useMedia } from "use-media";
 import { OrderService } from "../../../../services/OrderService";
 import AlertWrapper from "../../../ui/Alert";
-import { getAuthState } from "../../../../utils/helpers";
+import { getAuthState, isAuth } from "../../../../utils/helpers";
 import {useHistory} from 'react-router-dom'
 const CreateOrder = () => {
   const [accordionState, setAccordionState] = useState([]);
@@ -17,6 +17,12 @@ const CreateOrder = () => {
   const handleAdd = (new_element) => {
     setAccordionState((prev) => [...prev, new_element]);
   };
+  useEffect(()=>{
+    if(!isAuth()){
+      history.push("/")
+    }
+  },[]);
+  
 
   const handleSubmitItem = (item, infoStr, index) => {
     const accordion = accordionState.map((elem, elemIndex)=>{
