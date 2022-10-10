@@ -23,15 +23,14 @@ const AnsweredRequest = ({item, Item, approve, index, disabled = false}) => {
     const handleApproveRequest = async() =>{
         console.log(index,item.id)
         const res = service.approveRequest(item.id)
+        approve(index,item.id); 
         if(res.ok){
             setAlert({ show: true, message: "Request approved!", type: "success" });
             setTimeout(() =>{
                setAlert({ ...alert, show: false });
-               approve(index,item.id); 
+              
             }, 3000);
         }
-        
-        
     }
   return (
       <>

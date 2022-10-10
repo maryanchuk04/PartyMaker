@@ -8,6 +8,7 @@ using PartyMaker.Web.Admin.Pages;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using PartyMaker.Domain.Entities;
 using Xunit;
 
 namespace PartyMaker.Tests.Controllers
