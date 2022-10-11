@@ -9,12 +9,12 @@ import { UserService } from "../../../services/UserService";
 import { Paper } from "@material-ui/core";
 import AvatarWrapper from "../../ui/AvatarWrapper";
 import { ClipLoader } from "react-spinners";
-import { getAuthState, isAuth } from "../../../utils/helpers";
+import { getAuthState, isAuth,setAuthState } from "../../../utils/helpers";
 import { useHistory } from "react-router";
 import AlertWrapper from "../../ui/Alert";
 const CustomerProfile = () => {
   const [loading, setLoading] = useState(true);
-  const service = new CustomerLoginService();
+  const service = new CustomerLoginService(); 
   const userService = new UserService();
   const [customer, setCustomer] = useState({});
   const [alert, setAlert] = useState({ show: false, message: "", type: "" });
@@ -29,10 +29,20 @@ const CustomerProfile = () => {
   const history = useHistory();
 
   useEffect(() => {
-    if (!isAuth()) {
-      history.push("/auth/login");
-    }
+    
+    
     (async () => {
+      if (!isAuth()) {
+        const res = await service.getUserData();
+        if(res.ok){
+          const response = await res.json();
+          console.log(response)
+          setAuthState(response);
+          window.location.reload();
+        }else{
+          history.push("/auth/login");
+        }
+    }
       const res = await service.getCustomerById(getAuthState().customerId);
       if (res.ok) {
         const response = await res.json();

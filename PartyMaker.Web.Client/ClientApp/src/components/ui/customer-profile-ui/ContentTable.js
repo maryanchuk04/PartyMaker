@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import OrderDetails from "./OrderDetails";
-import { getAuthState, isAuth } from "../../../utils/helpers";
+import { getAuthState, isAuth, setAuthState } from "../../../utils/helpers";
 import SimpleModal from "../SimpleModal";
 import { CustomerLoginService } from "../../../services/CustomerProfileService";
 import { useHistory } from "react-router";
@@ -19,12 +19,14 @@ const ContentTable = ({state}) => {
   const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [customer, setCustomer] = useState({});
-
+  
   const [ordersInfo, setOrdersInfo] = useState([]);
 
 
   useEffect(() => {
+    
     (async () => {
+      
         const res = await service.getCustomerById(
             getAuthState().customerId
         );

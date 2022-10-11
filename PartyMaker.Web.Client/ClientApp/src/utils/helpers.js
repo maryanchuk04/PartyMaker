@@ -43,5 +43,6 @@ export function getAuthState(){
 
 export function logOut(){
   localStorage.clear();
+  document.cookie = 'COOKIE_NAME=; Max-Age=0; path=/; domain=' + document.location.host;
   window.location = '/';
 }

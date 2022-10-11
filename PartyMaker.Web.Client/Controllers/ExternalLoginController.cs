@@ -21,9 +21,11 @@ public class ExternalLoginController : ControllerBase
         _roleManager = roleManager;
     }
 
-    [HttpPost]
-    public IActionResult ExternalLogin(string provider, string returnUrl = null)
+    [HttpPost("[action]")]
+    public IActionResult ExternalLogin()
     {
+        string provider = "Google";
+        string returnUrl = "https://partymaker.azurewebsites.net/customer/profile";
         var redirectUrl = Url.Action("Callback", "ExternalLogin", new { returnUrl });
         var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
         return new ChallengeResult(provider, properties);
@@ -43,17 +45,23 @@ public class ExternalLoginController : ControllerBase
             return BadRequest(new { message = "Error loading external login information." });
         }
 
-        var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+        var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false);
 
         if (signInResult.Succeeded)
         {
-            return Ok();
+            return Redirect(returnUrl);
         }
 
         var user = new PartyMakerUser
         {
             UserName = info.Principal.FindFirstValue(ClaimTypes.Email).ToLower(),
             Email = info.Principal.FindFirstValue(ClaimTypes.Email).ToLower(),
+            FirstName = info.Principal.FindFirstValue(ClaimTypes.Name),
+            Customer = new Customer
+            {
+                Id = Guid.NewGuid(),
+                UserName = info.Principal.FindFirstValue(ClaimTypes.Email).ToLower(),
+            }
         };
 
         var createUserResult = await _userManager.CreateAsync(user);
@@ -70,7 +78,7 @@ public class ExternalLoginController : ControllerBase
             await _userManager.AddToRoleAsync(await _userManager.FindByNameAsync(user.UserName), UserRole.Customer);
 
             await _signInManager.SignInAsync(user, isPersistent: false);
-            return Ok();
+            return Redirect(returnUrl);
         }
 
         return BadRequest(new { message = "Other Error" });

@@ -41,6 +41,8 @@ builder.Services.AddAuthentication()
     {
         options.ClientId = builder.Configuration["Google:ClientId"];
         options.ClientSecret = builder.Configuration["Google:ClientSecret"];
+        options.Scope.Add("profile");
+        options.SignInScheme = Microsoft.AspNetCore.Identity.IdentityConstants.ExternalScheme;
     });
 
 builder.Services.ConfigureApplicationCookie(options =>

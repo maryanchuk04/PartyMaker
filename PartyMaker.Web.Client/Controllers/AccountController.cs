@@ -150,4 +150,17 @@ public class AccountController : ControllerBase
         return Ok();
     }
 
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetUsersAuthData()
+    {
+        var user = await _userManager.GetUserAsync(User);
+        var customerId = _customerService.GetCustomerIdByUserId(new Guid(user.Id));
+        return Ok(new
+        {
+            customerId = customerId,
+            supplierId = "",
+            userId = user.Id
+        });
+    }
+
 }
