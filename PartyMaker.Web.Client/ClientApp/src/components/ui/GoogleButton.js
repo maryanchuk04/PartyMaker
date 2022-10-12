@@ -40,7 +40,7 @@ const GoogleButton = () => {
    
 
   return (
-    <form method ='POST' action = "https://localhost:7295/api/ExternalLogin/ExternalLogin" onSubmit = {(e)=>handleLogin(e)}>
+    <form method ='POST' action = "/api/ExternalLogin/ExternalLogin" onSubmit = {(e)=>handleLogin(e)}>
       <button className="google-button" type='submit'>
         <div className="line">
           <img
