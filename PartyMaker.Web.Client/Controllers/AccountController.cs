@@ -141,11 +141,9 @@ public class AccountController : ControllerBase
         });
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    [HttpGet("[action]")]
     public async Task<IActionResult> Logout()
     {
-        // Delete auth cookies
         await _signInManager.SignOutAsync();
         return Ok();
     }

@@ -76,7 +76,7 @@ public class ExternalLoginController : ControllerBase
             }
 
             await _userManager.AddToRoleAsync(await _userManager.FindByNameAsync(user.UserName), UserRole.Customer);
-
+            await _userManager.AddLoginAsync(user, info);
             await _signInManager.SignInAsync(user, isPersistent: false);
             return Redirect(returnUrl);
         }

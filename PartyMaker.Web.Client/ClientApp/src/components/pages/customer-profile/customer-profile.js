@@ -43,17 +43,17 @@ const CustomerProfile = () => {
           history.push("/auth/login");
         }
     }
-      const res = await service.getCustomerById(getAuthState().customerId);
-      if (res.ok) {
-        const response = await res.json();
-        setCustomer(response);
-        console.log(response);
+      const result = await service.getCustomerById(getAuthState().customerId);
+      if (result.ok) {
+        const response2 = await result.json();
+        setCustomer(response2);
+        console.log(response2);
         setCustomerInfo({
-          email: response.email || "",
-          userName: response.userName || "",
-          age: response.age || "",
-          firstName: response.firstName || "",
-          lastName: response.lastName || "",
+          email: response2.email || "",
+          userName: response2.userName || "",
+          age: response2.age || "",
+          firstName: response2.firstName || "",
+          lastName: response2.lastName || "",
         });
         setLoading(false);
       }

@@ -36,8 +36,8 @@ const CustomerLogin = () => {
       }, 5000);
     }else{
         if(res.status === 400){
-            const response = await res.json();
-            setAlert({ show: true, message: response.errors.PasswordConfirm[0], type: "error" });
+            const response2 = await res.json();
+            setAlert({ show: true, message: response2.errors.PasswordConfirm[0], type: "error" });
             setTimeout(() => {
                 setAlert({ ...alert, show: false });
             }, 5000);

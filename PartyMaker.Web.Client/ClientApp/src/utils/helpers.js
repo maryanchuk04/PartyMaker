@@ -1,4 +1,5 @@
 import axios from "axios"
+import { CustomerLoginService } from "../services/CustomerLoginService";
 const GEOCODE_URL = "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?f=pjson&langCode=EN&location=";
 
 export function isAuth(){
@@ -41,8 +42,12 @@ export function getAuthState(){
   return JSON.parse(localStorage.getItem("authState"));
 }
 
-export function logOut(){
+export async function logOut(){
+  const authService = new CustomerLoginService();
   localStorage.clear();
-  document.cookie = 'COOKIE_NAME=; Max-Age=0; path=/; domain=' + document.location.host;
-  window.location = '/';
+  const res = await authService.logout();
+  if(res.ok){
+    window.location = '/';
+  }
+ 
 }

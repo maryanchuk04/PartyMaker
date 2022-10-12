@@ -37,10 +37,10 @@ const GoogleButton = () => {
   const handleLogin = (e)=>{
     console.log(e);
   }
-   
+
 
   return (
-    <form method ='POST' action = "/api/ExternalLogin/ExternalLogin" onSubmit = {(e)=>handleLogin(e)}>
+    <form method ='POST' action = {`${process.env.REACT_APP_API_PORT}ExternalLogin/ExternalLogin`}>
       <button className="google-button" type='submit'>
         <div className="line">
           <img
