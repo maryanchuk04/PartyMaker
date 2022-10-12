@@ -22,7 +22,7 @@ const CreateOrder = () => {
       history.push("/")
     }
   },[]);
-  
+
 
   const handleSubmitItem = (item, infoStr, index) => {
     const accordion = accordionState.map((elem, elemIndex)=>{
@@ -91,6 +91,7 @@ const CreateOrder = () => {
             variant="contained"
             sx={{ marginLeft: "20px" }}
             onClick={createOrder}
+            disabled={orderState.length === 0}
           >
             Create order
           </Button>
