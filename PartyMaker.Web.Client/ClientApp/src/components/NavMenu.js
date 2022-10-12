@@ -123,7 +123,7 @@ export function NavMenu() {
                       className="text-light sing-in m-1"
                       to="/auth/login"
                     >
-                      Sing In
+                      Sign In
                     </NavLink>
                   </NavItem>
                   <NavItem style={{ display: "contents" }}>
@@ -260,7 +260,7 @@ export function NavMenu() {
                   to="/auth/login"
                   onClick={() => setOpen(false)}
                 >
-                  Sing In
+                  Sign In
                 </NavLink>
               </NavItem>
               <NavItem style={{ display: "contents" }}>
