@@ -8,7 +8,7 @@ const DetailsWrapper = ({item, customer}) => {
         <h1 className = 'text-uppercase'>Service : {item?.itemRequestDtos[0]?.supplierService.service?.name}</h1>
         <div className = 'text-end'>
           <Divider/>
-          <h2 className = 'text-center'>Cusstomer Info</h2>
+          <h2 className = 'text-center'>Customer Info</h2>
           <h4>Customer : {customer.fullName}</h4>
           <h4>Email : {customer.email}</h4>
           <Divider/>
