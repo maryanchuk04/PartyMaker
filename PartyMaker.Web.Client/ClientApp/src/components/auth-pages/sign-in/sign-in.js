@@ -3,65 +3,21 @@ import Divider from "@mui/material/Divider";
 import React, { useState } from "react";
 import GoogleButton from "../../ui/GoogleButton";
 import SampleButton from "../../ui/SampleButton";
-import { useHistory } from "react-router-dom";
-import { BaseService } from "../../../services/BaseService";
-import { CustomerLoginService } from "../../../services/CustomerLoginService";
+import login from "../../../actions/login-action";
 import "./sign-in.css";
-import AlertWrapper from "../../ui/Alert";
-import { setAuthState } from "../../../utils/helpers";
+import { connect } from "react-redux";
+import { Field, reduxForm } from "redux-form";
+import renderTextField from "../../ui/renderTextField";
 
-const SignInPage = () => {
-  const loginService = new CustomerLoginService();
-  const baseService = new BaseService();
-  const history = useHistory();
-  const [alert, setAlert] = useState({ show: false, message: "", type: "" });
-
-  const [login, setLogin] = useState({
-    email: "",
-    password: "",
-  });
-
-  async function signIn(e) {
-    e.preventDefault();
-    const res = await loginService.loginCustomer(login);
-    if (res.ok) {
-      const response = await res.json();
-      setAuthState(response);
-      setAlert({ show: true, message: "Success!", type: "success" });
-      setTimeout(() => {
-        setAlert({ ...alert, show: false });
-        if(response.supplierId === ""){
-          window.location ="/customer/profile";
-        }
-        if(response.customerId === ""){
-          window.location ="/supplier/profile-edit";
-        }
-      }, 3000);
-    } else {
-      if (res.status === 400) {
-        const response = await res.json();
-        setAlert({ show: true, message: response.error, type: "error" });
-        setTimeout(() => {
-          setAlert({ ...alert, show: false });
-        },3000);
-      } else {
-        setAlert({
-          show: true,
-          message: "Something was wrong!",
-          type: "error",
-        });
-        setTimeout(() => {
-          setAlert({ ...alert, show: false });
-        }, 3000);
-      }
-    }
-  }
+const SignInPage = (props) => {
+  const { pristine, reset, submitting, error, handleSubmit } = props;
 
   return (
     <div className="container d-flex h-100">
       <form
         className="d-flex flex-column box-shadow-design p-4 m-auto"
-        onSubmit={signIn}
+        onSubmit={handleSubmit}
+        autoComplete = 'off'
       >
         <div className="sign-in-content text-center">
           <div className="text">
@@ -69,22 +25,18 @@ const SignInPage = () => {
             <h3>Log in to your existing account</h3>
           </div>
         </div>
-        <TextField
-          variant="standard"
-          className="my-2"
-          label="Email"
-          required
-          type = 'Email'
-          onChange={(e) => setLogin({ ...login, email: e.target.value })}
-        />
-        <TextField
-          variant="standard"
-          className="my-2"
-          label="Password"
-          required
-          onChange={(e) => setLogin({ ...login, password: e.target.value })}
-          type="password"
+        <Field 
+          name = "email"
+          type = 'email' 
+          label="Email:"
+          component={renderTextField}
           sx={{ marginBottom: "30px !important" }}
+        />
+        <Field  
+          name = {"password"}
+          type = 'password'
+          label="Password:"
+          component={renderTextField}
         />
         <SampleButton type="submit">Sign In</SampleButton>
         <div className="or">
@@ -101,15 +53,11 @@ const SignInPage = () => {
           ></path>
         </svg>
       </div>
-      {alert.show && (
-        <AlertWrapper
-          message={alert.message}
-          type={alert.type}
-          onClose={() => setAlert({ ...alert, show: false })}
-        />
-      )}
     </div>
   );
 };
 
-export default SignInPage;
+
+export default reduxForm({
+  form : "login-form",
+})(SignInPage);

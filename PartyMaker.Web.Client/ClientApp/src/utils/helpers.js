@@ -43,11 +43,11 @@ export function getAuthState(){
 }
 
 export async function logOut(){
-  const authService = new CustomerLoginService();
-  localStorage.clear();
-  const res = await authService.logout();
-  if(res.ok){
-    window.location = '/';
-  }
+  // const authService = new CustomerLoginService();
+  // localStorage.clear();
+  // const res = await authService.logout();
+  // if(res.ok){
+  //   window.location = '/';
+  // }
  
 }
